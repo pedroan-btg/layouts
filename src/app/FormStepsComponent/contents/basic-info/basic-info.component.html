@@ -1,0 +1,112 @@
+<!-- Integrações (Deal RAS) -->
+  <section class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6">
+          <label class="form-label">Deal RAS</label>
+          <input type="text" class="form-control" [(ngModel)]="dealRAS" placeholder="Digite o Deal RAS" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Status Deal RAS</label>
+          <div class="form-control" role="textbox" aria-readonly="true">-</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contrato -->
+  <section class="card border-0 shadow-sm">
+    <div class="card-body">
+      <h6 class="fw-semibold mb-3">Contrato</h6>
+
+      <!-- Barra de busca -->
+      <div class="row g-2 align-items-center mb-3">
+        <div class="col-auto">
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Buscar por chave
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="javascript:void(0)">Leasing</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Busque por chave de contrato" [(ngModel)]="searchText" />
+            <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">×</button>
+          </div>
+        </div>
+        <div class="col-auto form-check">
+          <input class="form-check-input" type="checkbox" id="apenasNaoVinculados" [(ngModel)]="onlyNotLinked" />
+          <label class="form-check-label" for="apenasNaoVinculados">Apenas não vinculados</label>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary" type="button" (click)="onBuscar()">Buscar</button>
+        </div>
+      </div>
+
+      <!-- Tabela de contratos (frontui) com scroll infinito -->
+      <div class="table-responsive mb-3 table-container" #tableContainer [loadingHost]="loading$" [overlay]="false">
+        <table
+          class="table align-middle table-row-dashed"
+          [data-table]="(contratos$ | async) ?? []"
+          data-table-id="id"
+          data-pagination="infinite"
+          [data-total]="(total$ | async) ?? 0"
+          [data-page-size]="12"
+          [data-show-selector]="true"
+          [data-show-item-count]="true"
+          (changePageSize)="onChangePageSize($event)"
+          (changePage)="onChangePage($event)"
+          (loadMore)="onLoadMore($event)"
+        >
+            <ng-template ftsTableColumn data-title="Chave" let-row>
+              {{ row.chave }}
+            </ng-template>
+            <ng-template ftsTableColumn data-title="Operação" let-row>
+              {{ row.operacao }}
+            </ng-template>
+            <ng-template ftsTableColumn data-title="Vínculo a trade" let-row>
+              {{ row.vinculoTrade }}
+            </ng-template>
+            <ng-template ftsTableColumn data-title="Ação" let-row>
+              <button
+                class="btn btn-sm"
+                [class.btn-primary]="(selected$ | async)?.chave === row.chave"
+                [class.btn-outline-secondary]="(selected$ | async)?.chave !== row.chave"
+                type="button"
+                (click)="onSelect(row)"
+              >
+                {{ (selected$ | async)?.chave === row.chave ? 'Selecionado' : 'Selecionar' }}
+              </button>
+            </ng-template>
+          </table>
+          <div class="infinite-sentinel" #infiniteSentinel></div>
+        </div>
+
+      <!-- Formulário inferior -->
+      <form [formGroup]="form">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Data do contrato</label>
+            <input type="date" class="form-control" formControlName="dataContrato" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Data início vigência</label>
+            <input type="date" class="form-control" formControlName="dataInicioVigencia" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Tipo de baixa</label>
+            <select class="form-select" formControlName="tipoBaixa">
+              <option [ngValue]="null">Selecione o tipo de baixa</option>
+              @for (t of tiposBaixa; track t.value) {
+                <option [ngValue]="t.value">{{ t.label }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>

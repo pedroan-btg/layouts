@@ -1,0 +1,702 @@
+[
+  {
+    "id": "1",
+    "chave": "LEASE001",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "2",
+    "chave": "SWAP002",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "3",
+    "chave": "FORWARD003",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "4",
+    "chave": "OPTION004",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "5",
+    "chave": "LEASE005",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "6",
+    "chave": "SWAP006",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "7",
+    "chave": "FORWARD007",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "8",
+    "chave": "OPTION008",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "9",
+    "chave": "LEASE009",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "10",
+    "chave": "SWAP010",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "11",
+    "chave": "FORWARD011",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "12",
+    "chave": "OPTION012",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "13",
+    "chave": "LEASE013",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "14",
+    "chave": "SWAP014",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "15",
+    "chave": "FORWARD015",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "16",
+    "chave": "OPTION016",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "17",
+    "chave": "LEASE017",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "18",
+    "chave": "SWAP018",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "19",
+    "chave": "FORWARD019",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "20",
+    "chave": "OPTION020",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "21",
+    "chave": "LEASE021",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "22",
+    "chave": "SWAP022",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "23",
+    "chave": "FORWARD023",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "24",
+    "chave": "OPTION024",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "25",
+    "chave": "LEASE025",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "26",
+    "chave": "SWAP026",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "27",
+    "chave": "FORWARD027",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "28",
+    "chave": "OPTION028",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "29",
+    "chave": "LEASE029",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "30",
+    "chave": "SWAP030",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "31",
+    "chave": "FORWARD031",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "32",
+    "chave": "OPTION032",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "33",
+    "chave": "LEASE033",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "34",
+    "chave": "SWAP034",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "35",
+    "chave": "FORWARD035",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "36",
+    "chave": "OPTION036",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "37",
+    "chave": "LEASE037",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "38",
+    "chave": "SWAP038",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "39",
+    "chave": "FORWARD039",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "40",
+    "chave": "OPTION040",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "41",
+    "chave": "LEASE041",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "42",
+    "chave": "SWAP042",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "43",
+    "chave": "FORWARD043",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "44",
+    "chave": "OPTION044",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "45",
+    "chave": "LEASE045",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "46",
+    "chave": "SWAP046",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "47",
+    "chave": "FORWARD047",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "48",
+    "chave": "OPTION048",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "49",
+    "chave": "LEASE049",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "50",
+    "chave": "SWAP050",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "51",
+    "chave": "FORWARD051",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "52",
+    "chave": "OPTION052",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "53",
+    "chave": "LEASE053",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "54",
+    "chave": "SWAP054",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "55",
+    "chave": "FORWARD055",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "56",
+    "chave": "OPTION056",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "57",
+    "chave": "LEASE057",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "58",
+    "chave": "SWAP058",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "59",
+    "chave": "FORWARD059",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "60",
+    "chave": "OPTION060",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "61",
+    "chave": "LEASE061",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "62",
+    "chave": "SWAP062",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "63",
+    "chave": "FORWARD063",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "64",
+    "chave": "OPTION064",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "65",
+    "chave": "LEASE065",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "66",
+    "chave": "SWAP066",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "67",
+    "chave": "FORWARD067",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "68",
+    "chave": "OPTION068",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "69",
+    "chave": "LEASE069",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "70",
+    "chave": "SWAP070",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "71",
+    "chave": "FORWARD071",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "72",
+    "chave": "OPTION072",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "73",
+    "chave": "LEASE073",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "74",
+    "chave": "SWAP074",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "75",
+    "chave": "FORWARD075",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "76",
+    "chave": "OPTION076",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "77",
+    "chave": "LEASE077",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "78",
+    "chave": "SWAP078",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "79",
+    "chave": "FORWARD079",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "80",
+    "chave": "OPTION080",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "81",
+    "chave": "LEASE081",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "82",
+    "chave": "SWAP082",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "83",
+    "chave": "FORWARD083",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "84",
+    "chave": "OPTION084",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "85",
+    "chave": "LEASE085",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "86",
+    "chave": "SWAP086",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "87",
+    "chave": "FORWARD087",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "88",
+    "chave": "OPTION088",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "89",
+    "chave": "LEASE089",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "90",
+    "chave": "SWAP090",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "91",
+    "chave": "FORWARD091",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "92",
+    "chave": "OPTION092",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "93",
+    "chave": "LEASE093",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "94",
+    "chave": "SWAP094",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  },
+  {
+    "id": "95",
+    "chave": "FORWARD095",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Venda"
+  },
+  {
+    "id": "96",
+    "chave": "OPTION096",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Compra"
+  },
+  {
+    "id": "97",
+    "chave": "LEASE097",
+    "operacao": "Leasing",
+    "vinculoTrade": "Sim",
+    "acao": "Manter"
+  },
+  {
+    "id": "98",
+    "chave": "SWAP098",
+    "operacao": "Swap",
+    "vinculoTrade": "Não",
+    "acao": "Venda"
+  },
+  {
+    "id": "99",
+    "chave": "FORWARD099",
+    "operacao": "Forward",
+    "vinculoTrade": "Sim",
+    "acao": "Compra"
+  },
+  {
+    "id": "100",
+    "chave": "OPTION100",
+    "operacao": "Option",
+    "vinculoTrade": "Não",
+    "acao": "Manter"
+  }
+]

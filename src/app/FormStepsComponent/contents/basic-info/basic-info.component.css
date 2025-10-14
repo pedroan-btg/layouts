@@ -1,0 +1,36 @@
+/* Container com scroll vertical e cabeçalho fixo */
+.table-container {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fff;
+}
+
+/* Scrollbar do container */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Sentinel para IntersectionObserver */
+.infinite-sentinel {
+  height: 1px;
+}
