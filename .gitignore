@@ -7,7 +7,10 @@
 /bazel-out
 
 # Node
-/node_modules
+node_modules/*
+#!node_modules/
+#!node_modules/fts-frontui
+#!node_modules/fts-frontui/**
 npm-debug.log
 yarn-error.log
 
