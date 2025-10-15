@@ -1,10 +1,14 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ENV_CONFIG } from 'fts-frontui/env';
-import { contratosMockInterceptor } from './FormStepsComponent/mockBackEndInterceptor/contratos-mock.interceptor';
-
+import { contratosMockInterceptor } from './core/mocks/interceptor/contratos.interceptor';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -14,6 +18,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([contratosMockInterceptor])),
     importProvidersFrom(NgbModule),
-    { provide: ENV_CONFIG, useValue: { environment: 'production', version: '0.0.0', logDisabled: true } }
-  ]
+    {
+      provide: ENV_CONFIG,
+      useValue: {
+        environment: 'production',
+        version: '0.0.0',
+        logDisabled: true,
+      },
+    },
+  ],
 };
