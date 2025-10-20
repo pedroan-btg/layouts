@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -39,11 +39,15 @@ export class BasicInfoService {
   private readonly selectedSubject = new BehaviorSubject<Contrato | null>(null);
   private readonly loadingSubject = new BehaviorSubject<boolean>(false);
 
-  readonly contratos$: Observable<Contrato[]> = this.contratosSubject.asObservable();
+  readonly contratos$: Observable<Contrato[]> =
+    this.contratosSubject.asObservable();
+
   readonly total$: Observable<number> = this.totalSubject.asObservable();
   readonly page$: Observable<number> = this.pageSubject.asObservable();
   readonly pageSize$: Observable<number> = this.pageSizeSubject.asObservable();
-  readonly selectedContrato$: Observable<Contrato | null> = this.selectedSubject.asObservable();
+  readonly selectedContrato$: Observable<Contrato | null> =
+    this.selectedSubject.asObservable();
+
   readonly loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
   readonly tiposBaixa: TipoBaixa[] = [
@@ -56,10 +60,16 @@ export class BasicInfoService {
 
   private currentContratos: Contrato[] = [];
 
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
-  searchContratos(filtro: string, apenasNaoVinculados: boolean, page: number = 1, pageSize: number = 12): void {
-    const isLoadingMore = page > 1 &&
+  searchContratos(
+    filtro: string,
+    apenasNaoVinculados: boolean,
+    page = 1,
+    pageSize = 12,
+  ): void {
+    const isLoadingMore =
+      page > 1 &&
       this.filtro() === filtro &&
       this.apenasNaoVinculados() === apenasNaoVinculados;
 
@@ -77,50 +87,62 @@ export class BasicInfoService {
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
 
-    this.http.get<ContratosApiResponse>('/api/contratos', { params }).subscribe({
-      next: (response) => {
-        const contratos = response.data.map(api => ({
-          id: api.id,
-          chave: api.chave,
-          operacao: api.operacao,
-          vinculoTrade: api.vinculoTrade,
-          acao: api.acao
-        }));
+    this.http
+      .get<ContratosApiResponse>('/api/contratos', { params })
+      .subscribe({
+        next: (response: ContratosApiResponse): void => {
+          const contratos = response.data.map((api) => ({
+            id: api.id,
+            chave: api.chave,
+            operacao: api.operacao,
+            vinculoTrade: api.vinculoTrade,
+            acao: api.acao,
+          }));
 
-        if (page === 1) {
-          this.currentContratos = contratos;
-        } else {
-          this.currentContratos = [...this.currentContratos, ...contratos];
-        }
+          if (page === 1) {
+            this.currentContratos = contratos;
+          } else {
+            this.currentContratos = [...this.currentContratos, ...contratos];
+          }
 
-        this.pageSubject.next(page);
-        this.pageSizeSubject.next(pageSize);
+          this.pageSubject.next(page);
+          this.pageSizeSubject.next(pageSize);
 
-        this.contratosSubject.next(this.currentContratos);
-        this.totalSubject.next(response.total);
-        this.loadingSubject.next(false);
-      },
-      error: () => {
-        this.contratosSubject.next([]);
-        this.totalSubject.next(0);
-        this.loadingSubject.next(false);
-      }
-    });
+          this.contratosSubject.next(this.currentContratos);
+          this.totalSubject.next(response.total);
+          this.loadingSubject.next(false);
+        },
+        error: (): void => {
+          this.contratosSubject.next([]);
+          this.totalSubject.next(0);
+          this.loadingSubject.next(false);
+        },
+      });
   }
 
   changePage(page: number): void {
-    this.searchContratos(this.filtro(), this.apenasNaoVinculados(), page, this.pageSizeSubject.value);
+    this.searchContratos(
+      this.filtro(),
+      this.apenasNaoVinculados(),
+      page,
+      this.pageSizeSubject.value,
+    );
   }
 
   changePageSize(pageSize: number): void {
-    this.searchContratos(this.filtro(), this.apenasNaoVinculados(), 1, pageSize);
+    this.searchContratos(
+      this.filtro(),
+      this.apenasNaoVinculados(),
+      1,
+      pageSize,
+    );
   }
 
-  selectContrato(contrato: Contrato) {
+  selectContrato(contrato: Contrato): void {
     this.selectedSubject.next(contrato);
   }
 
-  clearSelection() {
+  clearSelection(): void {
     this.selectedSubject.next(null);
   }
 
@@ -132,6 +154,7 @@ export class BasicInfoService {
 
   getCurrentPage(): number {
     const currentPage = this.pageSubject.value;
+
     return currentPage;
   }
 }

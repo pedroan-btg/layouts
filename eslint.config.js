@@ -72,7 +72,7 @@ module.exports = tseslint.config(
         'error',
         {
           max: 260,
-          skipBlankLines: false,
+          skipBlankLines: true,
           skipComments: false,
         },
       ],

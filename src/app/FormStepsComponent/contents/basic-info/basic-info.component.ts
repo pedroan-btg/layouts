@@ -1,7 +1,5 @@
 import {
   Component,
-  computed,
-  effect,
   inject,
   ElementRef,
   ViewChild,
@@ -9,7 +7,12 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
@@ -18,9 +21,17 @@ import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-basic-info',
+  selector: '[fts-basic-info]',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, i18n, Table, TableColumn, Loading],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    i18n,
+    Table,
+    TableColumn,
+    Loading,
+  ],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.css',
 })
@@ -30,6 +41,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('tableContainer', { static: false })
   private tableContainer?: ElementRef<HTMLDivElement>;
+
   @ViewChild('infiniteSentinel', { static: false })
   private infiniteSentinel?: ElementRef<HTMLDivElement>;
 
@@ -38,7 +50,6 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   private currentCount = 0;
   private totalCount = 0;
   private readonly scrollThresholdPct = 90;
-  private scrollEl: HTMLElement | null = null;
   private prevBottomOffset = 0;
   private io?: IntersectionObserver;
   private hasUserScrolled = false;
@@ -46,7 +57,6 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   private prevScrollTop = 0;
 
   protected dealRAS = '';
-
   protected searchText = '';
   protected onlyNotLinked = false;
 
@@ -60,13 +70,16 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   protected readonly form = this.fb.group({
     dataContrato: [{ value: '', disabled: true }, [Validators.required]],
     dataInicioVigencia: [{ value: '', disabled: true }, [Validators.required]],
-    tipoBaixa: [{ value: null as unknown, disabled: true }, [Validators.required]],
+    tipoBaixa: [
+      { value: null as unknown, disabled: true },
+      [Validators.required],
+    ],
   });
 
   protected readonly tiposBaixa = this.svc.tiposBaixa;
 
   constructor() {
-    this.svc.selectedContrato$.subscribe(sel => {
+    this.svc.selectedContrato$.subscribe((sel) => {
       if (sel) {
         this.form.enable({ emitEvent: false });
       } else {
@@ -74,22 +87,21 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    this.contratos$.subscribe(contratos => {
+    this.contratos$.subscribe((contratos) => {
       this.currentCount = contratos?.length || 0;
     });
 
-    this.total$.subscribe(total => {
+    this.total$.subscribe((total) => {
       this.totalCount = total || 0;
     });
 
-    this.page$.subscribe(page => {});
-
-    this.loading$.subscribe(isLoading => {
+    this.loading$.subscribe((isLoading) => {
       const wasLoading = this.isLoading;
       this.isLoading = !!isLoading;
 
       if (!wasLoading && this.isLoading) {
-        const el = this.getScrollContainer();
+        const el = this.tableContainer?.nativeElement ?? null;
+
         if (el) {
           this.prevScrollTop = el.scrollTop;
           const remaining = el.scrollHeight - el.scrollTop - el.clientHeight;
@@ -100,10 +112,13 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
       if (wasLoading && !this.isLoading) {
         setTimeout(() => {
-          const el = this.getScrollContainer();
+          const el = this.tableContainer?.nativeElement ?? null;
+
           if (!el) return;
+
           if (this.wasNearBottomBeforeLoad && this.hasUserScrolled) {
-            const newTop = el.scrollHeight - el.clientHeight - this.prevBottomOffset;
+            const newTop =
+              el.scrollHeight - el.clientHeight - this.prevBottomOffset;
             el.scrollTop = Math.max(newTop, 0);
           } else {
             el.scrollTop = this.prevScrollTop;
@@ -113,11 +128,11 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  onBuscar() {
+  onBuscar(): void {
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
   }
 
-  clearSearch() {
+  clearSearch(): void {
     this.searchText = '';
     this.onlyNotLinked = false;
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
@@ -125,7 +140,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   private lastProcessedPage = 0;
 
-  onChangePage(page: number | string) {
+  onChangePage(page: number | string): void {
     const pageNumber = Number(page);
 
     if (this.lastProcessedPage === pageNumber) {
@@ -133,7 +148,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     }
 
     this.svc.page$
-      .subscribe(currentPage => {
+      .subscribe((currentPage) => {
         if (pageNumber > currentPage) {
           this.lastProcessedPage = pageNumber;
           this.svc.changePage(pageNumber);
@@ -147,30 +162,31 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
       .unsubscribe();
   }
 
-  onChangePageSize(size: number) {
+  onChangePageSize(size: number): void {
     this.svc.changePageSize(Number(size));
   }
 
-  onLoadMore(event: any): void {
+  onLoadMore(): void {
     this.svc.loadNextPage();
   }
 
-  onSelect(row: Contrato) {
+  onSelect(row: Contrato): void {
     this.svc.selectContrato(row);
   }
 
-  onPrevPage() {
+  onPrevPage(): void {
     this.page$
-      .subscribe(currentPage => {
+      .subscribe((currentPage) => {
         const prev = currentPage - 1;
+
         if (prev >= 1) this.svc.changePage(prev);
       })
       .unsubscribe();
   }
 
-  onNextPage() {
+  onNextPage(): void {
     this.page$
-      .subscribe(currentPage => {
+      .subscribe((currentPage) => {
         const next = currentPage + 1;
         this.svc.changePage(next);
       })
@@ -181,31 +197,28 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     this.initIntersectionObserver();
   }
 
-  private getScrollContainer(): HTMLElement | null {
-    return this.tableContainer?.nativeElement ?? null;
-  }
-
   private initIntersectionObserver(): void {
-    const container = this.getScrollContainer();
+    const container = this.tableContainer?.nativeElement ?? null;
     const sentinel = this.infiniteSentinel?.nativeElement ?? null;
+
     if (!container || !sentinel) {
       return;
     }
-
-    this.scrollEl = container;
 
     if (this.io) {
       this.io.disconnect();
     }
 
     this.io = new IntersectionObserver(
-      entries => {
+      (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const hasMore = this.currentCount < this.totalCount;
             const canTrigger = !this.isLoading && hasMore;
-            const root = this.scrollEl as HTMLElement | null;
-            const notScrollable = !root || root.scrollHeight <= root.clientHeight;
+            const root = container as HTMLElement | null;
+            const notScrollable =
+              !root || root.scrollHeight <= root.clientHeight;
+
             if (canTrigger && this.hasUserScrolled && !notScrollable) {
               this.svc.loadNextPage();
               this.hasUserScrolled = false;
@@ -228,9 +241,11 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
         const scrollTop = container.scrollTop;
         const clientHeight = container.clientHeight;
         const scrollHeight = container.scrollHeight;
-        const consumedPct = ((scrollTop + clientHeight) / Math.max(scrollHeight, 1)) * 100;
+        const consumedPct =
+          ((scrollTop + clientHeight) / Math.max(scrollHeight, 1)) * 100;
         const hasMore = this.currentCount < this.totalCount;
-        const canTrigger = !this.isLoading && hasMore && consumedPct >= this.scrollThresholdPct;
+        const canTrigger =
+          !this.isLoading && hasMore && consumedPct >= this.scrollThresholdPct;
 
         if (canTrigger) {
           this.svc.loadNextPage();
@@ -245,6 +260,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     if (this.io) {
       this.io.disconnect();
     }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

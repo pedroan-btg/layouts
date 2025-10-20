@@ -22,7 +22,8 @@ export const contratosMockInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.url.includes('/api/contratos')) {
     // Extrai parâmetros da query
     const filtro = req.params.get('filtro') || '';
-    const apenasNaoVinculados = req.params.get('apenasNaoVinculados') === 'true';
+    const apenasNaoVinculados =
+      req.params.get('apenasNaoVinculados') === 'true';
     const page = parseInt(req.params.get('page') || '1');
     const pageSize = parseInt(req.params.get('pageSize') || '12');
 
@@ -32,14 +33,16 @@ export const contratosMockInterceptor: HttpInterceptorFn = (req, next) => {
     // Aplica filtros
     if (filtro.trim()) {
       dataToFilter = dataToFilter.filter(
-        contrato =>
+        (contrato) =>
           contrato.chave.toLowerCase().includes(filtro.toLowerCase()) ||
           contrato.operacao.toLowerCase().includes(filtro.toLowerCase()),
       );
     }
 
     if (apenasNaoVinculados) {
-      dataToFilter = dataToFilter.filter(contrato => contrato.vinculoTrade === 'Não');
+      dataToFilter = dataToFilter.filter(
+        (contrato) => contrato.vinculoTrade === 'Não',
+      );
     }
 
     // Calcula paginação

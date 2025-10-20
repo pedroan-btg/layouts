@@ -1,0 +1,22 @@
+:host ::ng-deep table thead tr th:nth-child(8) {
+  text-align: right;
+}
+
+:host ::ng-deep table tbody tr td:nth-child(8) {
+  text-align: right;
+}
+
+:host .fts-row-menu {
+  position: relative;
+  display: inline-block;
+}
+
+:host .fts-row-menu .dropdown-menu {
+  display: block;
+  position: absolute;
+  inset: auto 0 auto auto;
+}
+
+:host .fts-row-menu .dropdown-menu.d-none {
+  display: none !important;
+}
