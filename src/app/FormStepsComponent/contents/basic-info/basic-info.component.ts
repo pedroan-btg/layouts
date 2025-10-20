@@ -17,6 +17,7 @@ import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
 import { BasicInfoService, Contrato } from './basic-info.service';
+import { GetDealRasService } from './services/get-deal-ras.service';
 import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';
 
@@ -38,6 +39,8 @@ import { auditTime, takeUntil } from 'rxjs/operators';
 export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   private readonly svc = inject(BasicInfoService);
   private readonly fb = inject(FormBuilder);
+  private readonly dealRasSvc = inject(GetDealRasService);
+  showras = false;
 
   @ViewChild('tableContainer', { static: false })
   private tableContainer?: ElementRef<HTMLDivElement>;
@@ -57,6 +60,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   private prevScrollTop = 0;
 
   protected dealRAS = '';
+  protected dealRASStatus = '-';
   protected searchText = '';
   protected onlyNotLinked = false;
 
@@ -136,6 +140,29 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     this.searchText = '';
     this.onlyNotLinked = false;
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
+  }
+
+  toggleShowRAS(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    this.showras = !!input?.checked;
+  }
+
+  applyRAS(): void {
+    const id = (this.dealRAS ?? '').trim();
+    if (!id) {
+      this.dealRASStatus = 'Informe o Deal RAS';
+      return;
+    }
+    this.dealRASStatus = 'Carregando...';
+    this.dealRasSvc.getDealRas(id).subscribe({
+      next: (res) => {
+        const status = (res && (res as any).status) || 'OK';
+        this.dealRASStatus = String(status);
+      },
+      error: () => {
+        this.dealRASStatus = 'Erro ao buscar';
+      },
+    });
   }
 
   private lastProcessedPage = 0;
