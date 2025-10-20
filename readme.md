@@ -1,59 +1,82 @@
 # Layouts
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.3.
+Projeto Angular (CLI 20.x) com foco em layouts e componentes de interface utilizando `fts-frontui`, `Bootstrap` e `ng-bootstrap`. Inclui um fluxo de passos (FormSteps) com seções como informações básicas, colaterais, créditos, documentos e revisão.
 
-## Development server
+## Visão Geral
+- Framework: Angular (standalone components)
+- UI/UX: `fts-frontui` + `Bootstrap` + `ng-bootstrap`
+- Porta de desenvolvimento: `4337` (configurada no `angular.json`)
+- Build de produção: saída em `dist/layouts`
+- Testes: Karma + Jasmine
+- Lint: ESLint com regras Angular e Prettier
+- Mock de API: Interceptor para dados de contratos em `src/app/core/mocks`
 
-To start a local development server, run:
+## Requisitos
+- Node.js `>= 18.19` (recomendado LTS recente)
+- NPM `>= 9` (ou Yarn, caso prefira)
 
+## Instalação
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Scripts
+Os principais scripts estão definidos em `package.json`:
+- `npm start` — inicia o servidor de desenvolvimento (porta `4337`)
+- `npm run build` — compila para produção
+- `npm run test` — executa testes unitários com Karma
+- `npm run watch` — build contínuo no modo desenvolvimento
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+## Desenvolvimento
 ```bash
-ng generate component component-name
+npm start
+# Abra http://localhost:4337/
 ```
+- O servidor recarrega automaticamente ao salvar arquivos.
+- O prefixo dos seletores é `fts` (ver regras em `eslint.config.js`).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Estrutura Principal
+- `src/app/app.ts` — componente raiz standalone (`App`).
+- `src/app/FormStepsComponent/form-steps.component.*` — fluxo de passos (FormSteps):
+  - `contents/basic-info` — listagem e paginação de contratos com tabela e formulário.
+  - `contents/collateral` — gestão de colaterais (inclui modal e serviço).
+  - `contents/credits` — conteúdo de créditos.
+  - `contents/documents` — conteúdo de documentos.
+  - `contents/review` — revisão das informações.
 
+## Mock de API
+- Interceptor: `src/app/core/mocks/interceptor/contratos.interceptor.ts`
+- Dados: `src/app/core/mocks/json/contracts.json`
+- Configuração de providers: `src/app/app.config.ts` (inclui `provideHttpClient` com interceptor)
+
+## Build
 ```bash
-ng generate --help
+npm run build
+# artefatos em dist/layouts/
 ```
+- Produção aplica otimizações e hashing conforme `angular.json`.
 
-## Building
-
-To build the project run:
-
+## Testes
 ```bash
-ng build
+npm run test
 ```
+- Testes em Jasmine/Karma (ex.: `src/app/app.spec.ts`).
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Lint e Formatação
+- ESLint: `eslint.config.js` com presets Angular e TypeScript.
+- Prettier: `.prettierrc` e overrides para HTML via `package.json`.
+- Executar (se tiver script): `npx eslint ./src --ext .ts,.html` e `npx prettier --write .`.
 
-## Running unit tests
+## Convenções
+- `strict` TypeScript e Angular habilitados em `tsconfig.json`.
+- Seletores e prefixos seguindo padrões definidos (ver ESLint).
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Dicas
+- Se alterar a porta, ajuste em `angular.json > serve.options.port`.
+- Verifique `ENV_CONFIG` em `app.config.ts` para ambiente e flags de log.
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Recursos
+- Angular CLI: https://angular.dev/tools/cli
+- Ng Bootstrap: https://ng-bootstrap.github.io/
+- Bootstrap: https://getbootstrap.com/
+- RxJS: https://rxjs.dev/
