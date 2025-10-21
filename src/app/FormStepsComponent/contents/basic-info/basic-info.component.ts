@@ -17,10 +17,8 @@ import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
 import { BasicInfoService, Contrato } from './basic-info.service';
-import {
-  GetDealRasService,
-  DealRasResponse,
-} from './services/get-deal-ras.service';
+import { GetDealRasService } from './services/get-deal-ras.service';
+import { DealRasResponse } from './models';
 import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';
 

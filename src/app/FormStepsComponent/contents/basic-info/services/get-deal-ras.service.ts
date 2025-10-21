@@ -1,11 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-export interface DealRasResponse {
-  status?: string;
-  [key: string]: unknown;
-}
+import { Observable, map } from 'rxjs';
+import { DealRas, DealRasResponse } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class GetDealRasService {
@@ -21,6 +17,13 @@ export class GetDealRasService {
     const id = String(dealRAS).trim();
     const url = `${this.baseUrl}/${encodeURIComponent(id)}?username=ras_system`;
 
-    return this.http.get<DealRasResponse>(url);
+    return this.http.get<DealRas>(url).pipe(
+      map(
+        (res: DealRas): DealRasResponse => ({
+          ...res,
+          status: res?.DealStatus?.Description ?? 'OK',
+        }),
+      ),
+    );
   }
 }

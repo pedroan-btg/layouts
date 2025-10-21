@@ -9,6 +9,7 @@ import { provideRouter } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ENV_CONFIG } from 'fts-frontui/env';
 import { contratosMockInterceptor } from './core/mocks/interceptor/contratos.interceptor';
+import { rasMockInterceptor } from './core/mocks/interceptor/ras.interceptor';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -16,7 +17,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([contratosMockInterceptor])),
+    provideHttpClient(
+      withInterceptors([contratosMockInterceptor, rasMockInterceptor]),
+    ),
     importProvidersFrom(NgbModule),
     {
       provide: ENV_CONFIG,
