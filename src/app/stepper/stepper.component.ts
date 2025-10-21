@@ -1,4 +1,5 @@
 /* eslint-disable max-lines */
+
 import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
@@ -15,7 +16,6 @@ import {
   Renderer2,
   ViewChild,
   computed,
-  effect,
   inject,
   OnChanges,
 } from '@angular/core';
@@ -25,11 +25,11 @@ import { StepComponent } from './step.component';
 import type { StepChangeEvent, StepRegistration, StepStatus } from './stepper.types';
 
 @Component({
-  selector: 'fts-stepper',
+  selector: '[fts-stepper]',
   standalone: true,
   imports: [CommonModule, NgbTooltip],
   templateUrl: './stepper.component.html',
-  styleUrl: './stepper.component.scss',
+  styleUrls: ['./stepper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [StepperService],
   exportAs: 'ftsStepper',
@@ -40,10 +40,9 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   @Input() stepperClass?: string;
   @Input() stepListClass?: string;
   @Input() stepItemClass?: string;
-  @Input() stepTitleClass?: string;
   @Input() stepIconClass?: string;
+  @Input() stepTitleClass?: string;
   @Input() stepContentClass?: string;
-  @Input() stepSegmentsClass?: string;
   @Input() segments?: number; // número de gomos da barra de progresso (opcional)
 
   @Output() stepChange = new EventEmitter<StepChangeEvent>();
@@ -54,10 +53,10 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   private readonly renderer = inject(Renderer2);
   private readonly host = inject(ElementRef);
 
-  @ViewChild('progressWrapperRef') private progressWrapperRef!: ElementRef<HTMLElement>;
-  @ViewChild('iconsRef') private iconsRef!: ElementRef<HTMLElement>;
-  @ViewChild('titlesRef') private titlesRef!: ElementRef<HTMLElement>;
-  @ViewChild('separatorsRef') private separatorsRef!: ElementRef<HTMLElement>;
+  @ViewChild('progressWrapperRef') private progressWrapper?: ElementRef<HTMLElement>;
+  @ViewChild('iconsRef') private iconsRef?: ElementRef<HTMLElement>;
+  @ViewChild('titlesRef') private titlesRef?: ElementRef<HTMLElement>;
+  @ViewChild('separatorsRef') private separatorsRef?: ElementRef<HTMLElement>;
   private resizeUnlisten?: () => void;
 
   readonly progressPercent = computed(() => {
@@ -78,39 +77,14 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
 
   private lastChangeKey: number | string = 0;
 
-  // Effects must be created in an injection context; define them as class fields
-  private readonly renderEffect = effect(() => {
-    const idx = this.service.currentIndex();
-    const list = this.projectedSteps ? this.projectedSteps.toArray() : [];
-    const step = list[idx];
-
-    if (step) {
-      step.renderContent();
-    }
-  });
-
-  private readonly changeEffect = effect(() => {
-    const idx = this.service.currentIndex();
-    const aliasMap = this.service.aliasToIndex;
-    const alias = Object.keys(aliasMap).find(k => aliasMap[k] === idx);
-    const toKey = alias ?? idx;
-    const fromKey = this.lastChangeKey;
-
-    if (fromKey !== toKey) {
-      this.stepChange.emit({ from: fromKey, to: toKey });
-      this.lastChangeKey = toKey;
-    }
-  });
-
   ngAfterContentInit(): void {
     // Sync linear flag into service
     this.service.setLinear(this.linear);
 
     const list = this.projectedSteps.toArray();
-
     list.forEach((step, index) => {
-      step._assignIndex(index);
-      step._registerWithService();
+      step.__assignIndex(index);
+      step.__registerWithService();
     });
 
     // Tooltips now provided by ng-bootstrap directive in template; no manual init needed
@@ -119,7 +93,6 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   ngAfterViewInit(): void {
     // Ajusta colunas dos ícones e títulos para largura real da barra
     this.updateGridColumns();
-
     // Recalcula em resize
     this.resizeUnlisten = this.renderer.listen('window', 'resize', () => this.updateGridColumns());
   }
@@ -129,23 +102,21 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
 
     if (!segments || segments <= 0) return;
 
-    const wrapper = this.progressWrapperRef.nativeElement;
+    const wrapper = this.progressWrapper?.nativeElement;
     const width =
       wrapper?.getBoundingClientRect().width ??
-      this.host.nativeElement.getBoundingClientRect().width;
+      (this.host.nativeElement as HTMLElement).getBoundingClientRect().width;
 
     if (!width || width <= 0) return;
 
     const col = `${width / segments}px`;
     const grid = `repeat(${segments}, ${col})`;
 
-    if (this.iconsRef?.nativeElement) {
+    if (this.iconsRef?.nativeElement)
       this.renderer.setStyle(this.iconsRef.nativeElement, 'gridTemplateColumns', grid);
-    }
 
-    if (this.titlesRef?.nativeElement) {
+    if (this.titlesRef?.nativeElement)
       this.renderer.setStyle(this.titlesRef.nativeElement, 'gridTemplateColumns', grid);
-    }
 
     // Alinhar separadores com a mesma métrica de segmento em px
     if (this.separatorsRef?.nativeElement) {
@@ -157,15 +128,6 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     this.service.setLinear(this.linear);
   }
 
-  // Atualiza layout quando número de segmentos ou quantidade de passos mudar
-  private readonly layoutEffect = effect(() => {
-    // const _segs = this.segments ?? this.service.stepCount();
-    // Evita chamadas antes da view estar disponível
-    if (this.progressWrapperRef?.nativeElement) {
-      this.updateGridColumns();
-    }
-  });
-
   ngOnDestroy(): void {
     if (this.resizeUnlisten) {
       this.resizeUnlisten();
@@ -174,12 +136,14 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   }
 
   async onStepClick(index: number): Promise<void> {
-    if (this.navigable) return;
+    if (!this.navigable) return;
 
     await this.service.goTo(index);
   }
 
   onStepKeydown(event: KeyboardEvent, index: number): void {
+    if (!this.navigable) return;
+
     const key = event.key;
 
     if (key === 'ArrowRight' || key === 'ArrowDown') {
@@ -200,9 +164,11 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   getStepClasses(step: StepRegistration): string[] {
     const statuses = this.service.stepStatuses();
     const s: StepStatus = statuses[step.index] ?? 'pending';
-    const base = ['step', `step-status-${s}`];
+    const statusClass = `step-status-${s}`;
+    const base = ['step', statusClass];
 
     if (this.stepItemClass) base.push(this.stepItemClass);
+
     if (step.cssClass) base.push(step.cssClass);
 
     return base;
@@ -216,6 +182,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     if (this.stepTitleClass) base.push(this.stepTitleClass);
 
     if (s === 'finished' && step.successTitleClass) base.push(step.successTitleClass);
+
     if (s === 'error' && step.errorTitleClass) base.push(step.errorTitleClass);
 
     return base;
@@ -226,6 +193,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     const s: StepStatus = statuses[step.index] ?? 'pending';
 
     if (s === 'finished') return step.successTitleColor ?? null;
+
     if (s === 'error') return step.errorTitleColor ?? null;
 
     return null;
@@ -238,12 +206,14 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     if (s === 'finished') {
       const base = step.successIcon;
       const extra = step.successIconClass;
+
       return [base ?? 'bi bi-check-circle-fill', extra].filter(Boolean).join(' ');
     }
 
     if (s === 'error') {
       const base = step.errorIcon;
       const extra = step.errorIconClass;
+
       return [base ?? 'bi bi-exclamation-circle-fill', extra].filter(Boolean).join(' ');
     }
 
@@ -255,6 +225,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     const s: StepStatus = statuses[step.index] ?? 'pending';
 
     if (s === 'finished') return step.showIconOnFinished ?? true;
+
     if (s === 'error') return step.showIconOnError ?? true;
 
     return false;
@@ -265,6 +236,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     const s: StepStatus = statuses[step.index] ?? 'pending';
 
     if (s === 'finished') return step.successIconColor ?? null;
+
     if (s === 'error') return step.errorIconColor ?? null;
 
     return null;
@@ -275,6 +247,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     const s: StepStatus = statuses[step.index] ?? 'pending';
 
     if (s === 'finished') return step.successTooltip ?? step.tooltip ?? 'STEPPER_SUCCESS_TOOLTIP';
+
     if (s === 'error') return step.errorTooltip ?? step.tooltip ?? 'STEPPER_ERROR_TOOLTIP';
 
     return step.tooltip ?? 'STEPPER_STEP_TOOLTIP';
@@ -292,4 +265,6 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   isLast(): boolean {
     return this.service.currentIndex() >= this.service.stepCount() - 1;
   }
+
+  // Removed manual Bootstrap JS tooltip initialization in favor of ng-bootstrap's NgbTooltip directive
 }

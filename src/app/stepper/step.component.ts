@@ -9,6 +9,9 @@ import {
   inject,
   EventEmitter,
   EnvironmentInjector,
+  OnDestroy,
+  AfterViewInit,
+  AfterViewChecked,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StepperService } from './stepper.service';
@@ -19,7 +22,7 @@ import { StepperService } from './stepper.service';
   imports: [CommonModule],
   templateUrl: './step.component.html',
 })
-export class StepComponent {
+export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked {
   @Input() alias?: string;
   @Input({ required: true }) title!: string;
   @Input() iconTooltip?: string;
@@ -55,16 +58,27 @@ export class StepComponent {
 
   // host container aparece apenas quando isActive === true (via template)
   private host?: ViewContainerRef;
+  private _contentRendered = false;
+  private _wasActive = false; // <-- ADICIONE ESTA LINHA
+
   @ViewChild('host', { read: ViewContainerRef, static: false }) set hostRef(
     vc: ViewContainerRef | undefined,
   ) {
     this.host = vc;
 
+    // Se o host sumiu (step ficou inativo), reset da flag
+    if (!vc && this._contentRendered) {
+      this._contentRendered = false;
+      this._wasActive = false;
+    }
+
     // Quando o host aparece (step ficou ativo), renderizamos o conteúdo dinâmico
     /* c8 ignore next */
-    if (this.host && this.isActive) {
+    if (this.host && this.isActive && !this._contentRendered) {
       // usar microtask para garantir que o container esteja estável
-      Promise.resolve().then(() => this.renderContent());
+      Promise.resolve().then(() => {
+        this.renderContent();
+      });
     }
   }
 
@@ -111,10 +125,10 @@ export class StepComponent {
   get isActive(): boolean {
     return this.service.currentIndex() === this._index;
   }
-
   // ngOnInit removido: render inicial agora em ngAfterViewInit
 
   ngOnDestroy(): void {
+    this._contentRendered = false;
     const payload = this.onSave ? this.onSave(this.service) : { visited: true };
     const key = this.alias ?? this._index;
     this.service.saveData(key, payload);
@@ -131,13 +145,37 @@ export class StepComponent {
   }
 
   ngAfterViewInit(): void {
-    if (this.isActive && this.host) this.renderContent();
+    if (this.isActive && this.host && !this._contentRendered) {
+      this.renderContent();
+    }
+
+    this._wasActive = this.isActive;
+  }
+
+  ngAfterViewChecked(): void {
+    const nowActive = this.isActive;
+
+    if (this._wasActive && !nowActive && this._contentRendered) {
+      this._contentRendered = false;
+    }
+
+    this._wasActive = nowActive;
   }
 
   async renderContent(): Promise<void> {
     const host = this.host;
 
     if (!host) return;
+
+    // Para contentHtml, permitir re-renderização se o conteúdo mudou
+    const isContentHtmlReRender =
+      this.contentHtml && this._contentRendered && this._lastContentHtml !== this.contentHtml;
+
+    if (this._contentRendered && !isContentHtmlReRender) {
+      return;
+    }
+
+    this._contentRendered = true;
 
     host.clear();
 
@@ -146,7 +184,6 @@ export class StepComponent {
         environmentInjector: this.envInjector,
       });
 
-      // Apply inputs
       if (this.componentInputs && ref?.instance) {
         Object.entries(this.componentInputs).forEach(([key, value]) => {
           (ref.instance as Record<string, unknown>)[key] = value as unknown;
@@ -154,7 +191,6 @@ export class StepComponent {
         ref.changeDetectorRef.markForCheck();
       }
 
-      // Wire outputs
       if (this.componentOutputs && ref?.instance) {
         Object.entries(this.componentOutputs).forEach(([key, handler]) => {
           const out = (ref.instance as Record<string, unknown>)[key];
@@ -172,7 +208,6 @@ export class StepComponent {
       const t = await this.lazyLoader();
       const ref = host.createComponent(t, { environmentInjector: this.envInjector });
 
-      // Apply inputs
       if (this.componentInputs && ref?.instance) {
         Object.entries(this.componentInputs).forEach(([key, value]) => {
           (ref.instance as Record<string, unknown>)[key] = value as unknown;
@@ -180,7 +215,6 @@ export class StepComponent {
         ref.changeDetectorRef.markForCheck();
       }
 
-      // Wire outputs
       if (this.componentOutputs && ref?.instance) {
         Object.entries(this.componentOutputs).forEach(([key, handler]) => {
           const out = (ref.instance as Record<string, unknown>)[key];
@@ -195,11 +229,14 @@ export class StepComponent {
     }
 
     if (this.contentTemplate) {
-      const ref = host.createEmbeddedView(this.contentTemplate);
-      ref.detectChanges();
+      const view = host.createEmbeddedView(this.contentTemplate);
+      view.detectChanges();
+
+      return;
     }
 
     if (this.contentHtml) {
+      this._lastContentHtml = this.contentHtml; // Guardar o último conteúdo
       const safe: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.contentHtml);
       const el = document.createElement('div');
       el.innerHTML = String(safe);
@@ -207,7 +244,6 @@ export class StepComponent {
       const parent = anchor.parentNode as Node | null;
 
       if (parent) {
-        // Remove anterior, se existir
         if (this._contentHtmlEl && this._contentHtmlEl.parentNode) {
           this._contentHtmlEl.parentNode.removeChild(this._contentHtmlEl);
         }
@@ -219,4 +255,5 @@ export class StepComponent {
   }
 
   private _contentHtmlEl?: HTMLElement;
+  private _lastContentHtml?: string; // <-- ADICIONE ESTA LINHA
 }

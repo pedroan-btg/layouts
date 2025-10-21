@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { Injectable, signal, computed, effect } from '@angular/core';
 import type { StepKey, StepRegistration, StepStatus } from './stepper.types';
 
@@ -48,12 +50,17 @@ export class StepperService {
   }
 
   constructor() {
-    // Keep active status in sync with current index WITHOUT creating a feedback loop
     effect(() => {
       const idx = this.currentIndex();
       const count = this.stepCount();
+
       // Mark current step as visited
-      this.visitedSteps.update(prev => ({ ...prev, [idx]: true }));
+      this.visitedSteps.update(prev => {
+        const updated = { ...prev, [idx]: true };
+
+        return updated;
+      });
+
       this.stepStatuses.update(prev => {
         const statuses = { ...prev };
 
@@ -63,7 +70,6 @@ export class StepperService {
             if (statuses[i] === undefined || statuses[i] === 'pending') {
               statuses[i] = 'active';
             }
-            // if it's finished or error, keep as is to preserve the icon
           } else {
             if (statuses[i] === undefined) {
               statuses[i] = 'pending';

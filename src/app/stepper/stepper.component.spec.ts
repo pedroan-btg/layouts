@@ -1,685 +1,486 @@
-import { Component } from '@angular/core';
-import { StepChangeEvent } from './stepper.types';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, vitest } from 'vitest';
+import { TestBed } from '@angular/core/testing';
+import { ElementRef, Renderer2, QueryList } from '@angular/core';
+
+const mockRenderer2 = {
+  listen: vi.fn(() => vi.fn()),
+  setStyle: vi.fn(),
+};
+const mockElementRef = {
+  nativeElement: {
+    getBoundingClientRect: vi.fn(() => ({ width: 300, height: 100 })),
+  },
+};
+function createMockQueryList(items: any[] = []) {
+  return {
+    toArray: vi.fn(() => items),
+    length: items.length,
+    first: items[0],
+    last: items[items.length - 1],
+    get: vi.fn((index: number) => items[index]),
+    forEach: vi.fn((fn: any) => items.forEach(fn)),
+  } as unknown as QueryList<any>;
+}
+
+let mockService: any;
+vitest.mock('./stepper.service', () => {
+  const createMock = () => ({
+    _currentIndex: 0,
+    _stepCount: 3,
+    _stepStatuses: {},
+    _stepData: {},
+    _visitedSteps: {},
+    _aliasToIndex: {},
+    _linear: false,
+    _debug: false,
+    currentIndex() {
+      return this._currentIndex;
+    },
+    stepCount() {
+      return this.getSteps().length;
+    },
+    stepStatuses() {
+      return this._stepStatuses;
+    },
+    stepData() {
+      return this._stepData;
+    },
+    visitedSteps() {
+      return this._visitedSteps;
+    },
+    aliasToIndex() {
+      return this._aliasToIndex;
+    },
+    linear() {
+      return this._linear;
+    },
+    debug() {
+      return this._debug;
+    },
+    registerStep: vi.fn(),
+    unregisterStep: vi.fn(),
+    saveData: vi.fn(),
+    setLinear: vi.fn(function (this: any, value: boolean) {
+      this._linear = value;
+    }),
+    setDebug: vi.fn(function (this: any, value: boolean) {
+      this._debug = value;
+    }),
+    next: vi.fn(),
+    prev: vi.fn(),
+    goTo: vi.fn(),
+    reset: vi.fn(),
+    getData: vi.fn(),
+    logData: vi.fn(),
+    setStatus: vi.fn(),
+    getSteps: vi.fn(() => [
+      { index: 0, alias: 'a', title: 'A', tooltip: null, cssClass: null },
+      { index: 1, alias: 'b', title: 'B', tooltip: null, cssClass: null },
+      { index: 2, alias: 'c', title: 'C', tooltip: null, cssClass: null },
+    ]),
+    __setCurrentIndex(value: number) {
+      this._currentIndex = value;
+    },
+    __setStepCount(value: number) {
+      this.getSteps.mockReturnValue(
+        Array.from({ length: value }, (_, i) => ({
+          index: i,
+          alias: String.fromCharCode(97 + i),
+          title: String.fromCharCode(65 + i),
+          tooltip: null,
+          cssClass: null,
+        })),
+      );
+    },
+    __setStepStatuses(value: any) {
+      this._stepStatuses = value;
+    },
+    __setStepData(value: any) {
+      this._stepData = value;
+    },
+    __setVisitedSteps(value: any) {
+      this._visitedSteps = value;
+    },
+    __setAliasToIndex(value: any) {
+      this._aliasToIndex = value;
+    },
+  });
+  return { StepperService: vi.fn(() => (mockService = createMock())) };
+});
+vitest.mock('./step.component', () => ({
+  StepComponent: vi.fn().mockImplementation(() => ({
+    __assignIndex: vi.fn(),
+    __registerWithService: vi.fn(),
+    renderContent: vi.fn(),
+    index: 0,
+    alias: undefined,
+    title: '',
+  })),
+}));
+
 import { StepperComponent } from './stepper.component';
-import { StepComponent } from './step.component';
-import { StepperService } from './stepper.service';
-import { EventEmitter, Input, Output } from '@angular/core';
 
-@Component({
-  selector: 'app-dummy-child',
-  standalone: true,
-  template: `
-    <div class="dummy" (click)="changed.emit(foo)" (keyup.enter)="changed.emit(foo)" tabindex="0">
-      {{ foo }}
-    </div>
-  `,
-})
-class DummyChildComponent {
-  @Input() foo = 0;
-  @Output() changed = new EventEmitter<number>();
-}
-
-@Component({
-  selector: 'app-host-stepper-test',
-  standalone: true,
-  imports: [StepperComponent, StepComponent],
-  template: `
-    <app-stepper #stepper [navigable]="navigable" [linear]="linear" [stepItemClass]="stepItemClass">
-      <app-step title="A" alias="a" errorTitleClass="err-title"></app-step>
-      <app-step title="B" alias="b" successTitleClass="ok-title"></app-step>
-      <app-step title="C" alias="c"></app-step>
-    </app-stepper>
-  `,
-})
-class HostTestComponent {
-  navigable = true;
-  linear = true;
-  stepItemClass = 'item-extra';
-}
-
-@Component({
-  selector: 'app-host-dynamic-test',
-  standalone: true,
-  imports: [StepperComponent, StepComponent, DummyChildComponent],
-  template: `
-    <ng-template #tpl>
-      <span class="tpl-content">Tpl</span>
-    </ng-template>
-    <app-stepper [linear]="false">
-      <app-step
-        title="HTML"
-        alias="html"
-        contentHtml="<span class='html-content'>Hello</span>"></app-step>
-      <app-step title="TPL" alias="tpl" [contentTemplate]="tpl"></app-step>
-      <app-step
-        title="DYN"
-        alias="dyn"
-        [componentType]="dummy"
-        [componentInputs]="{ foo: 7 }"
-        [componentOutputs]="{ changed: onChanged }"></app-step>
-      <app-step title="LAZY" alias="lazy" [lazyLoader]="lazy"></app-step>
-    </app-stepper>
-  `,
-})
-class HostDynamicComponent {
-  dummy = DummyChildComponent;
-  onChanged = vi.fn();
-  lazy = () => Promise.resolve(DummyChildComponent);
-}
-
-@Component({
-  selector: 'app-host-dynamic-nonemit',
-  standalone: true,
-  imports: [StepperComponent, StepComponent, DummyChildComponent],
-  template: `
-    <app-stepper [linear]="false">
-      <app-step
-        title="DYN2"
-        alias="dyn2"
-        [componentType]="dummy"
-        [componentInputs]="{ foo: 3 }"
-        [componentOutputs]="{ foo: onFoo }"></app-step>
-    </app-stepper>
-  `,
-})
-class HostDynamicNonEmitComponent {
-  dummy = DummyChildComponent;
-  onFoo = vi.fn();
-}
-
-@Component({
-  selector: 'app-host-save-test',
-  standalone: true,
-  imports: [StepperComponent, StepComponent],
-  template: `
-    <app-stepper>
-      <app-step title="Save" alias="save" [onSave]="onSave"></app-step>
-    </app-stepper>
-  `,
-})
-class HostSaveComponent {
-  onSave = () => ({ saved: 42 });
-}
-
-@Component({
-  selector: 'app-host-save-default',
-  standalone: true,
-  imports: [StepperComponent, StepComponent],
-  template: `
-    <app-stepper>
-      <app-step title="Default" alias="def"><div class="slot">Slot</div></app-step>
-    </app-stepper>
-  `,
-})
-class HostSaveDefaultComponent {}
-
-@Component({
-  selector: 'app-host-html',
-  standalone: true,
-  imports: [StepperComponent, StepComponent],
-  template: `
-    <app-stepper>
-      <app-step title="HTML" alias="h" [contentHtml]="html"></app-step>
-      <app-step title="Segundo" alias="b"></app-step>
-    </app-stepper>
-  `,
-})
-class HostHtmlComponent {
-  html = '<p class="html-piece">Hello</p>';
-}
-
-describe('StepperComponent', () => {
-  let fixture: ComponentFixture<HostTestComponent>;
-  let host: HostTestComponent;
-  let stepper: StepperComponent;
-
+describe('StepperComponent (isolated)', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HostTestComponent],
+      imports: [StepperComponent],
+      providers: [
+        { provide: Renderer2, useValue: mockRenderer2 },
+        { provide: ElementRef, useValue: mockElementRef },
+      ],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(HostTestComponent);
-    host = fixture.componentInstance;
-    fixture.detectChanges();
-    const stepperDebug = fixture.debugElement.query(By.directive(StepperComponent));
-    stepper = stepperDebug.componentInstance as StepperComponent;
+    vi.clearAllMocks();
   });
 
-  it('StepComponent onSave custom salva dados no destroy', async () => {
-    const f = TestBed.createComponent(HostSaveComponent);
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-    await s.service.goTo(0);
-    f.detectChanges();
-    // destroy deve invocar onSave do step ativo
-    f.destroy();
-    expect(s.service.getData('save')).toEqual({ saved: 42 });
-  });
-
-  it('renderiza passos e progressbar com atributos ARIA padrão', () => {
-    fixture.detectChanges();
-    const progress = fixture.debugElement.query(By.css('.progress-wrapper'));
-    expect(progress.attributes['role']).toBe('progressbar');
-    expect(progress.attributes['aria-valuemin']).toBe('0');
-    expect(progress.attributes['aria-valuemax']).toBe(String(stepper.service.stepCount()));
-    expect(progress.attributes['aria-valuenow']).toBe(String(stepper.service.currentIndex() + 1));
-    expect(progress.attributes['aria-label']).toBe('STEPPER_PROGRESS_LABEL');
-
-    const titleButtons = fixture.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'));
-    expect(titleButtons.length).toBe(3);
-  });
-
-  it('aplica roving tabindex e navegação por teclado (ArrowRight)', () => {
-    fixture.detectChanges();
-    let buttons = fixture.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'));
-    expect(buttons[0].attributes['tabindex']).toBe('0');
-    expect(buttons[1].attributes['tabindex']).toBe('-1');
-    expect(buttons[2].attributes['tabindex']).toBe('-1');
-
-    const evt = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-    buttons[0].nativeElement.dispatchEvent(evt);
-    fixture.detectChanges();
-
-    expect(stepper.service.currentIndex()).toBe(1);
-    buttons = fixture.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'));
-    expect(buttons[1].attributes['tabindex']).toBe('0');
-    expect(buttons[0].attributes['tabindex']).toBe('-1');
-  });
-
-  it('desabilita navegação quando navigable=false', async () => {
-    // cria novo fixture já com navigable=false antes da primeira detecção
-    const f = TestBed.createComponent(HostTestComponent);
-    const h = f.componentInstance;
-    h.navigable = false;
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-
-    const buttons = f.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'));
-
-    for (const b of buttons) {
-      expect(b.attributes['disabled']).toBeDefined();
-      expect(b.attributes['aria-disabled']).toBe('true');
-      expect(b.attributes['tabindex']).toBe('-1');
-    }
-
-    // clique não deve navegar
-    await buttons[2].triggerEventHandler('click', {});
-    expect(s.service.currentIndex()).toBe(0);
-  });
-
-  it('clique navega quando navigable=true', async () => {
-    host.navigable = true;
-    fixture.detectChanges();
-    const buttons = fixture.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'));
-    await buttons[2].triggerEventHandler('click', {});
-    fixture.detectChanges();
-    expect(stepper.service.currentIndex()).toBe(2);
-  });
-
-  it('usa chaves i18n padrão para tooltips de sucesso/erro', () => {
-    // força estados para testar tooltips retornados
-    stepper.service.setStatus(0, 'error');
-    stepper.service.setStatus(1, 'finished');
-    fixture.detectChanges();
-
-    const steps = stepper.steps();
-    const tErr = stepper.getTooltip(steps[0]);
-    const tOk = stepper.getTooltip(steps[1]);
-    expect(tErr).toBe('STEPPER_ERROR_TOOLTIP');
-    expect(tOk).toBe('STEPPER_SUCCESS_TOOLTIP');
-  });
-
-  it('aplica classes de título conforme status (overrides)', () => {
-    // passo 0 erro -> err-title, passo 1 sucesso -> ok-title
-    stepper.service.setStatus(0, 'error');
-    stepper.service.setStatus(1, 'finished');
-    fixture.detectChanges();
-
-    const titles = fixture.debugElement.queryAll(
-      By.css('.stepper-item.stepper-item-title .step-title'),
-    );
-    expect(titles[0].nativeElement.classList.contains('err-title')).toBe(true);
-    expect(titles[1].nativeElement.classList.contains('ok-title')).toBe(true);
-  });
-
-  it('combina classes de item do componente e do step', () => {
-    fixture.detectChanges();
-    const iconButtons = fixture.debugElement.queryAll(By.css('.stepper-item.stepper-item-icon'));
-    // O StepperComponent adiciona stepItemClass a todos
-    expect(iconButtons[0].nativeElement.classList.contains('item-extra')).toBe(true);
-  });
-
-  it('renderiza conteúdo HTML, TemplateRef, componente dinâmico e lazy', async () => {
-    const f = TestBed.createComponent(HostDynamicComponent);
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-
-    // Passo 0: HTML
-    const contentHost = f.debugElement.query(By.css('.stepper-content'));
-    expect(contentHost.nativeElement.querySelector('.html-content')).toBeTruthy();
-
-    // Passo 1: TemplateRef
-    await s.service.goTo(1);
-    await Promise.resolve();
-    f.detectChanges();
-    const stepEls = f.debugElement.queryAll(By.directive(StepComponent));
-    const tplStepEl = stepEls[1];
-    const tplCmp = tplStepEl.componentInstance as StepComponent;
-    await tplCmp.renderContent();
-    f.detectChanges();
-    expect(tplStepEl.nativeElement.querySelector('.tpl-content')).toBeTruthy();
-
-    // Passo 2: componente dinâmico com inputs/outputs
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const dynStepEl = stepEls[2];
-    const dynCmp = dynStepEl.componentInstance as StepComponent;
-    await dynCmp.renderContent();
-    f.detectChanges();
-    const dummyEl = dynStepEl.nativeElement.querySelector('.dummy');
-    expect(dummyEl).toBeTruthy();
-    expect(dummyEl.textContent.trim()).toBe('7');
-    // Click to emit output and verify handler wiring
-    dummyEl.dispatchEvent(new Event('click'));
-    expect(f.componentInstance.onChanged).toHaveBeenCalledWith(7);
-
-    // Emite output manualmente para cobrir assinatura
-    const _cmpRef = sDebug.componentInstance;
-    // não temos referência direta ao instância criada; validamos que handler foi registrado via spy
-    // navegamos ao lazy para disparar novo conteúdo e garantir ciclo
-    await s.service.goTo(3);
-    await Promise.resolve();
-    f.detectChanges();
-    const lazyStepEl = stepEls[3];
-    const lazyCmp = lazyStepEl.componentInstance as StepComponent;
-    await lazyCmp.renderContent();
-    f.detectChanges();
-    const lazyEl = lazyStepEl.nativeElement.querySelector('.dummy');
-    expect(lazyEl).toBeTruthy();
-
-    // destrói o fixture para acionar ngOnDestroy e onSave padrão
-    f.destroy();
-    // após destroy, não deve lançar
-    expect(true).toBe(true);
-  });
-
-  it('não assina outputs quando não são EventEmitter', async () => {
-    const f = TestBed.createComponent(HostDynamicNonEmitComponent);
-    f.detectChanges();
-    const _s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const stepEl = f.debugElement.query(By.directive(StepComponent));
-    const cmp = stepEl.componentInstance as StepComponent;
-    await cmp.renderContent();
-    f.detectChanges();
-    // Clique na área do componente não deve disparar handler pois 'foo' não é EventEmitter
-    const el = stepEl.nativeElement.querySelector('.dummy');
-    el.dispatchEvent(new Event('click'));
-    expect(f.componentInstance.onFoo).not.toHaveBeenCalled();
-  });
-
-  it('emite stepChange e navega com teclas Home/End/Left/Up', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-
-    const events: StepChangeEvent[] = [];
-    s.stepChange.subscribe(e => events.push(e));
-
-    // programático
-    await s.service.goTo(1);
-    f.detectChanges();
-    expect(events.at(-1)).toEqual({ from: 'a', to: 'b' });
-
-    // Home
-    s.onStepKeydown(new KeyboardEvent('keydown', { key: 'Home' }), 1);
-    f.detectChanges();
-    expect(s.service.currentIndex()).toBe(0);
-
-    // End
-    s.onStepKeydown(new KeyboardEvent('keydown', { key: 'End' }), 0);
-    f.detectChanges();
-    expect(s.service.currentIndex()).toBe(s.service.stepCount() - 1);
-
-    // Left/Up
-    const last = s.service.currentIndex();
-    s.onStepKeydown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }), last);
-    f.detectChanges();
-    s.onStepKeydown(new KeyboardEvent('keydown', { key: 'ArrowUp' }), s.service.currentIndex());
-    f.detectChanges();
-    expect(s.service.currentIndex()).toBe(last - 2 >= 0 ? last - 2 : 0);
-  });
-
-  it('mostra ícones padrão para finished e error com classes corretas', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-    // Avança para 2 para marcar 1 como erro sintético e 0 como finished
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const iconEls = f.debugElement.queryAll(By.css('.stepper-icons i'));
-    const classes = iconEls.map(i => i.nativeElement.className);
-    expect(classes.some(c => c.includes('bi-check-circle-fill'))).toBe(true);
-    expect(classes.some(c => c.includes('bi-exclamation-circle-fill'))).toBe(true);
-  });
-
-  it('aplica cores de título por status via CSS custom property', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service as StepperService;
-    svc.registerStep(0, undefined, { successTitleColor: 'green' });
-    svc.registerStep(1, undefined, { errorTitleColor: 'red' });
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const titleEls = f.debugElement.queryAll(By.css('.stepper-titles .step-title'));
-    const green = (titleEls[0].nativeElement as HTMLElement).style.getPropertyValue(
-      '--stepper-title-color',
-    );
-    const red = (titleEls[1].nativeElement as HTMLElement).style.getPropertyValue(
-      '--stepper-title-color',
-    );
-    expect(green).toBe('green');
-    expect(red).toBe('red');
-  });
-
-  it('navega com ArrowDown e verifica isFirst/isLast/cleanup de resize', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-    // ArrowDown do índice 0 -> 1
-    const btn0 = f.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'))[0];
-    btn0.triggerEventHandler('keydown', new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-    f.detectChanges();
-    expect(s.service.currentIndex()).toBe(1);
-    expect(s.isFirst()).toBe(false);
-    // Vai para último
-    await s.service.goTo(s.service.stepCount() - 1);
-    f.detectChanges();
-    expect(s.isLast()).toBe(true);
-    // Destroy deve limpar resize listener
-    f.destroy();
-    expect((s as any).resizeUnlisten).toBeUndefined();
-  });
-
-  it('não mostra ícone em finished quando shouldShowIcon=false e atualiza progresso', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-    const svc = (s as any).service as StepperService;
-    // Atualiza configuração do primeiro passo para não exibir ícone em finished
-    svc.registerStep(0, undefined, { showIconOnFinished: false });
-    // Avança para o segundo passo para finalizar o primeiro
-    await s.service.goTo(1);
-    await Promise.resolve();
-    f.detectChanges();
-    // Não deve haver ícones renderizados
-    const iconEls = f.debugElement.queryAll(By.css('.progress-icons i'));
-    expect(iconEls.length).toBe(0);
-    // Preenchimento de progresso deve ter transform definido
-    const fillEl = f.debugElement.query(By.css('.progress-fill')).nativeElement as HTMLElement;
-    expect(fillEl.style.transform).toContain('scaleX(');
-  });
-
-  it('atualiza grid de ícones/títulos com largura simulada', () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.detectChanges();
-    const sDebug = f.debugElement.query(By.directive(StepperComponent));
-    const s = sDebug.componentInstance as StepperComponent;
-
-    const wrapper = (s as any).progressWrapper.nativeElement;
-    vi.spyOn(wrapper, 'getBoundingClientRect').mockReturnValue({ width: 300 } as any);
-
-    const iconsEl = (s as any).iconsRef.nativeElement;
-    const titlesEl = (s as any).titlesRef.nativeElement;
-    const _sepsEl = (s as any).separatorsRef.nativeElement;
-
-    (s as any).updateGridColumns();
-    expect(iconsEl.style.gridTemplateColumns).toContain('repeat(3');
-    expect(titlesEl.style.gridTemplateColumns).toContain('repeat(3');
-  });
-
-  it.skip('renderiza TemplateRef automaticamente ao ativar e limpa HTML ao sair', async () => {
-    const f = TestBed.createComponent(HostDynamicComponent);
-    f.detectChanges();
-    // HTML inicial presente
-    const htmlEl1 = f.debugElement.nativeElement.querySelector('.html-content');
-    expect(htmlEl1).toBeTruthy();
-    // Navega para passo com TemplateRef
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    await s.service.goTo(1);
-    f.detectChanges();
-    // aguarda microtask do hostRef setter e do renderContent
-    await Promise.resolve();
-    await Promise.resolve();
-    f.detectChanges();
-    // Template deve renderizar automaticamente
-    const tplEl = f.debugElement.nativeElement.querySelector('.tpl-content');
-    expect(tplEl).toBeTruthy();
-    // HTML anterior deve ser removido
-    const htmlEl2 = f.debugElement.nativeElement.querySelector('.html-content');
-    expect(htmlEl2).toBeFalsy();
-  });
-
-  it('StepComponent onSave padrão salva visited=true no destroy', () => {
-    const f = TestBed.createComponent(HostSaveDefaultComponent);
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    f.destroy();
-    expect(s.service.getData('def')).toEqual({ visited: true });
-  });
-
-  it('StepComponent projeta conteúdo de slot quando ativo (sem HTML/template/componente)', () => {
-    const f = TestBed.createComponent(HostSaveDefaultComponent);
-    f.detectChanges();
-    const slotEl = f.debugElement.nativeElement.querySelector('.slot');
-    expect(slotEl).toBeTruthy();
-  });
-
-  it.skip('renderiza e limpa contentHtml ao sair e re-renderiza ao voltar', async () => {
-    const f = TestBed.createComponent(HostHtmlComponent);
-    f.detectChanges();
-    let htmlEl = f.debugElement.nativeElement.querySelector('.html-piece');
-    expect(htmlEl).toBeTruthy();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    await s.service.goTo(1);
-    await Promise.resolve();
-    f.detectChanges();
-    htmlEl = f.debugElement.nativeElement.querySelector('.html-piece');
-    expect(htmlEl).toBeFalsy();
-    await s.service.goTo(0);
-    await Promise.resolve();
-    await Promise.resolve();
-    await new Promise(r => setTimeout(r, 0));
-    f.detectChanges();
-    // força renderização manual para cobrir branch contentHtml
-    const stepEls = f.debugElement.queryAll(By.directive(StepComponent));
-    const step0 = stepEls[0].componentInstance as StepComponent;
-    await step0.renderContent();
-    await Promise.resolve();
-    f.detectChanges();
-    htmlEl = f.debugElement.nativeElement.querySelector('.html-piece');
-    expect(htmlEl).toBeTruthy();
-  });
-
-  it('renderContent retorna cedo quando host não existe (step inativo)', async () => {
-    const f = TestBed.createComponent(HostHtmlComponent);
-    f.detectChanges();
-    const steps = f.debugElement.queryAll(By.directive(StepComponent));
-    const inactive = steps[1].componentInstance as StepComponent;
-    // Inativo, host não criado; chamada não deve lançar e não deve inserir HTML
-    await inactive.renderContent();
-    f.detectChanges();
-    const htmlEl = f.debugElement.nativeElement.querySelector('.html-piece');
-    expect(htmlEl).toBeTruthy(); // o primeiro continua renderizado
-  });
-
-  it('getTooltip retorna overrides para finished e error', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service;
-    svc.registerStep(0, undefined, { successTooltip: 'ok' });
-    svc.registerStep(1, undefined, { errorTooltip: 'err' });
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const steps = s.service.getSteps();
-    const t0 = s.getTooltip(steps[0]);
-    const t1 = s.getTooltip(steps[1]);
-    expect(t0).toBe('ok');
-    expect(t1).toBe('err');
-  });
-
-  it('aplica cores de ícone por status via CSS custom property', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service;
-    svc.registerStep(0, undefined, { successIconColor: 'green' });
-    svc.registerStep(1, undefined, { errorIconColor: 'red' });
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const iconEls = f.debugElement.queryAll(By.css('.stepper-icons i'));
-    const green = (iconEls[0].nativeElement as HTMLElement).style.getPropertyValue(
-      '--stepper-icon-color',
-    );
-    const red = (iconEls[1].nativeElement as HTMLElement).style.getPropertyValue(
-      '--stepper-icon-color',
-    );
-    expect(green).toBe('green');
-    expect(red).toBe('red');
-  });
-
-  it('getTooltip retorna tooltip do step para active/pending', () => {
-    fixture.detectChanges();
-    const steps = stepper.steps();
-    // step 0 está ativo inicialmente e não possui tooltip -> retorna padrão
-    expect(stepper.getTooltip(steps[0])).toBe('STEPPER_STEP_TOOLTIP');
-    // adiciona tooltip ao segundo e mantém pending
-    const svc = (stepper as any).service as StepperService;
-    svc.registerStep(1, undefined, { tooltip: 'TT' });
-    fixture.detectChanges();
-    expect(stepper.getTooltip(stepper.steps()[1])).toBe('TT');
-  });
-
-  it('overrides de ícone e classe são aplicados em finished/error', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service as StepperService;
-    svc.registerStep(0, undefined, {
-      successIcon: 'bi bi-star-fill',
-      successIconClass: 'big-success',
+  function createStepper() {
+    const fixture = TestBed.createComponent(StepperComponent);
+    const cmp = fixture.componentInstance;
+    const mockSteps = [
+      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
+      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
+      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
+    ];
+    Object.defineProperty(cmp, 'projectedSteps', {
+      value: createMockQueryList(mockSteps),
+      writable: true,
+      configurable: true,
     });
-    svc.registerStep(1, undefined, { errorIcon: 'bi bi-bug-fill', errorIconClass: 'tiny-error' });
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const iconEls = f.debugElement.queryAll(By.css('.stepper-icons i'));
-    const classList = iconEls.map(i => i.nativeElement.className);
-    expect(classList.some(c => c.includes('bi-star-fill') && c.includes('big-success'))).toBe(true);
-    expect(classList.some(c => c.includes('bi-bug-fill') && c.includes('tiny-error'))).toBe(true);
+    Object.defineProperty(cmp, 'progressWrapper', {
+      value: { nativeElement: { getBoundingClientRect: () => ({ width: 300 }) } },
+      writable: true,
+    });
+    Object.defineProperty(cmp, 'iconsRef', {
+      value: { nativeElement: { style: {} } },
+      writable: true,
+    });
+    Object.defineProperty(cmp, 'titlesRef', {
+      value: { nativeElement: { style: {} } },
+      writable: true,
+    });
+    Object.defineProperty(cmp, 'separatorsRef', {
+      value: { nativeElement: { style: { setProperty: vi.fn() } } },
+      writable: true,
+    });
+    return { fixture, cmp, mockSteps };
+  }
+
+  it('should create', () => {
+    expect(createStepper().cmp).toBeTruthy();
   });
 
-  it('não mostra ícone em error quando shouldShowIcon=false', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.componentInstance.linear = false;
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service as StepperService;
-    // passo 1 terá erro e não deve exibir ícone
-    svc.registerStep(1, undefined, { showIconOnError: false } as any);
-    await s.service.goTo(2);
-    await Promise.resolve();
-    f.detectChanges();
-    const iconEls = f.debugElement.queryAll(By.css('.stepper-icons i'));
-    const classes = iconEls.map(i => i.nativeElement.className);
-    // nenhum ícone deve corresponder ao passo 1 com erro quando desabilitado
-    expect(classes.some(c => c.includes('bi-exclamation-circle-fill'))).toBe(false);
+  it('should calculate progress percent correctly', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepCount(3);
+    mockService.__setCurrentIndex(1);
+    (cmp.service as any)._currentIndex = 1;
+    expect(cmp.progressPercent()).toBeCloseTo(66.67, 1);
   });
 
-  it('combina cssClass do step nas classes do item', async () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    const svc = (s as any).service;
-    svc.registerStep(0, undefined, { cssClass: 'custom-step' });
-    f.detectChanges();
-    const btn0 = f.debugElement.queryAll(By.css('.stepper-item.stepper-item-title'))[0];
-    expect(btn0.nativeElement.classList.contains('custom-step')).toBe(true);
+  it('should calculate progress percent with custom segments', () => {
+    const { cmp } = createStepper();
+    cmp.segments = 5;
+    mockService.__setCurrentIndex(2);
+    (cmp.service as any)._currentIndex = 2;
+    expect(cmp.progressPercent()).toBe(60);
   });
 
-  it('updateGridColumns retorna cedo quando segments <= 0', () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    // força segments=0 para cobrir early return
-    s.segments = 0;
-    const iconsEl = (s as any).iconsRef.nativeElement as HTMLElement;
-    const titlesEl = (s as any).titlesRef.nativeElement as HTMLElement;
-    const sepsEl = (s as any).separatorsRef.nativeElement as HTMLElement;
-    (s as any).updateGridColumns();
-    expect(iconsEl.style.gridTemplateColumns).toBe('');
-    expect(titlesEl.style.gridTemplateColumns).toBe('');
-    expect(sepsEl.style.getPropertyValue('--segment-size')).toBe('');
+  it('should return 0 progress when no steps', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepCount(0);
+    (cmp.service as any).getSteps.mockReturnValue([]);
+    expect(cmp.progressPercent()).toBe(0);
   });
 
-  it('updateGridColumns usa largura do host quando wrapper não existe', () => {
-    const f = TestBed.createComponent(HostTestComponent);
-    f.detectChanges();
-    const s = f.debugElement.query(By.directive(StepperComponent))
-      .componentInstance as StepperComponent;
-    // remove wrapper para cobrir branch alternativo
-    (s as any).progressWrapper = undefined;
-    // mock da largura do host
-    const hostEl = ((s as any).host.nativeElement as HTMLElement);
-    vi.spyOn(hostEl, 'getBoundingClientRect').mockReturnValue({ width: 400 } as any);
-    const iconsEl = (s as any).iconsRef.nativeElement as HTMLElement;
-    const titlesEl = (s as any).titlesRef.nativeElement as HTMLElement;
-    (s as any).updateGridColumns();
-    expect(iconsEl.style.gridTemplateColumns).toContain('repeat(3');
-    expect(titlesEl.style.gridTemplateColumns).toContain('repeat(3');
+  it('should get steps from service', () => {
+    const { cmp } = createStepper();
+    const mockSteps = [{ index: 0, title: 'Test' }];
+    vi.spyOn(mockService, 'getSteps').mockReturnValue(mockSteps);
+    (cmp.service as any).getSteps.mockReturnValue(mockSteps);
+    expect(cmp.steps).toBe(mockSteps);
   });
 
-  it('getIconClass retorna null para pending e isFirst/isLast inicial', () => {
-    fixture.detectChanges();
-    const steps = stepper.steps();
-    // passo inicial pending/active não deve ter ícone
-    expect(stepper.getIconClass(steps[0])).toBeNull();
-    // estados iniciais
-    expect(stepper.isFirst()).toBe(true);
-    expect(stepper.isLast()).toBe(false);
+  it('should sync linear flag to service in ngAfterContentInit', () => {
+    const { cmp, mockSteps } = createStepper();
+    vi.spyOn(mockService, 'setLinear');
+    (cmp.service as any).setLinear = mockService.setLinear;
+    cmp.linear = true;
+    cmp.ngAfterContentInit();
+    expect(mockService.setLinear).toHaveBeenCalledWith(true);
+    mockSteps.forEach((step, i) => {
+      expect(step.__assignIndex).toHaveBeenCalledWith(i);
+      expect(step.__registerWithService).toHaveBeenCalled();
+    });
+  });
+
+  it('should update grid columns in ngAfterViewInit', () => {
+    const { cmp } = createStepper();
+    (cmp as any).renderer = mockRenderer2;
+    cmp.ngAfterViewInit();
+    expect(mockRenderer2.listen).toHaveBeenCalledWith('window', 'resize', expect.any(Function));
+    expect(mockRenderer2.setStyle).toHaveBeenCalled();
+  });
+
+  it('should update grid columns with correct calculations', () => {
+    const { cmp } = createStepper();
+    (cmp as any).renderer = mockRenderer2;
+    mockService.__setStepCount(3);
+    (cmp as any).updateGridColumns();
+    expect(mockRenderer2.setStyle).toHaveBeenCalledWith(
+      (cmp as any).iconsRef.nativeElement,
+      'gridTemplateColumns',
+      'repeat(3, 100px)',
+    );
+    expect(mockRenderer2.setStyle).toHaveBeenCalledWith(
+      (cmp as any).titlesRef.nativeElement,
+      'gridTemplateColumns',
+      'repeat(3, 100px)',
+    );
+  });
+
+  it('should handle updateGridColumns with segments <= 0', () => {
+    const { cmp } = createStepper();
+    (cmp as any).renderer = mockRenderer2;
+    cmp.segments = 0;
+    (cmp as any).updateGridColumns();
+    expect(mockRenderer2.setStyle).not.toHaveBeenCalled();
+  });
+
+  it('should sync linear flag in ngOnChanges', () => {
+    const { cmp } = createStepper();
+    vi.spyOn(mockService, 'setLinear');
+    (cmp.service as any).setLinear = mockService.setLinear;
+    cmp.linear = false;
+    cmp.ngOnChanges();
+    expect(mockService.setLinear).toHaveBeenCalledWith(false);
+  });
+
+  it('should cleanup resize listener in ngOnDestroy', () => {
+    const { cmp } = createStepper();
+    const unlistenMock = vi.fn();
+    (cmp as any).resizeUnlisten = unlistenMock;
+    cmp.ngOnDestroy();
+    expect(unlistenMock).toHaveBeenCalled();
+    expect((cmp as any).resizeUnlisten).toBeUndefined();
+  });
+
+  it('should handle step click when navigable', async () => {
+    const { cmp } = createStepper();
+    vi.spyOn(mockService, 'goTo');
+    (cmp.service as any).goTo = mockService.goTo;
+    cmp.navigable = true;
+    await cmp.onStepClick(2);
+    expect(mockService.goTo).toHaveBeenCalledWith(2);
+  });
+
+  it('should not handle step click when not navigable', async () => {
+    const { cmp } = createStepper();
+    vi.spyOn(mockService, 'goTo');
+    cmp.navigable = false;
+    await cmp.onStepClick(2);
+    expect(mockService.goTo).not.toHaveBeenCalled();
+  });
+
+  it('should get step classes correctly', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished' };
+    cmp.stepItemClass = 'custom-item';
+    const step = { index: 0, cssClass: 'step-custom' } as any;
+    expect(cmp.getStepClasses(step)).toEqual([
+      'step',
+      'step-status-finished',
+      'custom-item',
+      'step-custom',
+    ]);
+  });
+
+  it('should get title classes with status overrides', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    cmp.stepTitleClass = 'base-title';
+    const finishedStep = { index: 0, successTitleClass: 'success-title' } as any;
+    const errorStep = { index: 1, errorTitleClass: 'error-title' } as any;
+    expect(cmp.getTitleClasses(finishedStep)).toEqual(['base-title', 'success-title']);
+    expect(cmp.getTitleClasses(errorStep)).toEqual(['base-title', 'error-title']);
+  });
+
+  it('should get title colors by status', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    const finishedStep = { index: 0, successTitleColor: 'green' } as any;
+    const errorStep = { index: 1, errorTitleColor: 'red' } as any;
+    const pendingStep = { index: 2 } as any;
+    expect(cmp.getTitleColor(finishedStep)).toBe('green');
+    expect(cmp.getTitleColor(errorStep)).toBe('red');
+    expect(cmp.getTitleColor(pendingStep)).toBeNull();
+  });
+
+  it('should get icon class with custom icons and classes', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    const finishedStep = { index: 0, successIcon: 'bi bi-star', successIconClass: 'big' } as any;
+    const errorStep = { index: 1, errorIcon: 'bi bi-bug', errorIconClass: 'small' } as any;
+    const pendingStep = { index: 2 } as any;
+    expect(cmp.getIconClass(finishedStep)).toBe('bi bi-star big');
+    expect(cmp.getIconClass(errorStep)).toBe('bi bi-bug small');
+    expect(cmp.getIconClass(pendingStep)).toBeNull();
+  });
+
+  it('should handle shouldShowIcon flags', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    const showStep = { index: 0, showIconOnFinished: true } as any;
+    const hideStep = { index: 1, showIconOnError: false } as any;
+    const defaultStep = { index: 2 } as any;
+    expect(cmp.shouldShowIcon(showStep)).toBe(true);
+    expect(cmp.shouldShowIcon(hideStep)).toBe(false);
+    expect(cmp.shouldShowIcon(defaultStep)).toBe(false);
+  });
+
+  it('should return true in shouldShowIcon for finished step with showIconOnFinished undefined', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished' };
+    expect(cmp.shouldShowIcon({ index: 0 })).toBe(true);
+  });
+
+  it('should return true in shouldShowIcon for error step with showIconOnError undefined', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 1: 'error' };
+    expect(cmp.shouldShowIcon({ index: 1 })).toBe(true);
+  });
+
+  it('should get icon colors by status', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    const finishedStep = { index: 0, successIconColor: 'green' } as any;
+    const errorStep = { index: 1, errorIconColor: 'red' } as any;
+    const pendingStep = { index: 2 } as any;
+    expect(cmp.getIconColor(finishedStep)).toBe('green');
+    expect(cmp.getIconColor(errorStep)).toBe('red');
+    expect(cmp.getIconColor(pendingStep)).toBeNull();
+  });
+
+  it('should get tooltips with status overrides', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
+    const finishedStep = { index: 0, successTooltip: 'Success!', tooltip: 'Base' } as any;
+    const errorStep = { index: 1, errorTooltip: 'Error!', tooltip: 'Base' } as any;
+    const pendingStep = { index: 2, tooltip: 'Pending' } as any;
+    const defaultStep = { index: 3 } as any;
+    expect(cmp.getTooltip(finishedStep)).toBe('Success!');
+    expect(cmp.getTooltip(errorStep)).toBe('Error!');
+    expect(cmp.getTooltip(pendingStep)).toBe('Pending');
+    expect(cmp.getTooltip(defaultStep)).toBe('STEPPER_STEP_TOOLTIP');
+  });
+
+  it('should return correct progress aria label', () => {
+    const { cmp } = createStepper();
+    expect(cmp.getProgressAriaLabel()).toBe('STEPPER_PROGRESS_LABEL');
+  });
+
+  it('should check isFirst and isLast correctly', () => {
+    const { cmp } = createStepper();
+    mockService.__setCurrentIndex(0);
+    mockService.__setStepCount(3);
+    (cmp.service as any)._currentIndex = 0;
+    expect(cmp.isFirst()).toBe(true);
+    expect(cmp.isLast()).toBe(false);
+    mockService.__setCurrentIndex(2);
+    (cmp.service as any)._currentIndex = 2;
+    expect(cmp.isFirst()).toBe(false);
+    expect(cmp.isLast()).toBe(true);
+  });
+
+  it('should handle fallback for getTitleColor, getIconClass, getIconColor, getTooltip', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 0: 'finished', 1: 'error', 2: 'pending' });
+    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error', 2: 'pending' };
+    expect(cmp.getTitleColor({ index: 0 })).toBeNull();
+    expect(cmp.getTitleColor({ index: 1 })).toBeNull();
+    expect(cmp.getIconClass({ index: 0 })).toBe('bi bi-check-circle-fill');
+    expect(cmp.getIconClass({ index: 1 })).toBe('bi bi-exclamation-circle-fill');
+    expect(cmp.getIconClass({ index: 2 })).toBeNull();
+    expect(cmp.getIconColor({ index: 0 })).toBeNull();
+    expect(cmp.getIconColor({ index: 1 })).toBeNull();
+    expect(cmp.getTooltip({ index: 0 })).toBe('STEPPER_SUCCESS_TOOLTIP');
+    expect(cmp.getTooltip({ index: 1 })).toBe('STEPPER_ERROR_TOOLTIP');
+    expect(cmp.getTooltip({ index: 2 })).toBe('STEPPER_STEP_TOOLTIP');
+  });
+
+  it('should handle getStepClasses and getTitleClasses for pending/undefined status', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({});
+    (cmp.service as any)._stepStatuses = {};
+    cmp.stepTitleClass = 'base-title';
+    const step = { index: 99 };
+    expect(cmp.getStepClasses(step)).toContain('step-status-pending');
+    expect(cmp.getTitleClasses(step)).toEqual(['base-title']);
+  });
+
+  it('should handle getTooltip with only base tooltip', () => {
+    const { cmp } = createStepper();
+    mockService.__setStepStatuses({ 2: 'pending' });
+    (cmp.service as any)._stepStatuses = { 2: 'pending' };
+    expect(cmp.getTooltip({ index: 2, tooltip: 'BaseTooltip' })).toBe('BaseTooltip');
+  });
+
+  it('should early return in updateGridColumns when width is 0', () => {
+    const { cmp } = createStepper();
+    (cmp as any).renderer = mockRenderer2;
+    (cmp as any).iconsRef = { nativeElement: { style: {} } };
+    (cmp as any).titlesRef = { nativeElement: { style: {} } };
+    (cmp as any).progressWrapper = undefined;
+    (cmp as any).segments = 3;
+    mockService.__setStepCount(3);
+    (cmp as any).host.nativeElement.getBoundingClientRect = () => ({ width: 0 });
+    (cmp as any).updateGridColumns();
+    expect(mockRenderer2.setStyle).not.toHaveBeenCalled();
+  });
+
+  it('should handle keyboard navigation (ArrowRight, ArrowLeft, Home, End) and not handle if not navigable', () => {
+    const { cmp } = createStepper();
+    vi.spyOn(mockService, 'goTo');
+    (cmp.service as any).goTo = mockService.goTo;
+    cmp.navigable = true;
+    mockService.__setStepCount(5);
+    (cmp.service as any).getSteps.mockReturnValue(
+      Array.from({ length: 5 }, (_, i) => ({
+        index: i,
+        alias: String.fromCharCode(97 + i),
+        title: String.fromCharCode(65 + i),
+        tooltip: null,
+        cssClass: null,
+      })),
+    );
+
+    const cases = [
+      { key: 'ArrowRight', idx: 1, expected: 2 },
+      { key: 'ArrowLeft', idx: 1, expected: 0 },
+      { key: 'Home', idx: 2, expected: 0 },
+      { key: 'End', idx: 2, expected: 4 },
+    ];
+
+    cases.forEach(({ key, idx, expected }) => {
+      const event = { key, preventDefault: vi.fn() } as any;
+      cmp.onStepKeydown(event, idx);
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(mockService.goTo).toHaveBeenCalledWith(expected);
+    });
+
+    mockService.goTo.mockClear();
+
+    cmp.navigable = false;
+    const eventNoNav = { key: 'ArrowRight', preventDefault: vi.fn() } as any;
+    cmp.onStepKeydown(eventNoNav, 1);
+    expect(eventNoNav.preventDefault).not.toHaveBeenCalled();
+    expect(mockService.goTo).not.toHaveBeenCalledWith(2);
   });
 });

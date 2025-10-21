@@ -2,19 +2,19 @@ import { Directive, HostListener, Input, inject } from '@angular/core';
 import { StepperService } from '../stepper.service';
 import { StepperComponent } from '../stepper.component';
 
-@Directive({ selector: '[stepperNext]', standalone: true })
+@Directive({ selector: '[ftsStepperNext]', standalone: true })
 export class StepperNextDirective {
-  // Permite uso fora do escopo do <app-stepper> passando uma referência
-  // Ex.: <button [stepperNext]="stepper">Avançar</button> onde #stepper="appStepper"
-  @Input('stepperNext') ref?: StepperComponent | StepperService;
+  // Permite uso fora do escopo do <fts-stepper> passando uma referência
+  // Ex.: <button [stepperNext]="stepper">Avançar</button> onde #stepper="ftsStepper"
+  @Input() stepperNext?: StepperComponent | StepperService;
 
   private readonly serviceOpt = inject(StepperService, { optional: true });
 
   private resolveService(): StepperService | null {
-    if (this.ref instanceof StepperComponent) return this.ref.service;
+    if (this.stepperNext instanceof StepperComponent) return this.stepperNext.service;
 
-    if (this.ref && typeof (this.ref as StepperService).next === 'function')
-      return this.ref as StepperService;
+    if (this.stepperNext && typeof (this.stepperNext as StepperService).next === 'function')
+      return this.stepperNext as StepperService;
 
     return this.serviceOpt ?? null;
   }

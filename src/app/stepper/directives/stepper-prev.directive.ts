@@ -2,17 +2,17 @@ import { Directive, HostListener, Input, inject } from '@angular/core';
 import { StepperService } from '../stepper.service';
 import { StepperComponent } from '../stepper.component';
 
-@Directive({ selector: '[stepperPrev]', standalone: true })
+@Directive({ selector: '[ftsStepperPrev]', standalone: true })
 export class StepperPrevDirective {
-  @Input('stepperPrev') ref?: StepperComponent | StepperService;
+  @Input() stepperPrev?: StepperComponent | StepperService;
 
   private readonly serviceOpt = inject(StepperService, { optional: true });
 
   private resolveService(): StepperService | null {
-    if (this.ref instanceof StepperComponent) return this.ref.service;
+    if (this.stepperPrev instanceof StepperComponent) return this.stepperPrev.service;
 
-    if (this.ref && typeof (this.ref as StepperService).prev === 'function')
-      return this.ref as StepperService;
+    if (this.stepperPrev && typeof (this.stepperPrev as StepperService).prev === 'function')
+      return this.stepperPrev as StepperService;
 
     return this.serviceOpt ?? null;
   }

@@ -14,7 +14,7 @@ describe('App', () => {
           useValue: { environment: 'test', version: 'test', logDisabled: true },
         },
       ],
-      teardown: { destroyAfterEach: true }
+      teardown: { destroyAfterEach: true },
     }).compileComponents();
   });
 

@@ -8,32 +8,32 @@
 
 .step-status-error { color: #e57373; }
 
-.app-stepper .stepper-header { display: flex; gap: 1rem; }
+.fts-stepper .stepper-header { display: flex; gap: 1rem; }
 
-.app-stepper .stepper-items { display:flex; gap:1rem; flex-wrap: wrap; }
+.fts-stepper .stepper-items { display:flex; gap:1rem; flex-wrap: wrap; }
 
-.app-stepper .step-icon { margin-right: .25rem; }
+.fts-stepper .step-icon { margin-right: .25rem; }
 
 /* Progress bar delegada ao componente - remover backgrounds aqui para evitar conflito */
 
-.app-stepper .progress-wrapper {
+.fts-stepper .progress-wrapper {
   position: relative;
   width: 100%;
   height: 6px;
 }
 
-.app-stepper .progress-viewport {
+.fts-stepper .progress-viewport {
   overflow: hidden;
   width: 0;
   height: 100%;
 }
 
-.app-stepper .progress-fill {
+.fts-stepper .progress-fill {
   width: 100%;
   height: 100%;
 }
 
-.app-stepper .progress-bar {
+.fts-stepper .progress-bar {
   position: relative;
   width: 100%;
   height: 100%;
@@ -41,7 +41,7 @@
 }
 
 @media (min-width: 577px) { 
-  .app-stepper .step-title { 
+  .fts-stepper .step-title { 
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis; 
@@ -50,7 +50,7 @@
 }
 
 @media (max-width: 576px) { 
-  .app-stepper .stepper-items { flex-direction: column; } 
+  .fts-stepper .stepper-items { flex-direction: column; } 
 
-  .app-stepper .progress-wrapper { height: 2px; } 
+  .fts-stepper .progress-wrapper { height: 2px; } 
 }

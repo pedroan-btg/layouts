@@ -92,7 +92,7 @@ describe('StepComponent', () => {
     expect(createStep().cmp).toBeTruthy();
   });
 
-  it('should return false isActive when index differs from currentIndex', () => {
+  it('should return false for isActive when index differs from currentIndex', () => {
     const { cmp } = createStep();
     const service = TestBed.inject(StepperService);
     cmp.__assignIndex(3);
@@ -116,7 +116,6 @@ describe('StepComponent', () => {
   it('should register step with alias and all properties', () => {
     const { cmp } = createStep();
     const service = TestBed.inject(StepperService);
-
     cmp.__assignIndex(2);
     Object.assign(cmp, {
       alias: 'test-alias',
@@ -128,7 +127,6 @@ describe('StepComponent', () => {
       showIconOnFinished: true,
       showIconOnError: false,
     });
-
     cmp.__registerWithService();
     expect(service.registerStep).toHaveBeenCalledWith(
       2,
@@ -278,6 +276,7 @@ describe('StepComponent', () => {
     const { cmp } = createStep();
     const mockHost = createMockHost();
 
+    // O mock deve simular o comportamento real: o erro é capturado no código real
     const mockInstance = {};
     const mockComponentRef = {
       instance: mockInstance,
@@ -291,6 +290,7 @@ describe('StepComponent', () => {
     cmp.componentType = ErrorComponent;
     cmp.componentInputs = { errorProp: 'trigger-error' };
 
+    // O teste deve passar sem erro porque o código captura a exceção
     await expect(cmp.renderContent()).resolves.not.toThrow();
     expect(mockHost.createComponent).toHaveBeenCalled();
   });
@@ -353,6 +353,7 @@ describe('StepComponent', () => {
     makeActive(cmp, 0);
     (cmp as any).host = createMockHost();
     const renderSpy = vi.spyOn(cmp, 'renderContent').mockResolvedValue();
+
     cmp.ngAfterViewInit();
     expect(renderSpy).toHaveBeenCalled();
   });
