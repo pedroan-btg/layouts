@@ -1,0 +1,63 @@
+#!/bin/bash
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+RESET_COLOR='\033[0m'
+INFO_COLOR='\033[0;34m'
+ERROR_COLOR='\033[0;31m'
+
+log_error() {
+  printf "%bError: %s%b\n" "${ERROR_COLOR}" "$1" "${RESET_COLOR}"
+}
+
+log_info() {
+  printf "%b%s%b\n" "${INFO_COLOR}" "$1" "${RESET_COLOR}"
+}
+
+file_exists_or_exit() {
+  if [ ! -f "$1" ]; then
+    log_error "$2"
+    exit 1
+  fi
+}
+
+should_skip_template() {
+  case "$COMMIT_SOURCE" in
+    merge|squash|commit|fixup|message*)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+# Validations
+file_exists_or_exit "$COMMIT_MSG_FILE" "Commit message file '$COMMIT_MSG_FILE' not found."
+file_exists_or_exit ".gitmessage" "File .gitmessage not found."
+
+# Skip logic
+if should_skip_template; then
+  log_info "Skipping template inclusion for '$COMMIT_SOURCE' operation."
+  exit 0
+fi
+
+# Get commit message contents
+MESSAGE_CONTENT=$(<.gitmessage)
+COMMIT_MSG_CONTENT=$(<"$COMMIT_MSG_FILE")
+
+# Determine if we should skip adding the template
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "HEAD")
+
+if grep -Eq '^(fixup!|chore\(release\):)' "$COMMIT_MSG_FILE"; then
+  COMBINED_MSG="$COMMIT_MSG_CONTENT"
+elif [ "$CURRENT_BRANCH" != "HEAD" ]; then
+  COMBINED_MSG="${MESSAGE_CONTENT}${COMMIT_MSG_CONTENT}"
+else
+  COMBINED_MSG="$COMMIT_MSG_CONTENT"
+fi
+
+# Write back to the commit message file (remove any carriage return characters)
+echo "$COMBINED_MSG" | tr -d '\r' > "$COMMIT_MSG_FILE"
+exit 0

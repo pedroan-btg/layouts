@@ -1,0 +1,54 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+
+RESET_COLOR='\033[0m'
+ERROR_COLOR='\033[0;31m'
+
+log_error() {
+  printf "%bError: %s%b\n" "${ERROR_COLOR}" "$1" "${RESET_COLOR}"
+}
+
+file_exists_or_exit() {
+  if [ ! -f "$1" ]; then
+    log_error "$2"
+    exit 1
+  fi
+}
+
+# Check if commit message file exists
+file_exists_or_exit "$COMMIT_MSG_FILE" "Commit message file '$COMMIT_MSG_FILE' not found."
+
+# Path to the .gitmessage file
+GIT_MESSAGE_FILE=".gitmessage"
+
+# Check if .gitmessage file exists
+file_exists_or_exit "$GIT_MESSAGE_FILE" "File .gitmessage not found."
+
+# Read the file and remove comments (lines starting with '#')
+get_file_without_comments() {
+  # Reads the file, removes lines that start with '#' (comments)
+  grep -v '^\s*#' "$1" | tr -d '\r' | tr -d '\n'
+}
+
+MESSAGE_CONTENT=$(get_file_without_comments "$GIT_MESSAGE_FILE")
+COMMIT_MSG_CONTENT=$(get_file_without_comments "$COMMIT_MSG_FILE")
+
+# Check if the commit message matches the template
+if [ "$COMMIT_MSG_CONTENT" = "$MESSAGE_CONTENT" ]; then
+  echo "" > "$COMMIT_MSG_FILE"
+  exit 0
+fi
+
+# Check if the commit message contains 'fixup!' or starts with 'chore(release):'
+if ! grep -Eq '^(fixup!|chore\(release\):)' "$COMMIT_MSG_FILE"; then
+  # Check if the commit message is missing Refs.
+  if ! echo "${COMMIT_MSG_CONTENT}" | grep -Eq "Refs: #[0-9]{4,9}"; then
+    log_error "Commit message format is missing Refs."
+    exit 1
+  fi
+fi
+
+# If the commit message format is valid and contains 'Refs: #<task number>', call commitlint to validate the commit message
+npx --no -- commitlint --edit "$COMMIT_MSG_FILE"
+exit 0
