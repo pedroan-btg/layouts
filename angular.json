@@ -91,6 +91,14 @@
             ],
             "styles": [
               "src/styles.css"
+            ],
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/app/FormStepsComponent/**/*",
+              "src/app/core/**/*",
+              "src/app/app.config.ts",
+              "src/app/app.routes.ts",
+              "src/main.ts"
             ]
           }
         },
