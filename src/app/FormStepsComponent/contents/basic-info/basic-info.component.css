@@ -84,10 +84,22 @@
   border-radius: 6px;
 }
 
-.btn-primary { background-color: #0d6efd; color: #fff; }
-.btn-outline { border: 1px solid #d1d5db; background: transparent; }
-.btn-danger { background-color: #dc3545; color: #fff; }
-.btn-sm { padding: 4px 8px; font-size: 12px; }
+.btn-primary {
+  background-color: #0d6efd;
+  color: #fff;
+}
+.btn-outline {
+  border: 1px solid #d1d5db;
+  background: transparent;
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+}
 
 .status-pill {
   display: inline-block;
@@ -102,7 +114,9 @@
   gap: 8px;
 }
 
-.table-container { min-height: 140px; }
+.table-container {
+  min-height: 140px;
+}
 
 .form-row {
   display: grid;
@@ -110,6 +124,13 @@
   gap: 12px;
 }
 
-.form-col { display: flex; flex-direction: column; }
+.form-col {
+  display: flex;
+  flex-direction: column;
+}
 
-.checkbox { display: inline-flex; align-items: center; gap: 6px; }
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

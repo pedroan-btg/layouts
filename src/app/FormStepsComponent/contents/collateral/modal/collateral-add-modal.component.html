@@ -48,7 +48,11 @@
           </div>
           <div class="col-md-6">
             <label class="form-label" for="account">Conta</label>
-            <input id="account" class="form-control" formControlName="account" />
+            <input
+              id="account"
+              class="form-control"
+              formControlName="account"
+            />
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
@@ -72,7 +76,9 @@
             />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="allocatedQuantity">Qtd alocada</label>
+            <label class="form-label" for="allocatedQuantity"
+              >Qtd alocada</label
+            >
             <input
               id="allocatedQuantity"
               class="form-control"
@@ -104,19 +110,36 @@
           </div>
           <div class="col-md-4">
             <label class="form-label" for="isinCode">Cod ISIN</label>
-            <input id="isinCode" class="form-control" formControlName="isinCode" />
+            <input
+              id="isinCode"
+              class="form-control"
+              formControlName="isinCode"
+            />
           </div>
           <div class="col-md-4">
             <label class="form-label" for="assetCode">Cod ativo</label>
-            <input id="assetCode" class="form-control" formControlName="assetCode" />
+            <input
+              id="assetCode"
+              class="form-control"
+              formControlName="assetCode"
+            />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="onClose()">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="onClose()"
+        >
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSave()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="onSave()"
+        >
           Adicionar
         </button>
       </div>

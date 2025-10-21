@@ -1,7 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import type { Contrato, ContratoApi, ContratosApiResponse, TipoBaixa } from './models';
+import type { Contrato, ContratosApiResponse, TipoBaixa } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class BasicInfoService {

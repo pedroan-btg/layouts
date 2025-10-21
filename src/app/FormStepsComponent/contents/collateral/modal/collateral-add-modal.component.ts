@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import type { Collateral, CollateralPayload } from '../models';
+import type { CollateralPayload } from '../models';
 
 @Component({
   selector: '[fts-collateral-add-modal]',

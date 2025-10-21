@@ -29,6 +29,7 @@ export class CollateralService {
   ]).pipe(
     map(([arr, page, size]) => {
       const start = (page - 1) * size;
+
       return arr.slice(start, start + size);
     }),
   );

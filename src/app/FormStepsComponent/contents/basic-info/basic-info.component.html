@@ -24,7 +24,11 @@
       >
     </div>
     @if (showras) {
-      <div class="ras-container mt-3" [loadingHost]="rasLoading$" [overlay]="true">
+      <div
+        class="ras-container mt-3"
+        [loadingHost]="rasLoading$"
+        [overlay]="true"
+      >
         <div class="row g-3 align-items-end">
           <div class="col-md-6">
             <label class="form-label" for="dealRASInput">Deal RAS</label>
@@ -80,16 +84,33 @@
         ></button>
       </div>
       <div class="modal-body">
-        Caso o Deal digitado seja válido e você já tenha preenchido outros campos, eles poderão ser sobrescritos com os dados imputados no RAS.
+        Caso o Deal digitado seja válido e você já tenha preenchido outros
+        campos, eles poderão ser sobrescritos com os dados imputados no RAS.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="cancelApplyRAS()">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="confirmApplyRAS()">Aplicar</button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="cancelApplyRAS()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="confirmApplyRAS()"
+        >
+          Aplicar
+        </button>
       </div>
     </div>
   </div>
 </div>
-<div class="modal-backdrop fade" [class.show]="showConfirmRas" *ngIf="showConfirmRas"></div>
+<div
+  class="modal-backdrop fade"
+  [class.show]="showConfirmRas"
+  *ngIf="showConfirmRas"
+></div>
 
 <div class="mb-4 mt-8">
   <h6 class="fw-medium mb-1">Contrato</h6>
@@ -151,7 +172,12 @@
         >
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary" type="button" (click)="onBuscar()" [disabled]="rasLocked || manualLocked">
+        <button
+          class="btn btn-primary"
+          type="button"
+          (click)="onBuscar()"
+          [disabled]="rasLocked || manualLocked"
+        >
           Buscar
         </button>
       </div>
@@ -166,10 +192,22 @@
     >
       <table
         class="table align-middle table-row-dashed"
-        [data-table]="rasLocked ? rasContratos : (manualLocked ? manualContratos : ((contratos$ | async) ?? []))"
+        [data-table]="
+          rasLocked
+            ? rasContratos
+            : manualLocked
+              ? manualContratos
+              : ((contratos$ | async) ?? [])
+        "
         data-table-id="id"
         data-pagination="infinite"
-        [data-total]="rasLocked ? rasContratos.length : (manualLocked ? manualContratos.length : ((total$ | async) ?? 0))"
+        [data-total]="
+          rasLocked
+            ? rasContratos.length
+            : manualLocked
+              ? manualContratos.length
+              : ((total$ | async) ?? 0)
+        "
         [data-page-size]="12"
         [data-show-selector]="true"
         [data-show-item-count]="true"
@@ -188,18 +226,28 @@
         </ng-template>
         <ng-template ftsTableColumn data-title="Ação" let-row>
           @if (rasLocked) {
-            <button class="btn btn-danger btn-sm" type="button" (click)="onExcluirRAS()">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="onExcluirRAS()"
+            >
               Excluir
             </button>
           } @else if (manualLocked) {
-            <button class="btn btn-danger btn-sm" type="button" (click)="onExcluirSelecionado()">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="onExcluirSelecionado()"
+            >
               Excluir
             </button>
           } @else {
             <button
               class="btn btn-sm"
               [class.btn-primary]="(selected$ | async)?.chave === row.chave"
-              [class.btn-outline-secondary]="(selected$ | async)?.chave !== row.chave"
+              [class.btn-outline-secondary]="
+                (selected$ | async)?.chave !== row.chave
+              "
               type="button"
               (click)="onSelect(row)"
             >

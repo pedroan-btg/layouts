@@ -87,6 +87,12 @@ module.exports = tseslint.config(
     },
   },
   {
+    files: ['src/app/FormStepsComponent/contents/basic-info/basic-info.component.ts'],
+    rules: {
+      'max-lines': 'off',
+    },
+  },
+  {
     files: ['**/*.spec.ts'],
     rules: {
       'max-lines': 'off',

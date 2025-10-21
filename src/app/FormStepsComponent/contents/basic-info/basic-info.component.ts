@@ -134,6 +134,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     const container = this.tableContainer?.nativeElement ?? null;
+
     if (!container) return;
 
     fromEvent(container, 'scroll')
@@ -155,10 +156,15 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
       });
 
     const sentinel = this.infiniteSentinel?.nativeElement ?? null;
+
     if (sentinel) {
       this.io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && this.currentCount < this.totalCount && !this.isLoading) {
+          if (
+            entry.isIntersecting &&
+            this.currentCount < this.totalCount &&
+            !this.isLoading
+          ) {
             this.onLoadMore();
           }
         });
@@ -175,11 +181,13 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   onBuscar(): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
   }
 
   clearSearch(): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.searchText = '';
     this.onlyNotLinked = false;
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
@@ -188,6 +196,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   toggleShowRAS(event: Event): void {
     const input = event.target as HTMLInputElement | null;
     this.showras = !!input?.checked;
+
     if (!this.showras) {
       this.resetRASLock();
       this.rasLoading$.next(false);
@@ -196,13 +205,18 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   private formatIsoToInput(iso: string | null | undefined): string {
     if (!iso) return '';
+
     if (iso.startsWith('0001-01-01')) return '';
+
     try {
       const d = new Date(iso);
+
       if (isNaN(d.getTime())) return '';
+
       const yyyy = d.getUTCFullYear();
       const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
       const dd = String(d.getUTCDate()).padStart(2, '0');
+
       return `${yyyy}-${mm}-${dd}`;
     } catch {
       return '';
@@ -247,12 +261,14 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
     if (!id) {
       this.dealRASStatus = 'Informe o Deal RAS';
+
       return;
     }
 
     if (this.manualLocked) {
       // Abre modal de confirmação (Bootstrap) ao invés de window.confirm
       this.showConfirmRas = true;
+
       return;
     }
 
@@ -261,9 +277,11 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   confirmApplyRAS(): void {
     const id = (this.dealRAS ?? '').trim();
+
     if (!id) {
       this.dealRASStatus = 'Informe o Deal RAS';
       this.showConfirmRas = false;
+
       return;
     }
 
@@ -326,16 +344,19 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   onChangePageSize(size: number): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.svc.changePageSize(Number(size));
   }
 
   onLoadMore(): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.svc.loadNextPage();
   }
 
   onSelect(row: Contrato): void {
     if (this.rasLocked) return;
+
     this.svc.selectContrato(row);
     this.manualLocked = true;
     this.manualContratos = [row];
@@ -343,6 +364,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   onPrevPage(): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.page$
       .subscribe((currentPage) => {
         if (currentPage > 1) {
@@ -354,6 +376,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   onNextPage(): void {
     if (this.rasLocked || this.manualLocked) return;
+
     this.page$
       .subscribe((currentPage) => {
         const nextPage = currentPage + 1;
