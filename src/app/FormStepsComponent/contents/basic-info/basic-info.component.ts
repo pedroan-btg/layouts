@@ -19,8 +19,8 @@ import { i18n } from 'fts-frontui/i18n';
 import { BasicInfoService, Contrato } from './basic-info.service';
 import { GetDealRasService } from './services/get-deal-ras.service';
 import { DealRasResponse } from './models';
-import { Subject, fromEvent } from 'rxjs';
-import { auditTime, takeUntil } from 'rxjs/operators';
+import { Subject, BehaviorSubject, fromEvent } from 'rxjs';
+import { auditTime, takeUntil, finalize } from 'rxjs/operators';
 
 @Component({
   selector: '[fts-basic-info]',
@@ -71,6 +71,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   protected readonly pageSize$ = this.svc.pageSize$;
   protected readonly selected$ = this.svc.selectedContrato$;
   protected readonly loading$ = this.svc.loading$;
+  protected readonly rasLoading$ = new BehaviorSubject<boolean>(false);
 
   protected readonly form = this.fb.group({
     dataContrato: [{ value: '', disabled: true }, [Validators.required]],
@@ -146,6 +147,9 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   toggleShowRAS(event: Event): void {
     const input = event.target as HTMLInputElement | null;
     this.showras = !!input?.checked;
+    if (!this.showras) {
+      this.rasLoading$.next(false);
+    }
   }
 
   applyRAS(): void {
@@ -158,15 +162,19 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     }
 
     this.dealRASStatus = 'Carregando...';
-    this.dealRasSvc.getDealRas(id).subscribe({
-      next: (res: DealRasResponse) => {
-        const status = res?.status ?? 'OK';
-        this.dealRASStatus = String(status);
-      },
-      error: () => {
-        this.dealRASStatus = 'Erro ao buscar';
-      },
-    });
+    this.rasLoading$.next(true);
+    this.dealRasSvc
+      .getDealRas(id)
+      .pipe(finalize(() => this.rasLoading$.next(false)))
+      .subscribe({
+        next: (res: DealRasResponse) => {
+          const status = res?.status ?? 'OK';
+          this.dealRASStatus = String(status);
+        },
+        error: () => {
+          this.dealRASStatus = 'Erro ao buscar';
+        },
+      });
   }
 
   private lastProcessedPage = 0;
@@ -208,9 +216,9 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   onPrevPage(): void {
     this.page$
       .subscribe((currentPage) => {
-        const prev = currentPage - 1;
-
-        if (prev >= 1) this.svc.changePage(prev);
+        if (currentPage > 1) {
+          this.svc.changePage(currentPage - 1);
+        }
       })
       .unsubscribe();
   }
@@ -218,81 +226,52 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   onNextPage(): void {
     this.page$
       .subscribe((currentPage) => {
-        const next = currentPage + 1;
-        this.svc.changePage(next);
+        const nextPage = currentPage + 1;
+        const maxPages = Math.ceil(this.totalCount / 12);
+
+        if (nextPage <= maxPages) {
+          this.svc.changePage(nextPage);
+        }
       })
       .unsubscribe();
   }
 
   ngAfterViewInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(auditTime(200), takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.hasUserScrolled = true;
+      });
+
     this.initIntersectionObserver();
   }
 
   private initIntersectionObserver(): void {
-    const container = this.tableContainer?.nativeElement ?? null;
-    const sentinel = this.infiniteSentinel?.nativeElement ?? null;
+    if (!this.infiniteSentinel) return;
 
-    if (!container || !sentinel) {
-      return;
-    }
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !this.isLoading) {
+          const el = this.tableContainer?.nativeElement ?? null;
 
-    if (this.io) {
-      this.io.disconnect();
-    }
+          if (!el) return;
 
-    this.io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const hasMore = this.currentCount < this.totalCount;
-            const canTrigger = !this.isLoading && hasMore;
-            const root = container as HTMLElement | null;
-            const notScrollable =
-              !root || root.scrollHeight <= root.clientHeight;
+          const scrollPct =
+            (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
 
-            if (canTrigger && this.hasUserScrolled && !notScrollable) {
-              this.svc.loadNextPage();
-              this.hasUserScrolled = false;
-            }
+          if (scrollPct >= this.scrollThresholdPct) {
+            this.onLoadMore();
           }
         }
-      },
-      {
-        root: container,
-        rootMargin: '0px 0px 0px 0px',
-        threshold: 0,
-      },
-    );
-
-    this.io.observe(sentinel);
-
-    fromEvent(container, 'scroll')
-      .pipe(auditTime(100), takeUntil(this.destroy$))
-      .subscribe(() => {
-        const scrollTop = container.scrollTop;
-        const clientHeight = container.clientHeight;
-        const scrollHeight = container.scrollHeight;
-        const consumedPct =
-          ((scrollTop + clientHeight) / Math.max(scrollHeight, 1)) * 100;
-        const hasMore = this.currentCount < this.totalCount;
-        const canTrigger =
-          !this.isLoading && hasMore && consumedPct >= this.scrollThresholdPct;
-
-        if (canTrigger) {
-          this.svc.loadNextPage();
-          this.hasUserScrolled = false;
-        } else if (!this.isLoading) {
-          this.hasUserScrolled = true;
-        }
       });
+    });
+
+    this.io.observe(this.infiniteSentinel.nativeElement);
   }
 
   ngOnDestroy(): void {
-    if (this.io) {
-      this.io.disconnect();
-    }
-
     this.destroy$.next();
     this.destroy$.complete();
+    this.io?.disconnect();
   }
 }
