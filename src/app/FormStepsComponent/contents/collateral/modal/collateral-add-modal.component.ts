@@ -1,12 +1,19 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Garantia } from '../collateral.service';
 
-export type GarantiaPayload = Omit<Garantia, 'id' | 'status'> & { status?: string };
+export type GarantiaPayload = Omit<Garantia, 'id' | 'status'> & {
+  status?: string;
+};
 
 @Component({
-  selector: 'fts-collateral-add-modal',
+  selector: '[fts-collateral-add-modal]',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './collateral-add-modal.component.html',
@@ -15,7 +22,7 @@ export class CollateralAddModalComponent {
   @Input() open = false;
   @Input() tiposGarantia: { label: string; value: string }[] = [];
   @Output() save = new EventEmitter<GarantiaPayload>();
-  @Output() close = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
 
   private readonly fb = inject(FormBuilder);
 
@@ -36,11 +43,12 @@ export class CollateralAddModalComponent {
 
   onClose(): void {
     this.form.reset({ vinculado: false });
-    this.close.emit();
+    this.closed.emit();
   }
 
   onSave(): void {
     if (this.form.invalid) return;
+
     const v = this.form.getRawValue();
     const payload: GarantiaPayload = {
       tipo: String(v.tipo ?? ''),

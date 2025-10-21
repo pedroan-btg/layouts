@@ -11,68 +11,137 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Adicionar garantia</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="onClose()"
+        ></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="form" class="row g-3">
           <div class="col-md-6">
-            <label class="form-label">Tipo de garantia</label>
-            <select class="form-select" formControlName="tipo">
+            <label class="form-label" for="tipo">Tipo de garantia</label>
+            <select id="tipo" class="form-select" formControlName="tipo">
               <option [ngValue]="null">Selecione...</option>
-              <option *ngFor="let t of tiposGarantia" [ngValue]="t.value">{{ t.label }}</option>
+              <option *ngFor="let t of tiposGarantia" [ngValue]="t.value">
+                {{ t.label }}
+              </option>
             </select>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Ticker / Nome</label>
-            <input class="form-control" formControlName="tickerOuNome" placeholder="Ex.: CVCB3" />
+            <label class="form-label" for="tickerOuNome">Ticker / Nome</label>
+            <input
+              id="tickerOuNome"
+              class="form-control"
+              formControlName="tickerOuNome"
+              placeholder="Ex.: CVCB3"
+            />
           </div>
           <div class="col-md-6">
-            <label class="form-label">Garantidor</label>
-            <input class="form-control" formControlName="garantidor" />
+            <label class="form-label" for="garantidor">Garantidor</label>
+            <input
+              id="garantidor"
+              class="form-control"
+              formControlName="garantidor"
+            />
           </div>
           <div class="col-md-6">
-            <label class="form-label">Conta</label>
-            <input class="form-control" formControlName="conta" />
+            <label class="form-label" for="conta">Conta</label>
+            <input id="conta" class="form-control" formControlName="conta" />
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="swVinculado" formControlName="vinculado" />
-              <label class="form-check-label" for="swVinculado">Vinculado</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="swVinculado"
+                formControlName="vinculado"
+              />
+              <label class="form-check-label" for="swVinculado"
+                >Vinculado</label
+              >
             </div>
           </div>
           <div class="col-md-4">
-            <label class="form-label">PU</label>
-            <input class="form-control" formControlName="pu" type="number" />
+            <label class="form-label" for="pu">PU</label>
+            <input
+              id="pu"
+              class="form-control"
+              formControlName="pu"
+              type="number"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Qtd alocada</label>
-            <input class="form-control" formControlName="qtdAlocada" type="number" />
+            <label class="form-label" for="qtdAlocada">Qtd alocada</label>
+            <input
+              id="qtdAlocada"
+              class="form-control"
+              formControlName="qtdAlocada"
+              type="number"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Valor</label>
-            <input class="form-control" formControlName="valor" type="number" />
+            <label class="form-label" for="valor">Valor</label>
+            <input
+              id="valor"
+              class="form-control"
+              formControlName="valor"
+              type="number"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Lending Value</label>
-            <input class="form-control" formControlName="lendingValue" type="number" />
+            <label class="form-label" for="lendingValue">Lending Value</label>
+            <input
+              id="lendingValue"
+              class="form-control"
+              formControlName="lendingValue"
+              type="number"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Emissor</label>
-            <input class="form-control" formControlName="emissor" />
+            <label class="form-label" for="emissor">Emissor</label>
+            <input
+              id="emissor"
+              class="form-control"
+              formControlName="emissor"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Cod ISIN</label>
-            <input class="form-control" formControlName="codIsin" />
+            <label class="form-label" for="codIsin">Cod ISIN</label>
+            <input
+              id="codIsin"
+              class="form-control"
+              formControlName="codIsin"
+            />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Cod ativo</label>
-            <input class="form-control" formControlName="codAtivo" />
+            <label class="form-label" for="codAtivo">Cod ativo</label>
+            <input
+              id="codAtivo"
+              class="form-control"
+              formControlName="codAtivo"
+            />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="onClose()">Cancelar</button>
-        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSave()">Adicionar</button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="onClose()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="onSave()"
+        >
+          Adicionar
+        </button>
       </div>
     </div>
   </div>

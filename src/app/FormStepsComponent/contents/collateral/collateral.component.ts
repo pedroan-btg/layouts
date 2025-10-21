@@ -10,7 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { CollateralService, Garantia } from './collateral.service';
-import { CollateralAddModalComponent, GarantiaPayload } from './modal/collateral-add-modal.component';
+import {
+  CollateralAddModalComponent,
+  GarantiaPayload,
+} from './modal/collateral-add-modal.component';
 
 @Component({
   selector: '[fts-collateral]',
@@ -82,7 +85,9 @@ export class CollateralComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files && input.files[0];
+
     if (!file) return;
+
     this.svc.importarArquivo(file);
     // opcionalmente poderíamos fazer um parse simples aqui
     input.value = '';
@@ -95,6 +100,7 @@ export class CollateralComponent {
   @HostListener('document:click', ['$event'])
   onDocClick(ev: Event): void {
     const el = ev.target as HTMLElement;
+
     if (!el.closest('.fts-row-menu')) {
       this.openedMenuId = null;
     }

@@ -17,7 +17,10 @@ import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
 import { BasicInfoService, Contrato } from './basic-info.service';
-import { GetDealRasService } from './services/get-deal-ras.service';
+import {
+  GetDealRasService,
+  DealRasResponse,
+} from './services/get-deal-ras.service';
 import { Subject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil } from 'rxjs/operators';
 
@@ -149,14 +152,17 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
   applyRAS(): void {
     const id = (this.dealRAS ?? '').trim();
+
     if (!id) {
       this.dealRASStatus = 'Informe o Deal RAS';
+
       return;
     }
+
     this.dealRASStatus = 'Carregando...';
     this.dealRasSvc.getDealRas(id).subscribe({
-      next: (res) => {
-        const status = (res && (res as any).status) || 'OK';
+      next: (res: DealRasResponse) => {
+        const status = res?.status ?? 'OK';
         this.dealRASStatus = String(status);
       },
       error: () => {

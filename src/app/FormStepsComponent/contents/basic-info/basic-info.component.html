@@ -11,28 +11,46 @@
 <section class="card border-0 shadow-sm mb-4">
   <div class="card-body">
     <div class="mt-2 col-12">
-      <input class="form-check-input" type="checkbox" name="showras" id="showras" [checked]="showras"
-        (change)="toggleShowRAS($event)" />
-      <label class="form-check-label ps-2" for="showras">Pré preencher campos com o Deal RAS</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="showras"
+        id="showras"
+        [checked]="showras"
+        (change)="toggleShowRAS($event)"
+      />
+      <label class="form-check-label ps-2" for="showras"
+        >Pré preencher campos com o Deal RAS</label
+      >
     </div>
-    @if(showras){
-    <div class="row g-3 align-items-end mt-3">
-      <div class="col-md-6">
-        <label class="form-label" for="dealRASInput">Deal RAS</label>
-        <input id="dealRASInput" type="text" class="form-control" [(ngModel)]="dealRAS"
-          placeholder="Digite o Deal RAS" />
+    @if (showras) {
+      <div class="row g-3 align-items-end mt-3">
+        <div class="col-md-6">
+          <label class="form-label" for="dealRASInput">Deal RAS</label>
+          <input
+            id="dealRASInput"
+            type="text"
+            class="form-control"
+            [(ngModel)]="dealRAS"
+            placeholder="Digite o Deal RAS"
+          />
+        </div>
+        <div class="col-md-2">
+          <span class="form-label">&nbsp;</span>
+          <button
+            class="btn btn-primary"
+            type="button"
+            name="applyRAS"
+            (click)="applyRAS()"
+          >
+            Aplicar
+          </button>
+        </div>
+        <div class="col-md-4">
+          <span class="form-label">Status Deal RAS</span>
+          <div class="form-control" role="textbox" aria-readonly="true">-</div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <span class="form-label">&nbsp;</span>
-        <button class="btn btn-primary" type="button" name="applyRAS" (click)="applyRAS()">
-          Aplicar
-        </button>
-      </div>
-      <div class="col-md-4">
-        <span class="form-label">Status Deal RAS</span>
-        <div class="form-control" role="textbox" aria-readonly="true">-</div>
-      </div>
-    </div>
     }
   </div>
 </section>
@@ -48,8 +66,12 @@
     <div class="row g-2 align-items-center mb-3">
       <div class="col-auto">
         <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Buscar por chave
           </button>
           <ul class="dropdown-menu">
@@ -62,15 +84,31 @@
       <div class="col">
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-search"></i></span>
-          <input type="text" class="form-control" placeholder="Busque por chave de contrato" [(ngModel)]="searchText" />
-          <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Busque por chave de contrato"
+            [(ngModel)]="searchText"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="clearSearch()"
+          >
             ×
           </button>
         </div>
       </div>
       <div class="col-auto form-check">
-        <input class="form-check-input" type="checkbox" id="apenasNaoVinculados" [(ngModel)]="onlyNotLinked" />
-        <label class="form-check-label" for="apenasNaoVinculados">Apenas não vinculados</label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="apenasNaoVinculados"
+          [(ngModel)]="onlyNotLinked"
+        />
+        <label class="form-check-label" for="apenasNaoVinculados"
+          >Apenas não vinculados</label
+        >
       </div>
       <div class="col-auto">
         <button class="btn btn-primary" type="button" (click)="onBuscar()">
@@ -80,11 +118,25 @@
     </div>
 
     <!-- Tabela de contratos (frontui) com scroll infinito -->
-    <div class="table-responsive mb-4 table-container" #tableContainer [loadingHost]="loading$" [overlay]="false">
-      <table class="table align-middle table-row-dashed" [data-table]="(contratos$ | async) ?? []" data-table-id="id"
-        data-pagination="infinite" [data-total]="(total$ | async) ?? 0" [data-page-size]="12"
-        [data-show-selector]="true" [data-show-item-count]="true" (changePageSize)="onChangePageSize($event)"
-        (changePage)="onChangePage($event)" (loadMore)="onLoadMore()">
+    <div
+      class="table-responsive mb-4 table-container"
+      #tableContainer
+      [loadingHost]="loading$"
+      [overlay]="false"
+    >
+      <table
+        class="table align-middle table-row-dashed"
+        [data-table]="(contratos$ | async) ?? []"
+        data-table-id="id"
+        data-pagination="infinite"
+        [data-total]="(total$ | async) ?? 0"
+        [data-page-size]="12"
+        [data-show-selector]="true"
+        [data-show-item-count]="true"
+        (changePageSize)="onChangePageSize($event)"
+        (changePage)="onChangePage($event)"
+        (loadMore)="onLoadMore()"
+      >
         <ng-template ftsTableColumn data-title="Chave" let-row>
           {{ row.chave }}
         </ng-template>
@@ -95,14 +147,19 @@
           {{ row.vinculoTrade }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Ação" let-row>
-          <button class="btn btn-sm" [class.btn-primary]="(selected$ | async)?.chave === row.chave"
+          <button
+            class="btn btn-sm"
+            [class.btn-primary]="(selected$ | async)?.chave === row.chave"
             [class.btn-outline-secondary]="
               (selected$ | async)?.chave !== row.chave
-            " type="button" (click)="onSelect(row)">
+            "
+            type="button"
+            (click)="onSelect(row)"
+          >
             {{
-            (selected$ | async)?.chave === row.chave
-            ? "Selecionado"
-            : "Selecionar"
+              (selected$ | async)?.chave === row.chave
+                ? "Selecionado"
+                : "Selecionar"
             }}
           </button>
         </ng-template>
@@ -115,20 +172,34 @@
       <div class="row g-3">
         <div class="col-md-4">
           <label class="form-label" for="dataContrato">Data do contrato</label>
-          <input id="dataContrato" type="date" class="form-control" formControlName="dataContrato" />
+          <input
+            id="dataContrato"
+            type="date"
+            class="form-control"
+            formControlName="dataContrato"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label" for="dataInicioVigencia">
             Data início vigência
           </label>
-          <input id="dataInicioVigencia" type="date" class="form-control" formControlName="dataInicioVigencia" />
+          <input
+            id="dataInicioVigencia"
+            type="date"
+            class="form-control"
+            formControlName="dataInicioVigencia"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label" for="tipoBaixa">Tipo de baixa</label>
-          <select id="tipoBaixa" class="form-select" formControlName="tipoBaixa">
+          <select
+            id="tipoBaixa"
+            class="form-select"
+            formControlName="tipoBaixa"
+          >
             <option [ngValue]="null">Selecione o tipo de baixa</option>
             @for (t of tiposBaixa; track t.value) {
-            <option [ngValue]="t.value">{{ t.label }}</option>
+              <option [ngValue]="t.value">{{ t.label }}</option>
             }
           </select>
         </div>
