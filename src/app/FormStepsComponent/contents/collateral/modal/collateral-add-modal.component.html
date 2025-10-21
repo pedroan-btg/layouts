@@ -21,34 +21,34 @@
       <div class="modal-body">
         <form [formGroup]="form" class="row g-3">
           <div class="col-md-6">
-            <label class="form-label" for="tipo">Tipo de garantia</label>
-            <select id="tipo" class="form-select" formControlName="tipo">
+            <label class="form-label" for="type">Tipo de garantia</label>
+            <select id="type" class="form-select" formControlName="type">
               <option [ngValue]="null">Selecione...</option>
-              <option *ngFor="let t of tiposGarantia" [ngValue]="t.value">
+              <option *ngFor="let t of collateralTypes" [ngValue]="t.value">
                 {{ t.label }}
               </option>
             </select>
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="tickerOuNome">Ticker / Nome</label>
+            <label class="form-label" for="tickerOrName">Ticker / Nome</label>
             <input
-              id="tickerOuNome"
+              id="tickerOrName"
               class="form-control"
-              formControlName="tickerOuNome"
+              formControlName="tickerOrName"
               placeholder="Ex.: CVCB3"
             />
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="garantidor">Garantidor</label>
+            <label class="form-label" for="guarantor">Garantidor</label>
             <input
-              id="garantidor"
+              id="guarantor"
               class="form-control"
-              formControlName="garantidor"
+              formControlName="guarantor"
             />
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="conta">Conta</label>
-            <input id="conta" class="form-control" formControlName="conta" />
+            <label class="form-label" for="account">Conta</label>
+            <input id="account" class="form-control" formControlName="account" />
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
@@ -56,38 +56,36 @@
                 class="form-check-input"
                 type="checkbox"
                 role="switch"
-                id="swVinculado"
-                formControlName="vinculado"
+                id="swLinked"
+                formControlName="linked"
               />
-              <label class="form-check-label" for="swVinculado"
-                >Vinculado</label
-              >
+              <label class="form-check-label" for="swLinked">Vinculado</label>
             </div>
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="pu">PU</label>
+            <label class="form-label" for="unitPrice">PU</label>
             <input
-              id="pu"
+              id="unitPrice"
               class="form-control"
-              formControlName="pu"
+              formControlName="unitPrice"
               type="number"
             />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="qtdAlocada">Qtd alocada</label>
+            <label class="form-label" for="allocatedQuantity">Qtd alocada</label>
             <input
-              id="qtdAlocada"
+              id="allocatedQuantity"
               class="form-control"
-              formControlName="qtdAlocada"
+              formControlName="allocatedQuantity"
               type="number"
             />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="valor">Valor</label>
+            <label class="form-label" for="value">Valor</label>
             <input
-              id="valor"
+              id="value"
               class="form-control"
-              formControlName="valor"
+              formControlName="value"
               type="number"
             />
           </div>
@@ -101,45 +99,24 @@
             />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="emissor">Emissor</label>
-            <input
-              id="emissor"
-              class="form-control"
-              formControlName="emissor"
-            />
+            <label class="form-label" for="issuer">Emissor</label>
+            <input id="issuer" class="form-control" formControlName="issuer" />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="codIsin">Cod ISIN</label>
-            <input
-              id="codIsin"
-              class="form-control"
-              formControlName="codIsin"
-            />
+            <label class="form-label" for="isinCode">Cod ISIN</label>
+            <input id="isinCode" class="form-control" formControlName="isinCode" />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="codAtivo">Cod ativo</label>
-            <input
-              id="codAtivo"
-              class="form-control"
-              formControlName="codAtivo"
-            />
+            <label class="form-label" for="assetCode">Cod ativo</label>
+            <input id="assetCode" class="form-control" formControlName="assetCode" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-secondary"
-          (click)="onClose()"
-        >
+        <button type="button" class="btn btn-outline-secondary" (click)="onClose()">
           Cancelar
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="form.invalid"
-          (click)="onSave()"
-        >
+        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSave()">
           Adicionar
         </button>
       </div>

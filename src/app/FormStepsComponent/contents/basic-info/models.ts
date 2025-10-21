@@ -103,3 +103,25 @@ export interface DealRasResponse extends DealRas {
    */
   status: string;
 }
+
+export interface Contrato {
+  id: string;
+  chave: string;
+  operacao: string;
+  vinculoTrade: string;
+  acao: string;
+}
+
+export type ContratoApi = Contrato;
+
+export interface ContratosApiResponse {
+  data: ContratoApi[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface TipoBaixa {
+  label: string;
+  value: string;
+}

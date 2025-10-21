@@ -16,9 +16,9 @@ import {
 import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
-import { BasicInfoService, Contrato } from './basic-info.service';
+import { BasicInfoService } from './basic-info.service';
 import { GetDealRasService } from './services/get-deal-ras.service';
-import { DealRasResponse } from './models';
+import { DealRasResponse, Contrato } from './models';
 import { Subject, BehaviorSubject, fromEvent } from 'rxjs';
 import { auditTime, takeUntil, finalize } from 'rxjs/operators';
 
@@ -65,6 +65,12 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   protected searchText = '';
   protected onlyNotLinked = false;
 
+  protected rasLocked = false;
+  protected manualLocked = false;
+  protected manualContratos: Contrato[] = [];
+  protected rasContratos: Contrato[] = [];
+  protected showConfirmRas = false;
+
   protected readonly contratos$ = this.svc.contratos$;
   protected readonly total$ = this.svc.total$;
   protected readonly page$ = this.svc.page$;
@@ -74,24 +80,16 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   protected readonly rasLoading$ = new BehaviorSubject<boolean>(false);
 
   protected readonly form = this.fb.group({
-    dataContrato: [{ value: '', disabled: true }, [Validators.required]],
-    dataInicioVigencia: [{ value: '', disabled: true }, [Validators.required]],
-    tipoBaixa: [
-      { value: null as unknown, disabled: true },
-      [Validators.required],
-    ],
+    dataContrato: ['', [Validators.required]],
+    dataInicioVigencia: ['', [Validators.required]],
+    tipoBaixa: [null as unknown, [Validators.required]],
   });
 
   protected readonly tiposBaixa = this.svc.tiposBaixa;
 
   constructor() {
-    this.svc.selectedContrato$.subscribe((sel) => {
-      if (sel) {
-        this.form.enable({ emitEvent: false });
-      } else {
-        this.form.disable({ emitEvent: false });
-      }
-    });
+    // Campos do formulário devem permanecer sempre editáveis
+    this.form.enable({ emitEvent: false });
 
     this.contratos$.subscribe((contratos) => {
       this.currentCount = contratos?.length || 0;
@@ -134,11 +132,54 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    const container = this.tableContainer?.nativeElement ?? null;
+    if (!container) return;
+
+    fromEvent(container, 'scroll')
+      .pipe(auditTime(50), takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.hasUserScrolled = true;
+        const scrollTop = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
+        const atBottom = scrollTop + clientHeight >= scrollHeight * 0.99;
+
+        if (
+          atBottom &&
+          this.currentCount < this.totalCount &&
+          !this.isLoading
+        ) {
+          this.onLoadMore();
+        }
+      });
+
+    const sentinel = this.infiniteSentinel?.nativeElement ?? null;
+    if (sentinel) {
+      this.io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && this.currentCount < this.totalCount && !this.isLoading) {
+            this.onLoadMore();
+          }
+        });
+      });
+      this.io.observe(sentinel);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.io?.disconnect();
+  }
+
   onBuscar(): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
   }
 
   clearSearch(): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.searchText = '';
     this.onlyNotLinked = false;
     this.svc.searchContratos(this.searchText, this.onlyNotLinked, 1, 12);
@@ -148,8 +189,57 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     const input = event.target as HTMLInputElement | null;
     this.showras = !!input?.checked;
     if (!this.showras) {
+      this.resetRASLock();
       this.rasLoading$.next(false);
     }
+  }
+
+  private formatIsoToInput(iso: string | null | undefined): string {
+    if (!iso) return '';
+    if (iso.startsWith('0001-01-01')) return '';
+    try {
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return '';
+      const yyyy = d.getUTCFullYear();
+      const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(d.getUTCDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    } catch {
+      return '';
+    }
+  }
+
+  private mapDealRasToContrato(res: DealRasResponse): Contrato {
+    const chave =
+      res?.NewContract?.trim() ||
+      res?.BaseContract?.trim() ||
+      res?.Account?.trim() ||
+      String(this.dealRAS ?? '').trim() ||
+      '-';
+
+    const operacao =
+      res?.ProductCanonical?.trim() ||
+      res?.UseOfProceedsCanonical?.trim() ||
+      res?.Book?.trim() ||
+      '-';
+
+    return {
+      id: `ras-${String(this.dealRAS ?? '').trim() || 'unk'}`,
+      chave,
+      operacao,
+      vinculoTrade: 'Não vinculado',
+      acao: 'Excluir',
+    };
+  }
+
+  private applyRasToForm(res: DealRasResponse): void {
+    const disp = this.formatIsoToInput(res?.DisbursementDate);
+    const mat = this.formatIsoToInput(res?.MaturityDate);
+
+    this.form.patchValue({
+      dataInicioVigencia: disp,
+      dataContrato: mat,
+    });
   }
 
   applyRAS(): void {
@@ -157,10 +247,37 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
 
     if (!id) {
       this.dealRASStatus = 'Informe o Deal RAS';
-
       return;
     }
 
+    if (this.manualLocked) {
+      // Abre modal de confirmação (Bootstrap) ao invés de window.confirm
+      this.showConfirmRas = true;
+      return;
+    }
+
+    this.performApplyRAS(id);
+  }
+
+  confirmApplyRAS(): void {
+    const id = (this.dealRAS ?? '').trim();
+    if (!id) {
+      this.dealRASStatus = 'Informe o Deal RAS';
+      this.showConfirmRas = false;
+      return;
+    }
+
+    // Limpa seleção manual para garantir exclusividade
+    this.onExcluirSelecionado();
+    this.showConfirmRas = false;
+    this.performApplyRAS(id);
+  }
+
+  cancelApplyRAS(): void {
+    this.showConfirmRas = false;
+  }
+
+  private performApplyRAS(id: string): void {
     this.dealRASStatus = 'Carregando...';
     this.rasLoading$.next(true);
     this.dealRasSvc
@@ -168,8 +285,14 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
       .pipe(finalize(() => this.rasLoading$.next(false)))
       .subscribe({
         next: (res: DealRasResponse) => {
-          const status = res?.status ?? 'OK';
-          this.dealRASStatus = String(status);
+          this.applyRasToForm(res);
+          // Exclusividade: ativa lock RAS e garante que lock manual não esteja ativo
+          this.rasLocked = true;
+          this.manualLocked = false;
+          this.manualContratos = [];
+          this.svc.clearSelection();
+          this.rasContratos = [this.mapDealRasToContrato(res)];
+          this.dealRASStatus = 'OK';
         },
         error: () => {
           this.dealRASStatus = 'Erro ao buscar';
@@ -202,18 +325,24 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   }
 
   onChangePageSize(size: number): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.svc.changePageSize(Number(size));
   }
 
   onLoadMore(): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.svc.loadNextPage();
   }
 
   onSelect(row: Contrato): void {
+    if (this.rasLocked) return;
     this.svc.selectContrato(row);
+    this.manualLocked = true;
+    this.manualContratos = [row];
   }
 
   onPrevPage(): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.page$
       .subscribe((currentPage) => {
         if (currentPage > 1) {
@@ -224,6 +353,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   }
 
   onNextPage(): void {
+    if (this.rasLocked || this.manualLocked) return;
     this.page$
       .subscribe((currentPage) => {
         const nextPage = currentPage + 1;
@@ -236,42 +366,19 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
       .unsubscribe();
   }
 
-  ngAfterViewInit(): void {
-    fromEvent(window, 'scroll')
-      .pipe(auditTime(200), takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.hasUserScrolled = true;
-      });
-
-    this.initIntersectionObserver();
+  onExcluirRAS(): void {
+    this.resetRASLock();
   }
 
-  private initIntersectionObserver(): void {
-    if (!this.infiniteSentinel) return;
-
-    this.io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !this.isLoading) {
-          const el = this.tableContainer?.nativeElement ?? null;
-
-          if (!el) return;
-
-          const scrollPct =
-            (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
-
-          if (scrollPct >= this.scrollThresholdPct) {
-            this.onLoadMore();
-          }
-        }
-      });
-    });
-
-    this.io.observe(this.infiniteSentinel.nativeElement);
+  onExcluirSelecionado(): void {
+    this.manualLocked = false;
+    this.manualContratos = [];
+    this.svc.clearSelection();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    this.io?.disconnect();
+  private resetRASLock(): void {
+    this.rasLocked = false;
+    this.rasContratos = [];
+    this.dealRASStatus = '-';
   }
 }

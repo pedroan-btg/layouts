@@ -32,9 +32,9 @@
     <div [loadingHost]="loading$" [overlay]="false">
       <table
         class="table align-middle table-row-dashed"
-        [data-table]="(garantias$ | async) ?? []"
+        [data-table]="(collaterals$ | async) ?? []"
         data-pagination="numbered"
-        [data-total]="(garantias$ | async)?.length ?? 0"
+        [data-total]="(collaterals$ | async)?.length ?? 0"
         [data-page-size]="12"
         [data-show-selector]="true"
         [data-show-item-count]="true"
@@ -42,42 +42,42 @@
         (changePage)="onChangePage($event)"
       >
         <ng-template ftsTableColumn data-title="Tipo" let-row>
-          {{ row.tipo }}
+          {{ row.type }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Ticker / Nome" let-row>
-          {{ row.tickerOuNome }}
+          {{ row.tickerOrName }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Garantidor" let-row>
-          {{ row.garantidor }}
+          {{ row.guarantor }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Conta" let-row>
-          {{ row.conta }}
+          {{ row.account }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Vinculado" let-row>
-          {{ row.vinculado ? "Sim" : "Não" }}
+          {{ row.linked ? "Sim" : "Não" }}
         </ng-template>
         <ng-template ftsTableColumn data-title="PU" let-row>
-          {{ "R$ " + (row.pu | number: "1.2-2") }}
+          {{ "R$ " + (row.unitPrice | number: "1.2-2") }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Qtd alocada" let-row>
-          {{ row.qtdAlocada | number: "1.0-4" }}
+          {{ row.allocatedQuantity | number: "1.0-4" }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Valor" let-row>
           <div class="text-end">
-            {{ "R$ " + (row.valor | number: "1.2-2") }}
+            {{ "R$ " + (row.value | number: "1.2-2") }}
           </div>
         </ng-template>
         <ng-template ftsTableColumn data-title="Lending Value" let-row>
           {{ row.lendingValue | number: "1.2-2" }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Emissor" let-row>
-          {{ row.emissor }}
+          {{ row.issuer }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Cod ISIN" let-row>
-          {{ row.codIsin }}
+          {{ row.isinCode }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Cod ativo" let-row>
-          {{ row.codAtivo }}
+          {{ row.assetCode }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Status" let-row>
           <div class="d-flex align-items-center justify-content-between">
@@ -128,7 +128,7 @@
 <div
   fts-collateral-add-modal
   [open]="showAddModal"
-  [tiposGarantia]="tiposGarantia"
+  [collateralTypes]="collateralTypes"
   (save)="onModalSave($event)"
   (closed)="closeAddModal()"
 ></div>

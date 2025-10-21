@@ -1,69 +1,52 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-export interface Garantia {
-  id: string;
-  tipo: string;
-  tickerOuNome: string;
-  garantidor: string;
-  conta: string;
-  vinculado: boolean;
-  pu: number;
-  qtdAlocada: number;
-  valor: number;
-  lendingValue: number;
-  emissor: string;
-  codIsin: string;
-  codAtivo: string;
-  status: string;
-}
+import type { Collateral, CollateralPayload } from './models';
 
 @Injectable()
 export class CollateralService {
-  // dataset completo em memória (mock)
-  private readonly garantiasSubject = new BehaviorSubject<Garantia[]>([]);
+  // full dataset in memory (mock)
+  private readonly collateralsSubject = new BehaviorSubject<Collateral[]>([]);
   private readonly pageSubject = new BehaviorSubject<number>(1);
   private readonly pageSizeSubject = new BehaviorSubject<number>(12);
   private readonly loadingSubject = new BehaviorSubject<boolean>(false);
 
-  // observables de consumo no template
-  readonly garantias$ = this.garantiasSubject.asObservable();
+  // observables for template consumption
+  readonly collaterals$ = this.collateralsSubject.asObservable();
   readonly page$ = this.pageSubject.asObservable();
   readonly pageSize$ = this.pageSizeSubject.asObservable();
   readonly loading$ = this.loadingSubject.asObservable();
 
-  // totais e paginação derivada
-  readonly total$ = this.garantias$.pipe(
-    map((arr) => arr.reduce((s, g) => s + (g.valor || 0), 0)),
+  // totals and derived pagination
+  readonly total$ = this.collaterals$.pipe(
+    map((arr) => arr.reduce((sum, c) => sum + (c.value || 0), 0)),
   );
 
-  readonly pagedGarantias$ = combineLatest([
-    this.garantias$,
+  readonly pagedCollaterals$ = combineLatest([
+    this.collaterals$,
     this.page$,
     this.pageSize$,
   ]).pipe(
     map(([arr, page, size]) => {
       const start = (page - 1) * size;
-
       return arr.slice(start, start + size);
     }),
   );
 
-  addGarantia(g: Omit<Garantia, 'id' | 'status'> & { status?: string }): void {
+  addCollateral(payload: CollateralPayload): void {
     const id = crypto.randomUUID();
-    const nova: Garantia = {
-      status: g.status ?? 'Dados completos',
-      ...g,
+    const nextItem: Collateral = {
+      status: payload.status ?? 'Complete data',
+      ...payload,
       id,
     };
-    const next = [...this.garantiasSubject.value, nova];
-    this.garantiasSubject.next(next);
+    const next = [...this.collateralsSubject.value, nextItem];
+    this.collateralsSubject.next(next);
   }
 
-  removeGarantia(id: string): void {
-    const next = this.garantiasSubject.value.filter((x) => x.id !== id);
-    this.garantiasSubject.next(next);
+  removeCollateral(id: string): void {
+    const next = this.collateralsSubject.value.filter((x) => x.id !== id);
+    this.collateralsSubject.next(next);
   }
 
   changePage(page: number): void {
@@ -83,10 +66,10 @@ export class CollateralService {
     this.loadingSubject.next(false);
   }
 
-  // stub simples para importação (somente marca loading)
-  importarArquivo(_file: File): void {
+  // simple stub for import (only toggles loading)
+  importFile(file: File): void {
     this.startLoading();
-    void _file;
+    void file;
     setTimeout(() => this.stopLoading(), 600);
   }
 }

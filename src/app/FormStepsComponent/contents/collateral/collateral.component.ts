@@ -9,11 +9,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
-import { CollateralService, Garantia } from './collateral.service';
-import {
-  CollateralAddModalComponent,
-  GarantiaPayload,
-} from './modal/collateral-add-modal.component';
+import { CollateralService } from './collateral.service';
+import { CollateralAddModalComponent } from './modal/collateral-add-modal.component';
+import type { Collateral, CollateralPayload } from './models';
 
 @Component({
   selector: '[fts-collateral]',
@@ -34,7 +32,7 @@ import {
 export class CollateralComponent {
   private readonly svc = inject(CollateralService);
 
-  protected readonly garantias$ = this.svc.pagedGarantias$;
+  protected readonly collaterals$ = this.svc.pagedCollaterals$;
   protected readonly total$ = this.svc.total$;
   protected readonly page$ = this.svc.page$;
   protected readonly pageSize$ = this.svc.pageSize$;
@@ -46,7 +44,7 @@ export class CollateralComponent {
   @ViewChild('fileInput', { static: false })
   private fileInput?: ElementRef<HTMLInputElement>;
 
-  protected readonly tiposGarantia = [
+  protected readonly collateralTypes = [
     { label: 'Alienação Fiduciária', value: 'ALIENACAO' },
     { label: 'CDB', value: 'CDB' },
     { label: 'Debênture', value: 'DEBENTURE' },
@@ -60,13 +58,13 @@ export class CollateralComponent {
     this.showAddModal = false;
   }
 
-  onModalSave(payload: GarantiaPayload): void {
-    this.svc.addGarantia(payload);
+  onModalSave(payload: CollateralPayload): void {
+    this.svc.addCollateral(payload);
     this.closeAddModal();
   }
 
-  onDelete(row: Garantia): void {
-    this.svc.removeGarantia(row.id);
+  onDelete(row: Collateral): void {
+    this.svc.removeCollateral(row.id);
   }
 
   onChangePage(page: number | string): void {
@@ -88,12 +86,12 @@ export class CollateralComponent {
 
     if (!file) return;
 
-    this.svc.importarArquivo(file);
+    this.svc.importFile(file);
     // opcionalmente poderíamos fazer um parse simples aqui
     input.value = '';
   }
 
-  toggleMenu(row: Garantia): void {
+  toggleMenu(row: Collateral): void {
     this.openedMenuId = this.openedMenuId === row.id ? null : row.id;
   }
 

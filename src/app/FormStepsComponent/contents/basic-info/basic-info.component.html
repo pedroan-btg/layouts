@@ -24,38 +24,72 @@
       >
     </div>
     @if (showras) {
-      <div class="row g-3 align-items-end mt-3" [loadingHost]="rasLoading$" [overlay]="false">
-        <div class="col-md-6">
-          <label class="form-label" for="dealRASInput">Deal RAS</label>
-          <input
-            id="dealRASInput"
-            type="text"
-            class="form-control"
-            [(ngModel)]="dealRAS"
-            placeholder="Digite o Deal RAS"
-          />
-        </div>
-        <div class="col-md-2">
-          <span class="form-label">&nbsp;</span>
-          <button
-            class="btn btn-primary"
-            type="button"
-            name="applyRAS"
-            (click)="applyRAS()"
-          >
-            Aplicar
-          </button>
-        </div>
-        <div class="col-md-4">
-          <span class="form-label">Status Deal RAS</span>
-          <div class="form-control" role="textbox" aria-readonly="true">
-            {{ dealRASStatus }}
+      <div class="ras-container mt-3" [loadingHost]="rasLoading$" [overlay]="true">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-6">
+            <label class="form-label" for="dealRASInput">Deal RAS</label>
+            <input
+              id="dealRASInput"
+              type="text"
+              class="form-control"
+              [(ngModel)]="dealRAS"
+              placeholder="Digite o Deal RAS"
+            />
+          </div>
+          <div class="col-md-2">
+            <span class="form-label">&nbsp;</span>
+            <button
+              class="btn btn-primary"
+              type="button"
+              name="applyRAS"
+              (click)="applyRAS()"
+              [disabled]="!dealRAS.trim() || (rasLoading$ | async)"
+            >
+              Aplicar
+            </button>
+          </div>
+          <div class="col-md-4">
+            <span class="form-label">Status Deal RAS</span>
+            <div class="form-control" role="textbox" aria-readonly="true">
+              {{ dealRASStatus }}
+            </div>
           </div>
         </div>
       </div>
     }
   </div>
 </section>
+
+<!-- Modal Confirmar Aplicação do Deal RAS -->
+<div
+  class="modal fade"
+  [class.show]="showConfirmRas"
+  [style.display]="showConfirmRas ? 'block' : 'none'"
+  aria-modal="true"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aplicar Deal RAS?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="cancelApplyRAS()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Caso o Deal digitado seja válido e você já tenha preenchido outros campos, eles poderão ser sobrescritos com os dados imputados no RAS.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancelApplyRAS()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmApplyRAS()">Aplicar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade" [class.show]="showConfirmRas" *ngIf="showConfirmRas"></div>
 
 <div class="mb-4 mt-8">
   <h6 class="fw-medium mb-1">Contrato</h6>
@@ -73,6 +107,7 @@
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            [disabled]="rasLocked || manualLocked"
           >
             Buscar por chave
           </button>
@@ -91,11 +126,13 @@
             class="form-control"
             placeholder="Busque por chave de contrato"
             [(ngModel)]="searchText"
+            [disabled]="rasLocked || manualLocked"
           />
           <button
             class="btn btn-outline-secondary"
             type="button"
             (click)="clearSearch()"
+            [disabled]="rasLocked || manualLocked"
           >
             ×
           </button>
@@ -107,13 +144,14 @@
           type="checkbox"
           id="apenasNaoVinculados"
           [(ngModel)]="onlyNotLinked"
+          [disabled]="rasLocked || manualLocked"
         />
         <label class="form-check-label" for="apenasNaoVinculados"
           >Apenas não vinculados</label
         >
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary" type="button" (click)="onBuscar()">
+        <button class="btn btn-primary" type="button" (click)="onBuscar()" [disabled]="rasLocked || manualLocked">
           Buscar
         </button>
       </div>
@@ -128,10 +166,10 @@
     >
       <table
         class="table align-middle table-row-dashed"
-        [data-table]="(contratos$ | async) ?? []"
+        [data-table]="rasLocked ? rasContratos : (manualLocked ? manualContratos : ((contratos$ | async) ?? []))"
         data-table-id="id"
         data-pagination="infinite"
-        [data-total]="(total$ | async) ?? 0"
+        [data-total]="rasLocked ? rasContratos.length : (manualLocked ? manualContratos.length : ((total$ | async) ?? 0))"
         [data-page-size]="12"
         [data-show-selector]="true"
         [data-show-item-count]="true"
@@ -149,21 +187,29 @@
           {{ row.vinculoTrade }}
         </ng-template>
         <ng-template ftsTableColumn data-title="Ação" let-row>
-          <button
-            class="btn btn-sm"
-            [class.btn-primary]="(selected$ | async)?.chave === row.chave"
-            [class.btn-outline-secondary]="
-              (selected$ | async)?.chave !== row.chave
-            "
-            type="button"
-            (click)="onSelect(row)"
-          >
-            {{
-              (selected$ | async)?.chave === row.chave
-                ? "Selecionado"
-                : "Selecionar"
-            }}
-          </button>
+          @if (rasLocked) {
+            <button class="btn btn-danger btn-sm" type="button" (click)="onExcluirRAS()">
+              Excluir
+            </button>
+          } @else if (manualLocked) {
+            <button class="btn btn-danger btn-sm" type="button" (click)="onExcluirSelecionado()">
+              Excluir
+            </button>
+          } @else {
+            <button
+              class="btn btn-sm"
+              [class.btn-primary]="(selected$ | async)?.chave === row.chave"
+              [class.btn-outline-secondary]="(selected$ | async)?.chave !== row.chave"
+              type="button"
+              (click)="onSelect(row)"
+            >
+              {{
+                (selected$ | async)?.chave === row.chave
+                  ? "Selecionado"
+                  : "Selecionar"
+              }}
+            </button>
+          }
         </ng-template>
       </table>
       <div class="infinite-sentinel" #infiniteSentinel></div>

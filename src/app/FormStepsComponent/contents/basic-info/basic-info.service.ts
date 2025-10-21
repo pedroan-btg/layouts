@@ -1,34 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-
-export interface Contrato {
-  id: string;
-  chave: string;
-  operacao: string;
-  vinculoTrade: string;
-  acao: string;
-}
-
-export interface ContratoApi {
-  id: string;
-  chave: string;
-  operacao: string;
-  vinculoTrade: string;
-  acao: string;
-}
-
-export interface ContratosApiResponse {
-  data: ContratoApi[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
-
-export interface TipoBaixa {
-  label: string;
-  value: string;
-}
+import type { Contrato, ContratoApi, ContratosApiResponse, TipoBaixa } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class BasicInfoService {

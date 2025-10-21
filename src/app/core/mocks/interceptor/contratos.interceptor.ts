@@ -1,21 +1,7 @@
 import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { delay, of } from 'rxjs';
 import contractsData from '../json/contracts.json';
-
-export interface ContratoApi {
-  id: string;
-  chave: string;
-  operacao: string;
-  vinculoTrade: string;
-  acao: string;
-}
-
-export interface ContratosApiResponse {
-  data: ContratoApi[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
+import { ContratoApi, ContratosApiResponse } from '../../../FormStepsComponent/contents/basic-info/models';
 
 export const contratosMockInterceptor: HttpInterceptorFn = (req, next) => {
   // Intercepta apenas requisições para /api/contratos
