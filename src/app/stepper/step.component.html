@@ -1,0 +1,6 @@
+@if (isActive) {
+  @if (!componentType && !lazyLoader && !contentTemplate && !contentHtml) {
+    <ng-content></ng-content>
+  }
+  <ng-container #host></ng-container>
+}

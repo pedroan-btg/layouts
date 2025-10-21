@@ -1,0 +1,270 @@
+/* CSS variables for customizable colors */
+
+.app-stepper {
+  --stepper-color-active: #2d6cdf;
+  --stepper-color-finished: #4caf50;
+  --stepper-color-pending: #9e9e9e;
+  --stepper-color-error: #ffc107;
+  --stepper-progress-base: #eee3d5;
+  --stepper-progress-fill: #2d6cdf;
+  --stepper-progress-duration: 700ms;
+  --stepper-progress-timing: cubic-bezier(0.22, 1, 0.36, 1);
+  --stepper-segments: 5;
+  --stepper-segment-gap: 4px;
+  --stepper-separator-color: var(--stepper-progress-base);
+  --stepper-separator-fudge: 1.5px; /* aumentar ligeiramente para cobrir hairline subpixel */
+  --stepper-separator-width: 8px; /* largura visível do separador (dobro) */
+  --stepper-separator-offset: 0.5px; /* desloca todos os separadores 0.5px à direita */
+
+  width: 100%;
+}
+
+.stepper-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Wrapper com base contínua e variáveis de segmentação compartilhadas */
+
+
+.progress-wrapper {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: var(--stepper-progress-base);
+  --segment-size: calc(100% / var(--stepper-segments));
+  --segment-fill-width: calc(var(--segment-size) - var(--stepper-segment-gap));
+}
+
+/* Fill azul contínuo crescendo em largura, posicionado sob os separadores */
+
+
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%; /* manter largura total e controlar avanço via scaleX */
+  background: var(--stepper-progress-fill);
+  transition: transform var(--stepper-progress-duration) var(--stepper-progress-timing);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Separadores por cima: criam os gaps fixos independente da largura do fill */
+
+
+.progress-separators {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  --segment-size: calc(100% / var(--stepper-segments));
+  /* Linha posicionada no final de cada segmento; recuo igual à largura para ficar dentro da barra */
+  background-image: linear-gradient(
+    to right,
+    transparent calc(100% - var(--stepper-separator-width)),
+    var(--stepper-separator-color) calc(100% - var(--stepper-separator-width)) 100%,
+    transparent 100%
+  );
+  background-size: var(--segment-size) 100%;
+  background-position: var(--stepper-separator-offset) 0;
+  background-repeat: repeat-x;
+  /* Oculta apenas o último separador (centralizado) para permitir 100% visual no final */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #fff 0 calc(100% - var(--stepper-separator-width)),
+    transparent calc(100% - var(--stepper-separator-width)) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #fff 0 calc(100% - var(--stepper-separator-width)),
+    transparent calc(100% - var(--stepper-separator-width)) 100%
+  );
+  z-index: 2;
+}
+
+.stepper-items {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: transparent;
+  border: none;
+  padding: .5rem 0;
+  color: inherit;
+  width: 100%;
+  cursor: pointer;
+}
+
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.step-icon i {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.step-title {
+  white-space: nowrap;
+}
+
+/* Status colors */
+
+.step-status-active {
+  color: var(--stepper-title-color, var(--stepper-color-active));
+  font-weight: 600;
+}
+
+
+.step-status-pending {
+  color: var(--stepper-title-color, var(--stepper-color-pending));
+}
+/* Finished usa cor padrão, permitindo override via CSS variable */
+
+.step-status-finished {
+  color: var(--stepper-title-color, var(--stepper-color-finished)) !important;
+}
+
+
+.app-stepper .step.step-status-active .step-icon i {
+  color: var(--stepper-icon-color, var(--stepper-color-active));
+}
+
+
+.app-stepper .step.step-status-pending .step-icon i {
+  color: var(--stepper-icon-color, var(--stepper-color-pending));
+}
+/* Finished icon com possibilidade de override */
+
+.app-stepper .step.step-status-finished .step-icon i {
+  color: var(--stepper-icon-color, var(--stepper-color-finished)) !important;
+}
+
+
+.app-stepper .step.step-status-error .step-icon i {
+  color: var(--stepper-icon-color);
+}
+
+/* Theme rules */
+
+.app-stepper .stepper-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Ícones acima da barra: grid alinhado à esquerda com padding de 4px */
+
+.stepper-icons {
+  display: grid;
+  gap: 0;
+  align-items: center;
+  height: 22px;
+  grid-template-columns: repeat(var(--stepper-segments), calc(100% / var(--stepper-segments)));
+}
+
+
+.stepper-item-icon {
+  justify-content: flex-start;
+  padding: 4px;
+}
+
+
+.stepper-item-icon .step-icon {
+  margin-right: 0;
+}
+
+/* Títulos abaixo da barra: grid alinhado à esquerda com padding de 4px */
+
+.stepper-titles {
+  display: grid;
+  gap: 0;
+  align-items: center;
+  grid-template-columns: repeat(var(--stepper-segments), calc(100% / var(--stepper-segments)));
+}
+
+
+.stepper-item-title {
+  justify-content: flex-start;
+  padding: 4px;
+}
+
+
+.stepper-item-title .step-title {
+  text-align: left;
+}
+
+/* Garantir que botões fiquem transparentes e sem borda */
+
+.stepper-item-icon,
+.stepper-item-title {
+  background: transparent;
+  border: none;
+  color: inherit;
+  width: 100%;
+  cursor: pointer;
+  gap: .5rem;
+  box-sizing: border-box;
+}
+
+/* Ajustes de responsividade: manter altura da barra nos breakpoints */
+
+@media (max-width: 576px) {
+  .progress-wrapper {
+    height: 2px;
+  }
+}
+
+
+.app-stepper .stepper-items {
+  
+  display: grid;
+  gap: 1rem;
+}
+
+
+.app-stepper .step-icon {
+  
+  margin-right: .25rem;
+}
+
+/* Responsivo */
+
+
+@media (min-width: 577px) { 
+  .app-stepper .step-title { 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) { 
+  .app-stepper .progress-wrapper {
+    height: 2px;
+  } 
+}
+
+.app-stepper .stepper-item.disabled,
+.app-stepper .stepper-item[disabled],
+.app-stepper .stepper-item[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
