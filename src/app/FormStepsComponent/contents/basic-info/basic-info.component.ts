@@ -229,22 +229,19 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
   }
 
   applyRAS(): void {
-    const id = (this.dealRAS ?? '').trim();
-
-    if (!id) {
+    const dealRAS = this.dealRAS?.trim();
+    
+    if (!dealRAS) {
       this.dealRASStatus = 'Informe o Deal RAS';
-
       return;
     }
 
     if (this.manualLocked) {
-      // Abre modal de confirmação (Bootstrap) ao invés de window.confirm
       this.showConfirmRas = true;
-
       return;
     }
 
-    this.performApplyRAS(id);
+    this.performApplyRAS(dealRAS);
   }
 
   confirmApplyRAS(): void {

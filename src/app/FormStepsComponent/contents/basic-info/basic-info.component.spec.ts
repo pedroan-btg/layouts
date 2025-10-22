@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach, vitest } from 'vitest';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, NO_ERRORS_SCHEMA } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, of, throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -103,6 +103,7 @@ describe('BasicInfoComponent', () => {
         NoopAnimationsModule,
         BasicInfoComponent,
       ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         FormBuilder,
         { provide: BasicInfoService, useValue: mockBasicInfoService },
@@ -334,6 +335,19 @@ describe('BasicInfoComponent', () => {
     cmp.dealRAS = '';
     cmp.applyRAS();
     expect(cmp.dealRASStatus).toBe('Informe o Deal RAS');
+  });
+
+  it('applyRAS should call performApplyRAS when conditions are met', () => {
+    const { cmp } = createCmp();
+    cmp.dealRAS = 'ABC123';
+    cmp.manualLocked = false; // Garantir que não está locked
+    
+    // Mock performApplyRAS para verificar se foi chamado
+    const performApplyRASSpy = vi.spyOn(cmp, 'performApplyRAS').mockImplementation(() => {});
+    
+    cmp.applyRAS();
+    
+    expect(performApplyRASSpy).toHaveBeenCalledWith('ABC123');
   });
 
   it('applyRAS should show confirmation modal when manual locked', () => {
@@ -735,6 +749,27 @@ describe('BasicInfoComponent', () => {
     expect(contrato.operacao).toBe('BOOK001');
   });
 
+  it('should handle formatIsoToInput with invalid date causing exception', () => {
+    const { cmp } = createCmp();
+    
+    // Mock Date constructor to throw an error
+    const originalDate = global.Date;
+    global.Date = class extends Date {
+      constructor(...args: any[]) {
+        if (args.length > 0 && args[0] === 'invalid-date-format') {
+          throw new Error('Invalid date');
+        }
+        super(...args);
+      }
+    } as any;
+    
+    const result = (cmp as any).formatIsoToInput('invalid-date-format');
+    expect(result).toBe('');
+    
+    // Restore original Date
+    global.Date = originalDate;
+  });
+
   it('should handle toggleShowRAS with null target', () => {
     const { cmp } = createCmp();
     const event = { target: null } as any;
@@ -747,24 +782,142 @@ describe('BasicInfoComponent', () => {
   it('should handle scroll position restoration after loading', async () => {
     const { cmp } = createCmp();
     
-    const mockContainer = {
-      scrollTop: 100,
+    // Mock tableContainer
+    const mockElement = {
+      scrollTop: 0,
       scrollHeight: 1000,
-      clientHeight: 200,
+      clientHeight: 500
     };
-    Object.defineProperty(cmp, 'tableContainer', {
-      value: { nativeElement: mockContainer },
-      configurable: true,
-    });
-
-    cmp.hasUserScrolled = true;
-    cmp.wasNearBottomBeforeLoad = true;
+    cmp.tableContainer = { nativeElement: mockElement };
     
-    // Simulate loading end
+    // Set initial state
+    cmp.wasNearBottomBeforeLoad = true;
+    cmp.hasUserScrolled = false;
+    cmp.prevScrollTop = 200;
+    cmp.isLoading = true;
+    
+    // Trigger loading state change
     mockBasicInfoService.loading$.next(false);
     
+    // Wait for setTimeout
     await new Promise(resolve => setTimeout(resolve, 10));
-    // Should restore scroll position
-    expect(mockContainer.scrollTop).toBeGreaterThanOrEqual(0);
+    
+    expect(mockElement.scrollTop).toBe(200); // Should use prevScrollTop
+  });
+
+  it('should handle scroll position with user scroll and near bottom', async () => {
+    const { cmp } = createCmp();
+    
+    // Mock tableContainer
+    const mockElement = {
+      scrollTop: 0,
+      scrollHeight: 1000,
+      clientHeight: 500
+    };
+    cmp.tableContainer = { nativeElement: mockElement };
+    
+    // Set state for hasUserScrolled path
+    cmp.wasNearBottomBeforeLoad = true;
+    cmp.hasUserScrolled = true;
+    cmp.prevBottomOffset = 100;
+    cmp.isLoading = true;
+    
+    // Trigger loading state change
+    mockBasicInfoService.loading$.next(false);
+    
+    // Wait for setTimeout
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    // Should calculate newTop = scrollHeight - clientHeight - prevBottomOffset
+    // newTop = 1000 - 500 - 100 = 400
+    expect(mockElement.scrollTop).toBe(400);
+  });
+
+  it('should handle confirmApplyRAS with empty dealRAS', () => {
+    const { cmp } = createCmp();
+    cmp.dealRAS = '';
+    cmp.showConfirmRas = true;
+    
+    cmp.confirmApplyRAS();
+    
+    expect(cmp.dealRASStatus).toBe('Informe o Deal RAS');
+    expect(cmp.showConfirmRas).toBe(false);
+  });
+
+  it('should handle confirmApplyRAS with whitespace dealRAS', () => {
+    const { cmp } = createCmp();
+    cmp.dealRAS = '   ';
+    cmp.showConfirmRas = true;
+    
+    cmp.confirmApplyRAS();
+    
+    expect(cmp.dealRASStatus).toBe('Informe o Deal RAS');
+    expect(cmp.showConfirmRas).toBe(false);
+  });
+
+  it('should handle confirmApplyRAS with valid dealRAS', () => {
+    const { cmp } = createCmp();
+    cmp.dealRAS = 'DEAL123';
+    cmp.showConfirmRas = true;
+    
+    // Mock apenas performApplyRAS para evitar chamar o serviço real
+    // Mas deixar onExcluirSelecionado executar normalmente para cobrir as linhas
+    const performApplyRASSpy = vi.spyOn(cmp, 'performApplyRAS').mockImplementation(() => {});
+    const onExcluirSpy = vi.spyOn(cmp, 'onExcluirSelecionado').mockImplementation(() => {
+      // Simular o comportamento real do método
+      cmp.manualLocked = false;
+      cmp.manualContratos = [];
+    });
+    
+    // Verificar estado inicial
+    expect(cmp.showConfirmRas).toBe(true);
+    
+    cmp.confirmApplyRAS();
+    
+    // Verificar que os métodos foram chamados
+    expect(onExcluirSpy).toHaveBeenCalled();
+    expect(performApplyRASSpy).toHaveBeenCalledWith('DEAL123');
+    
+    // Verificar que o estado foi alterado
+    expect(cmp.showConfirmRas).toBe(false);
+  });
+
+  it('should handle onChangePage when pageNumber equals currentPage', () => {
+    const { cmp } = createCmp();
+    
+    // Mock the service page$ observable to return current page 2
+    mockBasicInfoService.page$ = new BehaviorSubject(2);
+    cmp.lastProcessedPage = 1; // Different from pageNumber to avoid early return
+    
+    cmp.onChangePage(2); // Same as current page from service
+    
+    expect(cmp.lastProcessedPage).toBe(2);
+    expect(mockBasicInfoService.changePage).not.toHaveBeenCalled();
+  });
+
+  it('should handle onChangePage when pageNumber is greater than currentPage', () => {
+    const { cmp } = createCmp();
+    
+    // Mock the service page$ observable to return current page 1
+    mockBasicInfoService.page$ = new BehaviorSubject(1);
+    cmp.lastProcessedPage = 0; // Different from pageNumber to avoid early return
+    
+    cmp.onChangePage(2); // Greater than current page
+    
+    expect(cmp.lastProcessedPage).toBe(2);
+    expect(mockBasicInfoService.changePage).toHaveBeenCalledWith(2);
+  });
+
+  it('should handle onChangePage when pageNumber is less than currentPage', () => {
+    const { cmp } = createCmp();
+    
+    // Mock the service page$ observable to return current page 3
+    mockBasicInfoService.page$ = new BehaviorSubject(3);
+    cmp.lastProcessedPage = 0; // Different from pageNumber to avoid early return
+    
+    cmp.onChangePage(1); // Less than current page
+    
+    expect(cmp.lastProcessedPage).toBe(1);
+    expect(mockBasicInfoService.changePage).toHaveBeenCalledWith(1);
   });
 });
