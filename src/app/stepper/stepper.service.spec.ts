@@ -205,18 +205,15 @@ describe('StepperService', () => {
     expect(st[0]).toBe('finished');
   });
 
-  it('reset with keepData=true preserves data', () => {
-    service.registerStep(0, 'a');
-    service.saveData('a', { ok: 1 });
-    service.reset({ keepData: true, index: 0 });
-    expect(service.getData('a')).toEqual({ ok: 1 });
-  });
-
-  it('reset with keepData=false clears data and visits only initial index', () => {
+  it('reset with keepData preserves or clears data', () => {
     service.registerStep(0, 'a');
     service.registerStep(1, 'b');
     service.saveData('a', { ok: 1 });
     service.saveData('b', { ok: 2 });
+    
+    service.reset({ keepData: true, index: 0 });
+    expect(service.getData('a')).toEqual({ ok: 1 });
+    
     service.reset({ keepData: false, index: 1 });
     expect(service.getData('a')).toBeUndefined();
     expect(service.getData('b')).toBeUndefined();
@@ -265,9 +262,21 @@ describe('StepperService', () => {
 
   it('logData prints saved payload without throwing', () => {
     service.registerStep(0, 'a');
+    service.registerStep(0, 'test');
     service.saveData('a', { x: 1 });
+    service.saveData('test', { value: 'test data' });
+    service.saveData(0, { index: 'data' });
+    
     service.logData('a');
+    service.logData('test');
+    service.logData('test', '[CUSTOM]');
+    service.logData(0);
+    service.logData('inexistente');
+    
     expect(service.getData('a')).toEqual({ x: 1 });
+    expect(service.getData('test')).toEqual({ value: 'test data' });
+    expect(service.getData(0)).toEqual({ index: 'data' });
+    expect(service.getData('inexistente')).toBeUndefined();
   });
 
   it('navigating back finishes current step', async () => {
@@ -391,140 +400,75 @@ describe('StepperService', () => {
     expect(service.stepStatuses()[3]).toBe('pending');
   });
 
-  it('covers remaining lines of logData', () => {
-    service.registerStep(0, 'test');
-    service.saveData('test', { value: 'test data' });
-    service.saveData(0, { index: 'data' });
-
-    service.logData('test');
-    service.logData('test', '[CUSTOM]');
-    service.logData(0);
-    service.logData('inexistente');
-
-    expect(service.getData('test')).toEqual({ value: 'test data' });
-    expect(service.getData(0)).toEqual({ index: 'data' });
-    expect(service.getData('inexistente')).toBeUndefined();
-  });
-
   it('covers effect constructor logic for setting pending status on non-current steps', () => {
-    // Register multiple steps
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
     service.registerStep(2, 'step2');
     
-    // Reset to start at step 0
     service.reset({ index: 0 });
     
-    // The effect should set step 0 as active and steps 1,2 as pending
     const statuses = service.stepStatuses();
     expect(statuses[0]).toBe('active');
-    expect(statuses[1]).toBe('pending'); // This covers line 74-77
-    expect(statuses[2]).toBe('pending'); // This covers line 74-77
+    expect(statuses[1]).toBe('pending');
+    expect(statuses[2]).toBe('pending');
   });
 
   it('covers currentIndex adjustment when removing step at current position', () => {
-    // Register 3 steps
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
     service.registerStep(2, 'step2');
     
-    // Set current index to the last step (index 2)
     service.currentIndex.set(2);
     expect(service.currentIndex()).toBe(2);
     expect(service.stepCount()).toBe(3);
     
-    // Remove the last step - this should trigger the adjustment in lines 194-196
     service.unregisterStep(2);
     
-    // After removing step 2, stepCount becomes 2, and currentIndex (2) >= stepCount (2)
-    // So currentIndex should be adjusted to Math.max(0, stepCount - 1) = Math.max(0, 1) = 1
     expect(service.stepCount()).toBe(2);
-    expect(service.currentIndex()).toBe(1); // This covers lines 194-196
+    expect(service.currentIndex()).toBe(1);
   });
 
   it('covers effect logic when steps have existing statuses', () => {
-    // Create a fresh service to ensure clean state
     const freshService = TestBed.inject(StepperService);
     
-    // Register steps
     freshService.registerStep(0, 'step0');
     freshService.registerStep(1, 'step1');
     freshService.registerStep(2, 'step2');
     
-    // Set some statuses to non-undefined values first (using valid StepStatus values)
     freshService.stepStatuses.set({ 0: 'finished', 1: 'error' });
-    
-    // Now clear statuses to make them undefined and trigger the effect
     freshService.stepStatuses.set({});
-    
-    // Set current index to 0 to trigger the effect with undefined statuses
     freshService.currentIndex.set(0);
     
-    // Wait for effect to run
     TestBed.flushEffects();
     
-    // The effect should set step 0 as active and steps 1,2 as pending
-    // This specifically covers lines 74-77 where statuses[i] === undefined
     const statuses = freshService.stepStatuses();
     expect(statuses[0]).toBe('active');
-    expect(statuses[1]).toBe('pending'); // This covers lines 74-77
-    expect(statuses[2]).toBe('pending'); // This covers lines 74-77
+    expect(statuses[1]).toBe('pending');
+    expect(statuses[2]).toBe('pending');
   });
 
-  it('covers currentIndex adjustment when removing step at current position', () => {
-    // Register 3 steps
-    service.registerStep(0, 'step0');
-    service.registerStep(1, 'step1');
-    service.registerStep(2, 'step2');
-    
-    // Set current index to the last step (index 2)
-    service.reset({ index: 2 });
-    expect(service.currentIndex()).toBe(2);
-    expect(service.stepCount()).toBe(3);
-    
-    // Remove the last step - this should trigger the currentIndex adjustment
-    service.unregisterStep(2);
-    
-    // Current index should be adjusted to 1 (stepCount - 1)
-    // This covers lines 178-179
-    expect(service.currentIndex()).toBe(1);
-    expect(service.stepCount()).toBe(2);
-  });
-
-  it('covers currentIndex adjustment edge case when all steps removed', () => {
-    // Register steps
+  it('covers currentIndex adjustment edge cases', () => {
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
     
-    // Set current to last step
     service.reset({ index: 1 });
     expect(service.currentIndex()).toBe(1);
     
-    // Remove all steps by removing the last one when currentIndex >= stepCount
     service.unregisterStep(1);
     service.unregisterStep(0);
     
-    // This should trigger the Math.max(0, stepCount - 1) logic
-    // When stepCount is 0, it should set currentIndex to 0
     expect(service.currentIndex()).toBe(0);
     expect(service.stepCount()).toBe(0);
   });
 
   it('tests if currentIndex adjustment in registerStep is ever needed', () => {
-    // Set currentIndex to a high value before registering any steps
     service.currentIndex.set(10);
     expect(service.currentIndex()).toBe(10);
     expect(service.stepCount()).toBe(0);
     
-    // Register a step - this should trigger the adjustment if it's needed
     service.registerStep(0, 'step0');
     
-    // After registering, stepCount becomes 1
-    // If the adjustment logic works, currentIndex should be adjusted to 0 (Math.max(0, 1-1))
     expect(service.stepCount()).toBe(1);
-    
-    // Check if currentIndex was adjusted - this would cover lines 177-179
-    console.log('currentIndex after registerStep:', service.currentIndex());
-    expect(service.currentIndex()).toBe(0); // This should pass if the logic is working
+    expect(service.currentIndex()).toBe(0);
   });
 });
