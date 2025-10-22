@@ -1,18 +1,7 @@
-import {
-  Component,
-  inject,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+/* eslint-disable max-lines */
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Table, TableColumn } from 'fts-frontui/table';
 import { Loading } from 'fts-frontui/loading';
 import { i18n } from 'fts-frontui/i18n';
@@ -25,15 +14,7 @@ import { auditTime, takeUntil, finalize } from 'rxjs/operators';
 @Component({
   selector: '[fts-basic-info]',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    i18n,
-    Table,
-    TableColumn,
-    Loading,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, i18n, Table, TableColumn, Loading],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.css',
 })
@@ -91,15 +72,15 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     // Campos do formulário devem permanecer sempre editáveis
     this.form.enable({ emitEvent: false });
 
-    this.contratos$.subscribe((contratos) => {
+    this.contratos$.subscribe(contratos => {
       this.currentCount = contratos?.length || 0;
     });
 
-    this.total$.subscribe((total) => {
+    this.total$.subscribe(total => {
       this.totalCount = total || 0;
     });
 
-    this.loading$.subscribe((isLoading) => {
+    this.loading$.subscribe(isLoading => {
       const wasLoading = this.isLoading;
       this.isLoading = !!isLoading;
 
@@ -121,8 +102,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
           if (!el) return;
 
           if (this.wasNearBottomBeforeLoad && this.hasUserScrolled) {
-            const newTop =
-              el.scrollHeight - el.clientHeight - this.prevBottomOffset;
+            const newTop = el.scrollHeight - el.clientHeight - this.prevBottomOffset;
             el.scrollTop = Math.max(newTop, 0);
           } else {
             el.scrollTop = this.prevScrollTop;
@@ -146,11 +126,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
         const clientHeight = container.clientHeight;
         const atBottom = scrollTop + clientHeight >= scrollHeight * 0.99;
 
-        if (
-          atBottom &&
-          this.currentCount < this.totalCount &&
-          !this.isLoading
-        ) {
+        if (atBottom && this.currentCount < this.totalCount && !this.isLoading) {
           this.onLoadMore();
         }
       });
@@ -158,13 +134,9 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     const sentinel = this.infiniteSentinel?.nativeElement ?? null;
 
     if (sentinel) {
-      this.io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            this.currentCount < this.totalCount &&
-            !this.isLoading
-          ) {
+      this.io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && this.currentCount < this.totalCount && !this.isLoading) {
             this.onLoadMore();
           }
         });
@@ -328,7 +300,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     }
 
     this.svc.page$
-      .subscribe((currentPage) => {
+      .subscribe(currentPage => {
         if (pageNumber > currentPage) {
           this.lastProcessedPage = pageNumber;
           this.svc.changePage(pageNumber);
@@ -366,7 +338,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     if (this.rasLocked || this.manualLocked) return;
 
     this.page$
-      .subscribe((currentPage) => {
+      .subscribe(currentPage => {
         if (currentPage > 1) {
           this.svc.changePage(currentPage - 1);
         }
@@ -378,7 +350,7 @@ export class BasicInfoComponent implements AfterViewInit, OnDestroy {
     if (this.rasLocked || this.manualLocked) return;
 
     this.page$
-      .subscribe((currentPage) => {
+      .subscribe(currentPage => {
         const nextPage = currentPage + 1;
         const maxPages = Math.ceil(this.totalCount / 12);
 
