@@ -86,6 +86,8 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
       step.__assignIndex(index);
       step.__registerWithService();
     });
+
+    // Tooltips now provided by ng-bootstrap directive in template; no manual init needed
   }
 
   ngAfterViewInit(): void {
@@ -255,6 +257,7 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
     return 'STEPPER_PROGRESS_LABEL';
   }
 
+  // Helper methods to expose state for templates using exportAs
   isFirst(): boolean {
     return this.service.currentIndex() === 0;
   }
@@ -262,4 +265,6 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnDest
   isLast(): boolean {
     return this.service.currentIndex() >= this.service.stepCount() - 1;
   }
+
+  // Removed manual Bootstrap JS tooltip initialization in favor of ng-bootstrap's NgbTooltip directive
 }

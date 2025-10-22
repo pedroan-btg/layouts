@@ -1,273 +1,335 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="Unit Tests" tests="240" failures="0" errors="0" time="5.2267901">
-    <testsuite name="src/app/app.spec.ts" timestamp="2025-10-22T10:41:17.566Z" hostname="dingolandia" tests="2" failures="0" errors="0" skipped="0" time="0.3791329">
-        <testcase classname="src/app/app.spec.ts" name="App &gt; should create the app" time="0.2567507">
+<testsuites name="Unit Tests" tests="240" failures="2" errors="0" time="5.6126419">
+    <testsuite name="src/app/app.spec.ts" timestamp="2025-10-22T11:59:48.671Z" hostname="VDIX-BTG-5365" tests="2" failures="0" errors="0" skipped="0" time="0.415415">
+        <testcase classname="src/app/app.spec.ts" name="App &gt; should create the app" time="0.2879634">
         </testcase>
-        <testcase classname="src/app/app.spec.ts" name="App &gt; should render form steps container" time="0.1199794">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/app/FormStepsComponent/form-steps.component.spec.ts" timestamp="2025-10-22T10:41:17.568Z" hostname="dingolandia" tests="51" failures="0" errors="0" skipped="0" time="0.0342569">
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should create" time="0.0054588">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should initialize with default steps" time="0.0011781">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should initialize activeKey with first step" time="0.0005121">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should accept custom steps input" time="0.0013297">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should set activeKey when activeKeyInput is provided" time="0.0004123">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is undefined" time="0.000415">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is empty string" time="0.0003142">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is null" time="0.0003413">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit stepChange when onSelect is called" time="0.0006481">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit back event when onBack is called" time="0.0005823">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit next event when onNext is called" time="0.0004135">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return the current active step" time="0.0004389">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return undefined when no step matches activeKey" time="0.0003482">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return first matching step when multiple steps have same key" time="0.0003258">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should change activeKey when selecting valid step" time="0.0003326">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not change activeKey when selecting disabled step" time="0.0003305">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not change activeKey when selecting nonexistent step" time="0.0003237">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not emit stepChange when selecting disabled step" time="0.0003039">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not emit stepChange when selecting nonexistent step" time="0.0003208">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle undefined step key" time="0.0003234">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle null step key" time="0.0002966">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle empty string step key" time="0.0002872">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should emit stepChange for valid enabled step" time="0.0003213">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should navigate to previous step" time="0.0003731">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should skip disabled steps when going back" time="0.0003279">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should not change activeKey when already at first step" time="0.0004354">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should not emit back event when no previous step available" time="0.0004577">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should handle empty steps array" time="0.0004239">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should handle all previous steps disabled" time="0.0004483">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should navigate to next step" time="0.0004591">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should skip disabled steps when going forward" time="0.0004582">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should not change activeKey when already at last step" time="0.0004121">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should not emit next event when no next step available" time="0.0004301">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should handle empty steps array" time="0.0004344">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should handle all next steps disabled" time="0.0004422">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle empty steps array" time="0.0003942">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle all steps disabled" time="0.000533">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle single step" time="0.0005286">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle steps with same key" time="0.000468">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle steps with undefined properties" time="0.0004644">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should update activeKey signal correctly" time="0.0009816">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should maintain signal reactivity" time="0.0004774">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should handle multiple signal updates" time="0.0005683">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have correct default step keys" time="0.000898">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have all default steps enabled" time="0.0005019">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have titles and descriptions for all default steps" time="0.001627">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have unique keys for default steps" time="0.0005518">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover activeStep method with various scenarios" time="0.0005636">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onSelect" time="0.0005552">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onBack" time="0.0004741">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onNext" time="0.0006625">
+        <testcase classname="src/app/app.spec.ts" name="App &gt; should render form steps container" time="0.1258364">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/stepper/step.component.spec.ts" timestamp="2025-10-22T10:41:17.578Z" hostname="dingolandia" tests="16" failures="0" errors="0" skipped="0" time="0.2537021">
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should create" time="0.1093273">
+    <testsuite name="src/app/FormStepsComponent/form-steps.component.spec.ts" timestamp="2025-10-22T11:59:48.674Z" hostname="VDIX-BTG-5365" tests="51" failures="0" errors="0" skipped="0" time="0.0300281">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should create" time="0.003382">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should return false for isActive when index differs from currentIndex" time="0.0084456">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should initialize with default steps" time="0.0006663">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should register step without alias using index as fallback" time="0.0114745">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Component Creation &gt; should initialize activeKey with first step" time="0.0003481">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should register step with alias and all properties" time="0.0078067">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should accept custom steps input" time="0.0010104">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should return early from renderContent when host does not exist" time="0.0072326">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should set activeKey when activeKeyInput is provided" time="0.0003951">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle contentHtml rendering and re-rendering" time="0.0170668">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is undefined" time="0.0003087">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle componentType rendering with inputs and outputs" time="0.0142649">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is empty string" time="0.0002237">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle lazyLoader rendering with inputs and outputs" time="0.0111511">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Input Properties &gt; should not change activeKey when activeKeyInput is null" time="0.0008388">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle invalid componentOutputs gracefully" time="0.010711">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit stepChange when onSelect is called" time="0.001046">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle componentInputs errors gracefully" time="0.0123153">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit back event when onBack is called" time="0.0004135">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle onSave and unregister on ngOnDestroy" time="0.0064501">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Output Events &gt; should emit next event when onNext is called" time="0.0003686">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should use index as key on ngOnDestroy without alias" time="0.0058621">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return the current active step" time="0.0006577">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle HTML element cleanup and errors on ngOnDestroy" time="0.0076462">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return undefined when no step matches activeKey" time="0.0002807">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should call renderContent on ngAfterViewInit when active and has host" time="0.006497">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; activeStep Method &gt; should return first matching step when multiple steps have same key" time="0.0002786">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle contentTemplate rendering" time="0.0077464">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should change activeKey when selecting valid step" time="0.0002527">
         </testcase>
-        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should clear host on hostRef setter" time="0.0073351">
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not change activeKey when selecting disabled step" time="0.0002945">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not change activeKey when selecting nonexistent step" time="0.0002259">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not emit stepChange when selecting disabled step" time="0.0002156">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should not emit stepChange when selecting nonexistent step" time="0.0002318">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle undefined step key" time="0.0003124">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle null step key" time="0.0002527">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should handle empty string step key" time="0.0002201">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onSelect Method &gt; should emit stepChange for valid enabled step" time="0.0002512">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should navigate to previous step" time="0.0008688">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should skip disabled steps when going back" time="0.0003291">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should not change activeKey when already at first step" time="0.0002332">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should not emit back event when no previous step available" time="0.0005333">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should handle empty steps array" time="0.0011043">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onBack Method &gt; should handle all previous steps disabled" time="0.0004324">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should navigate to next step" time="0.0004894">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should skip disabled steps when going forward" time="0.0004294">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should not change activeKey when already at last step" time="0.0005419">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should not emit next event when no next step available" time="0.0003946">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should handle empty steps array" time="0.0002543">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; onNext Method &gt; should handle all next steps disabled" time="0.0006572">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle empty steps array" time="0.0003201">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle all steps disabled" time="0.0003398">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle single step" time="0.0002749">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle steps with same key" time="0.00024">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Edge Cases &gt; should handle steps with undefined properties" time="0.0002415">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should update activeKey signal correctly" time="0.0004884">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should maintain signal reactivity" time="0.0001873">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Signal Behavior &gt; should handle multiple signal updates" time="0.0002593">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have correct default step keys" time="0.0005419">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have all default steps enabled" time="0.0008904">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have titles and descriptions for all default steps" time="0.0025156">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Default Steps Configuration &gt; should have unique keys for default steps" time="0.0003411">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover activeStep method with various scenarios" time="0.000297">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onSelect" time="0.0005394">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onBack" time="0.0003558">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/form-steps.component.spec.ts" name="FormStepsComponent (Truly Isolated) &gt; Method Coverage &gt; should cover all branches in onNext" time="0.0003261">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/stepper/stepper.component.spec.ts" timestamp="2025-10-22T10:41:17.582Z" hostname="dingolandia" tests="29" failures="0" errors="0" skipped="0" time="0.4149438">
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should create" time="0.1051547">
+    <testsuite name="src/app/stepper/step.component.spec.ts" timestamp="2025-10-22T11:59:48.906Z" hostname="VDIX-BTG-5365" tests="16" failures="0" errors="0" skipped="0" time="0.222723">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should create" time="0.0841803">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should calculate progress percent correctly" time="0.0103692">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should return false for isActive when index differs from currentIndex" time="0.008035">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should calculate progress percent with custom segments" time="0.0084095">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should register step without alias using index as fallback" time="0.0096062">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return 0 progress when no steps" time="0.008187">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should register step with alias and all properties" time="0.0083854">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get steps from service" time="0.0083827">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should return early from renderContent when host does not exist" time="0.0116127">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should sync linear flag to service in ngAfterContentInit" time="0.011061">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle contentHtml rendering and re-rendering" time="0.0118653">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should update grid columns in ngAfterViewInit" time="0.0113494">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle componentType rendering with inputs and outputs" time="0.0253179">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should update grid columns with correct calculations" time="0.0085641">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle lazyLoader rendering with inputs and outputs" time="0.0113728">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle updateGridColumns with segments &lt;= 0" time="0.0090841">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle invalid componentOutputs gracefully" time="0.0085095">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should sync linear flag in ngOnChanges" time="0.0089668">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle componentInputs errors gracefully" time="0.0093771">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should cleanup resize listener in ngOnDestroy" time="0.0082689">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle onSave and unregister on ngOnDestroy" time="0.00564">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle step click when navigable" time="0.0091073">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should use index as key on ngOnDestroy without alias" time="0.0046513">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should not handle step click when not navigable" time="0.0092201">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle HTML element cleanup and errors on ngOnDestroy" time="0.0072425">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get step classes correctly" time="0.0101287">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should call renderContent on ngAfterViewInit when active and has host" time="0.0048516">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get title classes with status overrides" time="0.0112689">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should handle contentTemplate rendering" time="0.0049597">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get title colors by status" time="0.0090354">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get icon class with custom icons and classes" time="0.008716">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle shouldShowIcon flags" time="0.0126907">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return true in shouldShowIcon for finished step with showIconOnFinished undefined" time="0.0103099">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return true in shouldShowIcon for error step with showIconOnError undefined" time="0.008468">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get icon colors by status" time="0.0085692">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get tooltips with status overrides" time="0.0166113">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return correct progress aria label" time="0.0117085">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should check isFirst and isLast correctly" time="0.0154354">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle fallback for getTitleColor, getIconClass, getIconColor, getTooltip" time="0.0159917">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle getStepClasses and getTitleClasses for pending/undefined status" time="0.0129015">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle getTooltip with only base tooltip" time="0.0143808">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should early return in updateGridColumns when width is 0" time="0.0153172">
-        </testcase>
-        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle keyboard navigation (ArrowRight, ArrowLeft, Home, End) and not handle if not navigable" time="0.0145496">
+        <testcase classname="src/app/stepper/step.component.spec.ts" name="StepComponent &gt; should clear host on hostRef setter" time="0.0050298">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/stepper/stepper.service.spec.ts" timestamp="2025-10-22T10:41:17.587Z" hostname="dingolandia" tests="25" failures="0" errors="0" skipped="0" time="0.163774">
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; registers steps and maps aliases correctly" time="0.0362755">
+    <testsuite name="src/app/stepper/stepper.component.spec.ts" timestamp="2025-10-22T11:59:48.910Z" hostname="VDIX-BTG-5365" tests="29" failures="0" errors="0" skipped="0" time="0.3394552">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should create" time="0.0825887">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; throws error when registering duplicate alias" time="0.0079963">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should calculate progress percent correctly" time="0.0139451">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; navigates with goTo and updates statuses (jump applies synthetic error)" time="0.0070716">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should calculate progress percent with custom segments" time="0.011646">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; prev/next respect boundaries and return boolean" time="0.0072226">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return 0 progress when no steps" time="0.0074676">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setStatus by index and alias" time="0.0050347">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get steps from service" time="0.0070351">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset controls visited, statuses and data" time="0.0077602">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should sync linear flag to service in ngAfterContentInit" time="0.0084685">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; linear and debug signals can be configured" time="0.0062184">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should update grid columns in ngAfterViewInit" time="0.0091839">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setLinear and setDebug update signals" time="0.0051476">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should update grid columns with correct calculations" time="0.0089746">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; blocks navigation when canExit returns false" time="0.0040978">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle updateGridColumns with segments &lt;= 0" time="0.0065663">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; proceeds navigation when canExit throws error" time="0.0035621">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should sync linear flag in ngOnChanges" time="0.0095025">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; updates existing record with registerStep again" time="0.0044658">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should cleanup resize listener in ngOnDestroy" time="0.0131123">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; registerStep update covers overrides for icons, titles and tooltips" time="0.0051077">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle step click when navigable" time="0.0079167">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; unregisterStep removes step and adjusts currentIndex" time="0.0044369">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should not handle step click when not navigable" time="0.0068755">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; jumping marks visited step as finished (even with canExit)" time="0.0042572">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get step classes correctly" time="0.006004">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset with keepData=true preserves data" time="0.0041986">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get title classes with status overrides" time="0.024014">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset with keepData=false clears data and visits only initial index" time="0.0041672">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get title colors by status" time="0.0069552">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; visiting synthetic error with canExit keeps error and traverses branch" time="0.0035244">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get icon class with custom icons and classes" time="0.0100792">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; synthetic error is removed after visiting and does not block again" time="0.004559">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle shouldShowIcon flags" time="0.007094">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; debug logging covers canExit returning false and thrown error" time="0.0042842">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return true in shouldShowIcon for finished step with showIconOnFinished undefined" time="0.0060134">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; logData prints saved payload without throwing" time="0.0044517">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return true in shouldShowIcon for error step with showIconOnError undefined" time="0.0074074">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; navigating back finishes current step" time="0.0047846">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get icon colors by status" time="0.0074035">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; invalid goTo returns false and does not change index" time="0.0046782">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should get tooltips with status overrides" time="0.0080841">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setStatus by alias updates status correctly" time="0.0040745">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should return correct progress aria label" time="0.0090212">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; effect in constructor runs when currentIndex or stepCount changes" time="0.010022">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should check isFirst and isLast correctly" time="0.0078339">
         </testcase>
-        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; covers remaining lines of logData" time="0.0030671">
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle fallback for getTitleColor, getIconClass, getIconColor, getTooltip" time="0.0099636">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle getStepClasses and getTitleClasses for pending/undefined status" time="0.009149">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle getTooltip with only base tooltip" time="0.0091525">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should early return in updateGridColumns when width is 0" time="0.0070623">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.component.spec.ts" name="StepperComponent (isolated) &gt; should handle keyboard navigation (ArrowRight, ArrowLeft, Home, End) and not handle if not navigable" time="0.0084784">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" timestamp="2025-10-22T10:41:17.592Z" hostname="dingolandia" tests="46" failures="0" errors="0" skipped="0" time="1.8784757">
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should create" time="0.3005117">
+    <testsuite name="src/app/stepper/stepper.service.spec.ts" timestamp="2025-10-22T11:59:48.917Z" hostname="VDIX-BTG-5365" tests="25" failures="0" errors="0" skipped="0" time="0.1088577">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; registers steps and maps aliases correctly" time="0.0255016">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should initialize form" time="0.054248">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; throws error when registering duplicate alias" time="0.0047554">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have form controls" time="0.0524589">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; navigates with goTo and updates statuses (jump applies synthetic error)" time="0.0057177">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have tiposBaixa array" time="0.0395945">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; prev/next respect boundaries and return boolean" time="0.0037752">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have observables defined" time="0.0384685">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setStatus by index and alias" time="0.0026181">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have observables from service" time="0.044362">
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset controls visited, statuses and data" time="0.0053607">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; linear and debug signals can be configured" time="0.0030488">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setLinear and setDebug update signals" time="0.0025306">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; blocks navigation when canExit returns false" time="0.0044292">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; proceeds navigation when canExit throws error" time="0.0026872">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; updates existing record with registerStep again" time="0.0027557">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; registerStep update covers overrides for icons, titles and tooltips" time="0.0027272">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; unregisterStep removes step and adjusts currentIndex" time="0.0022405">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; jumping marks visited step as finished (even with canExit)" time="0.0022791">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset with keepData=true preserves data" time="0.0031032">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; reset with keepData=false clears data and visits only initial index" time="0.0036301">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; visiting synthetic error with canExit keeps error and traverses branch" time="0.0028281">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; synthetic error is removed after visiting and does not block again" time="0.0027283">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; debug logging covers canExit returning false and thrown error" time="0.0022719">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; logData prints saved payload without throwing" time="0.0025217">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; navigating back finishes current step" time="0.0026934">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; invalid goTo returns false and does not change index" time="0.0039351">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; setStatus by alias updates status correctly" time="0.0026772">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; effect in constructor runs when currentIndex or stepCount changes" time="0.007321">
+        </testcase>
+        <testcase classname="src/app/stepper/stepper.service.spec.ts" name="StepperService &gt; covers remaining lines of logData" time="0.0026012">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" timestamp="2025-10-22T11:59:48.922Z" hostname="VDIX-BTG-5365" tests="10" failures="0" errors="0" skipped="0" time="0.2594072">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should create component" time="0.0851037">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should open and close add modal" time="0.0151554">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call addCollateral on onModalSave and close modal" time="0.0532249">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call removeCollateral on onDelete" time="0.0138613">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call changePage and changePageSize converting values" time="0.015493">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should trigger fileInput click on onImport" time="0.013636">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should import file on onFileSelected when file exists" time="0.0132942">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should toggle menu with toggleMenu" time="0.0140154">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should close menu on onDocClick when clicking outside" time="0.0198086">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should not close menu on onDocClick when clicking inside" time="0.014147">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" timestamp="2025-10-22T11:59:48.925Z" hostname="VDIX-BTG-5365" tests="19" failures="0" errors="0" skipped="0" time="0.854106">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should be created" time="0.0135573">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial collaterals as empty array" time="0.0038463">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial page as 1 and pageSize as 12" time="0.0027735">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial loading as false" time="0.0024585">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial total as 0" time="0.0025476">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should add collateral with generated id and default status" time="0.0078272">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should add collateral with custom status when provided" time="0.0034634">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should calculate total correctly after adding collaterals" time="0.0055689">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; removeCollateral &gt; should remove collateral by id" time="0.0216866">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; removeCollateral &gt; should not affect other collaterals when removing specific id" time="0.0060764">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should change page" time="0.0044591">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should change page size and reset page to 1" time="0.0035542">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should return correct paged collaterals" time="0.0245844">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; loading state &gt; should start loading" time="0.0112592">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; loading state &gt; should stop loading" time="0.0112383">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; importFile &gt; should start loading when importing file" time="0.0047515">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; importFile &gt; should stop loading after timeout" time="0.7146169">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; edge cases &gt; should handle collaterals with zero or undefined values in total calculation" time="0.0039849">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; edge cases &gt; should handle removing non-existent id gracefully" time="0.0031632">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" timestamp="2025-10-22T11:59:48.930Z" hostname="VDIX-BTG-5365" tests="46" failures="2" errors="0" skipped="0" time="2.575915">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should create" time="0.2532596">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should initialize form" time="0.0400588">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have form controls" time="0.0376137">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have tiposBaixa array" time="0.0470084">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have observables defined" time="0.0314452">
+        </testcase>
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; should have observables from service" time="0.0359132">
             <system-out>
 [observables] defined? {
   [32m&apos;contratos$&apos;[39m: [33mtrue[39m,
@@ -280,241 +342,255 @@
 
             </system-out>
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should format valid ISO to yyyy-MM-dd" time="0.0431798">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should format valid ISO to yyyy-MM-dd" time="0.0325476">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should return empty for invalid and sentinel date" time="0.0400858">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should return empty for invalid and sentinel date" time="0.0492592">
             <system-out>
 [formatIsoToInput] inputs: [ [1mnull[22m, [90mundefined[39m, [32m&apos;0001-01-01T00:00:00Z&apos;[39m, [32m&apos;not-a-date&apos;[39m ] results: [ [32m&apos;&apos;[39m, [32m&apos;&apos;[39m, [32m&apos;&apos;[39m, [32m&apos;&apos;[39m ]
 
             </system-out>
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should catch exception and return empty" time="0.0445569">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; formatIsoToInput should catch exception and return empty" time="0.0614177">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; mapDealRasToContrato should build Contrato correctly" time="0.0653993">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; mapDealRasToContrato should build Contrato correctly" time="0.0334365">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; applyRasToForm should fill form with formatted dates" time="0.0519512">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; applyRasToForm should fill form with formatted dates" time="0.0326944">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; performApplyRAS should fetch, apply and lock states correctly" time="0.0432192">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; performApplyRAS should fetch, apply and lock states correctly" time="0.0358852">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; resetRASLock should clear flags and status" time="0.033553">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent &gt; resetRASLock should clear flags and status" time="0.0303705">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; ngAfterViewInit: dispara loadNextPage no scroll ao fundo" time="0.0375458">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; ngAfterViewInit: dispara loadNextPage no scroll ao fundo" time="0.0467589">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; IntersectionObserver: chama onLoadMore quando sentinel intersecta" time="0.0329227">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; IntersectionObserver: chama onLoadMore quando sentinel intersecta" time="0.0565509">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; loading$: mantém posição ao recarregar perto do fim" time="0.0362585">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; loading$: mantém posição ao recarregar perto do fim" time="0.1755474">
+            <system-err>
+ERROR RuntimeError: NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations).
+    at checkNoSyntheticProp (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:483:11)
+    at NoneEncapsulationDomRenderer.setProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:408:7)
+    at setDomProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/shared.ts:305:14)
+    at ɵɵsyntheticHostProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/dom_property.ts:83:5)
+    at Toast_HostBindings (ng:///Toast/ɵcmp.js:92:5)
+    at processHostBindingOpCodes (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:554:9)
+    at refreshView (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:292:5)
+    at detectChangesInView (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:495:5)
+    at detectChangesInViewWhileDirty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:106:5)
+    at detectChangesInternal (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:94:5) {
+  code: [33m5105[39m
+}
+
+            </system-err>
+            <failure message="NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations)." type="Error">
+Error: NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations).
+ ❯ checkNoSyntheticProp ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:483:11
+ ❯ NoneEncapsulationDomRenderer.setProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:408:7
+ ❯ setDomProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/shared.ts:305:14
+ ❯ ɵɵsyntheticHostProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/dom_property.ts:83:5
+ ❯ Toast_HostBindings ng:/Toast/ɵcmp.js:92:5
+ ❯ processHostBindingOpCodes ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:554:9
+ ❯ refreshView ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:292:5
+ ❯ detectChangesInView ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:495:5
+ ❯ detectChangesInViewWhileDirty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:106:5
+ ❯ detectChangesInternal ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:94:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 5105 }
+            </failure>
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; loading$: não perto do fim volta ao topo anterior" time="0.0354171">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; loading$: não perto do fim volta ao topo anterior" time="0.072905">
+            <system-err>
+ERROR RuntimeError: NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations).
+    at checkNoSyntheticProp (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:483:11)
+    at NoneEncapsulationDomRenderer.setProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:408:7)
+    at setDomProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/shared.ts:305:14)
+    at ɵɵsyntheticHostProperty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/dom_property.ts:83:5)
+    at Toast_HostBindings (ng:///Toast/ɵcmp.js:92:5)
+    at processHostBindingOpCodes (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:554:9)
+    at refreshView (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:292:5)
+    at detectChangesInView (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:495:5)
+    at detectChangesInViewWhileDirty (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:106:5)
+    at detectChangesInternal (file:///C:/Frontend/darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:94:5) {
+  code: [33m5105[39m
+}
+
+            </system-err>
+            <failure message="NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations)." type="Error">
+Error: NG05105: Unexpected synthetic property @flyInOut found. Please make sure that:
+  - Make sure `provideAnimationsAsync()`, `provideAnimations()` or `provideNoopAnimations()` call was added to a list of providers used to bootstrap an application.
+  - There is a corresponding animation configuration named `@flyInOut` defined in the `animations` field of the `@Component` decorator (see https://angular.dev/api/core/Component#animations).
+ ❯ checkNoSyntheticProp ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:483:11
+ ❯ NoneEncapsulationDomRenderer.setProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/platform-browser/src/dom/dom_renderer.ts:408:7
+ ❯ setDomProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/shared.ts:305:14
+ ❯ ɵɵsyntheticHostProperty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/dom_property.ts:83:5
+ ❯ Toast_HostBindings ng:/Toast/ɵcmp.js:92:5
+ ❯ processHostBindingOpCodes ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:554:9
+ ❯ refreshView ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:292:5
+ ❯ detectChangesInView ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:495:5
+ ❯ detectChangesInViewWhileDirty ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:106:5
+ ❯ detectChangesInternal ../darwin_arm64-fastbuild-ST-199a4f3c4e20/bin/packages/core/src/render3/instructions/change_detection.ts:94:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 5105 }
+            </failure>
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: id vazio informa mensagem" time="0.0311334">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: id vazio informa mensagem" time="0.1486564">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: bloqueio manual abre confirmação" time="0.0305763">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: bloqueio manual abre confirmação" time="0.0463811">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: id vazio cancela e informa" time="0.0298273">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: id vazio cancela e informa" time="0.0289906">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; cancelApplyRAS: esconde confirmação" time="0.0308322">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; cancelApplyRAS: esconde confirmação" time="0.0370999">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; performApplyRAS: lida com erro e não aplica" time="0.0308915">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; performApplyRAS: lida com erro e não aplica" time="0.1051485">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePage: deduplica e navega" time="0.0306138">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePage: deduplica e navega" time="0.0453251">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePageSize: respeita bloqueio e altera tamanho" time="0.0303373">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePageSize: respeita bloqueio e altera tamanho" time="0.0276074">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onLoadMore: respeita bloqueio e carrega próxima página" time="0.0307261">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onLoadMore: respeita bloqueio e carrega próxima página" time="0.0274716">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onSelect: bloqueio manual e contrato selecionado" time="0.0400541">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onSelect: bloqueio manual e contrato selecionado" time="0.0288304">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onPrevPage: respeita bloqueio e navega quando possível" time="0.028778">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onPrevPage: respeita bloqueio e navega quando possível" time="0.0761754">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onNextPage: respeita bloqueio e limita ao total" time="0.0291441">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onNextPage: respeita bloqueio e limita ao total" time="0.0305237">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onExcluirRAS: reseta estado de RAS mantendo seleção manual" time="0.0288184">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onExcluirRAS: reseta estado de RAS mantendo seleção manual" time="0.0531037">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onExcluirSelecionado: limpa seleção e bloqueio manual" time="0.028778">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onExcluirSelecionado: limpa seleção e bloqueio manual" time="0.1227268">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; toggleShowRAS: alterna e reseta quando desligado" time="0.0286009">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; toggleShowRAS: alterna e reseta quando desligado" time="0.0284963">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; ngOnDestroy: desconecta IntersectionObserver" time="0.0279552">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; ngOnDestroy: desconecta IntersectionObserver" time="0.1572575">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onBuscar: respeita bloqueio e chama serviço com parâmetros" time="0.0285112">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onBuscar: respeita bloqueio e chama serviço com parâmetros" time="0.0346172">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; clearSearch: respeita bloqueio, zera filtros e reconsulta" time="0.028684">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; clearSearch: respeita bloqueio, zera filtros e reconsulta" time="0.0371432">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa BaseContract e UseOfProceeds" time="0.0275348">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa BaseContract e UseOfProceeds" time="0.0262365">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: fallback para Account e &quot;-&quot; quando operação ausente" time="0.0286363">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: fallback para Account e &quot;-&quot; quando operação ausente" time="0.0266075">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: sem chave usa &quot;-&quot; quando dealRAS vazio" time="0.0284385">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: sem chave usa &quot;-&quot; quando dealRAS vazio" time="0.0273364">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; toggleShowRAS: desliga e força rasLoading false" time="0.0299419">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; toggleShowRAS: desliga e força rasLoading false" time="0.0677049">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: com id e sem bloqueio chama performApplyRAS" time="0.0303087">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: com id e sem bloqueio chama performApplyRAS" time="0.0285553">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: com id válido exclui seleção, oculta e chama perform" time="0.0351729">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: com id válido exclui seleção, oculta e chama perform" time="0.0269719">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePage: quando igual ao atual apenas atualiza lastProcessedPage" time="0.0313485">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onChangePage: quando igual ao atual apenas atualiza lastProcessedPage" time="0.0305073">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa dealRAS como chave quando campos vazios" time="0.0303102">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa dealRAS como chave quando campos vazios" time="0.0817997">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa Book quando Product e UseOfProceeds vazios" time="0.0286214">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; mapDealRasToContrato: usa Book quando Product e UseOfProceeds vazios" time="0.0294246">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: sem id define status e não chama performApplyRAS" time="0.0290326">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; applyRAS: sem id define status e não chama performApplyRAS" time="0.0372036">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: sem id define status, oculta modal e não executa" time="0.0389513">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; confirmApplyRAS: sem id define status, oculta modal e não executa" time="0.0455743">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onSelect: quando rasLocked verdadeiro não seleciona nem bloqueia manual" time="0.0289604">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.component.spec.ts" name="BasicInfoComponent (coverage extras) &gt; onSelect: quando rasLocked verdadeiro não seleciona nem bloqueia manual" time="0.0346731">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" timestamp="2025-10-22T10:41:17.600Z" hostname="dingolandia" tests="17" failures="0" errors="0" skipped="0" time="0.1605158">
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should be created" time="0.0434043">
+    <testsuite name="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" timestamp="2025-10-22T11:59:48.946Z" hostname="VDIX-BTG-5365" tests="17" failures="0" errors="0" skipped="0" time="0.1203052">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should be created" time="0.0208304">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should initialize with default values" time="0.0083402">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should initialize with default values" time="0.0172584">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should have correct tiposBaixa array" time="0.0060539">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; should have correct tiposBaixa array" time="0.0045802">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should search contratos with correct parameters and update observables" time="0.0147636">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should search contratos with correct parameters and update observables" time="0.008112">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should handle loading more data (page &gt; 1) with same filters" time="0.006617">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should handle loading more data (page &gt; 1) with same filters" time="0.0109001">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should reset data when filters change" time="0.0065364">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should reset data when filters change" time="0.0049835">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should handle HTTP error and reset data" time="0.0078126">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should handle HTTP error and reset data" time="0.0044025">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should set loading to true during request" time="0.0083917">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should set loading to true during request" time="0.0049298">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should call searchContratos with current filters and new page" time="0.0072211">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should call searchContratos with current filters and new page" time="0.0068183">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should call searchContratos with current filters, page 1, and new pageSize" time="0.0073381">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should call searchContratos with current filters, page 1, and new pageSize" time="0.00491">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should increment current page and call changePage" time="0.0064983">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should increment current page and call changePage" time="0.0031851">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should return current page value" time="0.0050123">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should return current page value" time="0.0032873">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should return default page value when no search has been performed" time="0.0051948">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should return default page value when no search has been performed" time="0.0025944">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should update filtro signal" time="0.0068538">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should update filtro signal" time="0.0036199">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should update apenasNaoVinculados signal" time="0.0063514">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; searchContratos &gt; should update apenasNaoVinculados signal" time="0.0030928">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; selectContrato &gt; should update selectedContrato observable" time="0.0057937">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; selectContrato &gt; should update selectedContrato observable" time="0.006124">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; clearSelection &gt; should clear selectedContrato observable" time="0.0054272">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" timestamp="2025-10-22T10:41:17.603Z" hostname="dingolandia" tests="10" failures="0" errors="0" skipped="0" time="0.3563988">
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should create component" time="0.1634454">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should open and close add modal" time="0.0260519">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call addCollateral on onModalSave and close modal" time="0.0234125">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call removeCollateral on onDelete" time="0.0200299">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should call changePage and changePageSize converting values" time="0.0222938">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should trigger fileInput click on onImport" time="0.02099">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should import file on onFileSelected when file exists" time="0.0186575">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should toggle menu with toggleMenu" time="0.0202259">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should close menu on onDocClick when clicking outside" time="0.0184618">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.component.spec.ts" name="CollateralComponent &gt; should not close menu on onDocClick when clicking inside" time="0.020593">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/basic-info.service.spec.ts" name="BasicInfoService &gt; clearSelection &gt; should clear selectedContrato observable" time="0.0077988">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" timestamp="2025-10-22T10:41:17.606Z" hostname="dingolandia" tests="19" failures="0" errors="0" skipped="0" time="0.8465487">
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should be created" time="0.0339085">
+    <testsuite name="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" timestamp="2025-10-22T11:59:48.950Z" hostname="VDIX-BTG-5365" tests="12" failures="0" errors="0" skipped="0" time="0.0698702">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; should be created" time="0.0230738">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial collaterals as empty array" time="0.0072577">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should make GET request with correct URL for string dealRAS" time="0.0091719">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial page as 1 and pageSize as 12" time="0.0050299">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should make GET request with correct URL for number dealRAS" time="0.0034459">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial loading as false" time="0.0051228">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should trim whitespace from string dealRAS" time="0.0031228">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; should have initial total as 0" time="0.0041535">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should map DealRas response to DealRasResponse with status from DealStatus.Description" time="0.0041523">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should add collateral with generated id and default status" time="0.0086239">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus.Description is null" time="0.0029572">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should add collateral with custom status when provided" time="0.0065833">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus.Description is undefined" time="0.0032361">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; addCollateral &gt; should calculate total correctly after adding collaterals" time="0.0055248">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus is null" time="0.0029836">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; removeCollateral &gt; should remove collateral by id" time="0.0065707">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus is undefined" time="0.0038175">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; removeCollateral &gt; should not affect other collaterals when removing specific id" time="0.0062604">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should handle special characters in dealRAS by encoding them" time="0.0044684">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should change page" time="0.0056736">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should preserve all original DealRas properties in the response" time="0.0038597">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should change page size and reset page to 1" time="0.0050786">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; pagination &gt; should return correct paged collaterals" time="0.0067432">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; loading state &gt; should start loading" time="0.0043985">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; loading state &gt; should stop loading" time="0.0047558">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; importFile &gt; should start loading when importing file" time="0.0064376">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; importFile &gt; should stop loading after timeout" time="0.7107482">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; edge cases &gt; should handle collaterals with zero or undefined values in total calculation" time="0.0051086">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/collateral.service.spec.ts" name="CollateralService &gt; edge cases &gt; should handle removing non-existent id gracefully" time="0.005249">
+        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should handle HTTP error responses" time="0.0035994">
         </testcase>
     </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" timestamp="2025-10-22T10:41:17.609Z" hostname="dingolandia" tests="12" failures="0" errors="0" skipped="0" time="0.1226566">
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; should be created" time="0.040341">
+    <testsuite name="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" timestamp="2025-10-22T11:59:48.953Z" hostname="VDIX-BTG-5365" tests="13" failures="0" errors="0" skipped="0" time="0.6165593">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should create component" time="0.1428337">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should make GET request with correct URL for string dealRAS" time="0.0137063">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should initialize form with default values" time="0.0650665">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should make GET request with correct URL for number dealRAS" time="0.0075903">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should validate required fields" time="0.1178155">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should trim whitespace from string dealRAS" time="0.0060656">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should emit closed and reset form on onClose" time="0.0263807">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should map DealRas response to DealRasResponse with status from DealStatus.Description" time="0.0086128">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should not save when form is invalid" time="0.0195288">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus.Description is null" time="0.0063031">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should emit save with correct payload when form is valid" time="0.019999">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus.Description is undefined" time="0.0061195">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should handle null/undefined values on onSave" time="0.0186856">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus is null" time="0.0046034">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should accept collateralTypes as input" time="0.0946782">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should use &quot;OK&quot; as default status when DealStatus is undefined" time="0.0055415">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should accept open as input" time="0.0319298">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should handle special characters in dealRAS by encoding them" time="0.0066609">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should convert string values to number on onSave" time="0.0174647">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should preserve all original DealRas properties in the response" time="0.0076678">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should convert linked to boolean on onSave" time="0.0193254">
         </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/basic-info/services/get-deal-ras.service.spec.ts" name="GetDealRasService &gt; getDealRas &gt; should handle HTTP error responses" time="0.0058926">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should handle type as string on onSave" time="0.0193911">
         </testcase>
-    </testsuite>
-    <testsuite name="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" timestamp="2025-10-22T10:41:17.612Z" hostname="dingolandia" tests="13" failures="0" errors="0" skipped="0" time="0.6163848">
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should create component" time="0.2053529">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should initialize form with default values" time="0.0376441">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should validate required fields" time="0.0280631">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should emit closed and reset form on onClose" time="0.0311103">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should not save when form is invalid" time="0.0241811">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should emit save with correct payload when form is valid" time="0.0309111">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should handle null/undefined values on onSave" time="0.0364312">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should accept collateralTypes as input" time="0.0381789">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should accept open as input" time="0.0376612">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should convert string values to number on onSave" time="0.0395304">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should convert linked to boolean on onSave" time="0.0437898">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should handle type as string on onSave" time="0.030442">
-        </testcase>
-        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should test all fields with null/undefined values" time="0.03068">
+        <testcase classname="src/app/FormStepsComponent/contents/collateral/modal/collateral-add-modal.component.spec.ts" name="CollateralAddModalComponent &gt; should test all fields with null/undefined values" time="0.0215926">
         </testcase>
     </testsuite>
 </testsuites>

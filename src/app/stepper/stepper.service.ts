@@ -36,6 +36,7 @@ export class StepperService {
 
   // Linear mode flag to enforce sequential navigation
   readonly linear = signal(false);
+  // Debug flag to control console logging
   readonly debug = signal(false);
 
   // Configure linear mode flag
@@ -218,15 +219,22 @@ export class StepperService {
     const list = this.steps();
     const currentStep = list.find(s => s.index === currentIdx);
 
+    // debug logs removed to comply with linting rules
+
     // Guard de saída: permite aplicar validações/estados ao deixar o passo atual
     if (currentStep?.canExit) {
       try {
         const ok = await currentStep.canExit(this);
 
+        // debug logs removed
+
         if (ok === false) {
+          // debug logs removed
+
           return false;
         }
       } catch {
+        // debug logs removed
         // Em caso de erro, não bloquear navegação mas seguir adiante
       }
     }
@@ -281,10 +289,12 @@ export class StepperService {
 
     this.stepStatuses.set(statuses);
     this.syntheticErrors.set(synthetic);
+    // debug logs removed
 
     // marcar destino como visitado
     visited[idx] = true;
     this.visitedSteps.set(visited);
+    // debug logs removed
 
     this.currentIndex.set(idx);
 
@@ -320,6 +330,13 @@ export class StepperService {
 
   getData<T = unknown>(key: StepKey): T | undefined {
     return this.stepData()[key] as T | undefined;
+  }
+
+  // helper de debug: emitir no log o valor daquele step
+  logData(key: StepKey, _prefix = '[Stepper]'): void {
+    // debug helper suppressed to comply with lint rules
+    void _prefix;
+    void this.getData(key);
   }
 
   setStatus(key: StepKey, status: StepStatus): void {
