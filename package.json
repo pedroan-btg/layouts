@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "vitest run --coverage",
+    "test:ci": "set CI=true&& vitest run --coverage",
+    "test:verbose": "set CI=true&& vitest run --coverage --reporter=verbose",
     "test:watch": "vitest",
     "lint": "node ./scripts/run-eslint.mjs"
   },

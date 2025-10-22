@@ -27,7 +27,7 @@ export default defineConfig((): UserConfig => {
       mockReset: true,
       watch: false,
       isolate: true,
-      silent: false,
+      silent: true,
       coverage: {
         all: false,
         reporter: ['text', 'text-summary', 'json', 'lcov'],

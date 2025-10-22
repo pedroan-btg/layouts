@@ -130,14 +130,6 @@ describe('BasicInfoComponent', () => {
   });
 
   it('should have observables from service', () => {
-    console.log('[observables] defined?', {
-      contratos$: !!(component as any).contratos$,
-      total$: !!(component as any).total$,
-      page$: !!(component as any).page$,
-      pageSize$: !!(component as any).pageSize$,
-      selected$: !!(component as any).selected$,
-      loading$: !!(component as any).loading$,
-    });
     expect((component as any).contratos$).toBeDefined();
     expect((component as any).total$).toBeDefined();
     expect((component as any).page$).toBeDefined();
@@ -155,7 +147,6 @@ describe('BasicInfoComponent', () => {
   it('formatIsoToInput should return empty for invalid and sentinel date', () => {
     const inputs = [null, undefined, '0001-01-01T00:00:00Z', 'not-a-date'];
     const results = inputs.map((i) => (component as any).formatIsoToInput(i as any));
-    console.log('[formatIsoToInput] inputs:', inputs, 'results:', results);
     expect(results).toEqual(['', '', '', '']);
   });
 

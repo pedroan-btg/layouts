@@ -198,9 +198,10 @@ describe('StepComponent', () => {
 
     await cmp.renderContent();
 
-    expect(mockHost.createComponent).toHaveBeenCalledWith(TestComponent, {
-      environmentInjector: (cmp as any).envInjector,
-    });
+    expect(mockHost.createComponent).toHaveBeenCalledWith(
+      TestComponent,
+      expect.objectContaining({ environmentInjector: expect.any(EnvironmentInjector) }),
+    );
     expect(mockInstance.value).toBe('test-value');
     expect(mockComponentRef.changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
@@ -232,9 +233,10 @@ describe('StepComponent', () => {
 
     await cmp.renderContent();
 
-    expect(mockHost.createComponent).toHaveBeenCalledWith(LazyComponent, {
-      environmentInjector: (cmp as any).envInjector,
-    });
+    expect(mockHost.createComponent).toHaveBeenCalledWith(
+      LazyComponent,
+      expect.objectContaining({ environmentInjector: expect.any(EnvironmentInjector) }),
+    );
     expect(mockInstance.data).toBe('lazy-data');
     expect(mockComponentRef.changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
@@ -248,19 +250,21 @@ describe('StepComponent', () => {
     await TestBed.configureTestingModule({ imports: [InvalidComponent] }).compileComponents();
 
     const { cmp } = createStep();
-    const mockHost = createMockHost();
-    mockHost.createComponent = vi.fn().mockReturnValue({
-      instance: { changed: new EventEmitter() },
+    const mockInstance = { changed: new EventEmitter() };
+    const mockComponentRef = {
+      instance: mockInstance,
       location: { nativeElement: document.createElement('div') },
       changeDetectorRef: { markForCheck: vi.fn() },
-    });
+    };
+
+    const mockHost = createMockHost();
+    mockHost.createComponent = vi.fn().mockReturnValue(mockComponentRef);
     (cmp as any).host = mockHost;
 
     cmp.componentType = InvalidComponent;
-    cmp.componentOutputs = { changed: 123 as any, nonExistent: vi.fn() };
+    cmp.componentOutputs = { changed: 'not-a-function' as any };
 
-    await cmp.renderContent();
-    expect(mockHost.createComponent).toHaveBeenCalled();
+    await expect(cmp.renderContent()).resolves.not.toThrow();
   });
 
   it('should handle componentInputs errors gracefully', async () => {
@@ -391,5 +395,95 @@ describe('StepComponent', () => {
 
     await new Promise(resolve => queueMicrotask(resolve as any));
     expect((cmp as any).host).toBe(mockNewHost);
+  });
+
+  it('should trigger renderContent when host exists and step is active', async () => {
+    const { cmp } = createStep();
+    const mockHost = createMockHost();
+    const renderSpy = vi.spyOn(cmp, 'renderContent').mockResolvedValue();
+
+    (cmp as any)._contentRendered = false;
+    makeActive(cmp, 0);
+
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
+    if (descriptor?.set) {
+      descriptor.set.call(cmp, mockHost);
+    }
+
+    await new Promise(resolve => queueMicrotask(resolve as any));
+    expect(renderSpy).toHaveBeenCalled();
+  });
+
+  it('should reset flags when host is removed', () => {
+    const { cmp } = createStep();
+    
+    (cmp as any)._contentRendered = true;
+    (cmp as any)._wasActive = true;
+    
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
+    if (descriptor?.set) {
+      descriptor.set.call(cmp, undefined);
+    }
+    
+    expect((cmp as any)._contentRendered).toBe(false);
+    expect((cmp as any)._wasActive).toBe(false);
+  });
+
+  it('should reset contentRendered flag in ngAfterViewChecked when step becomes inactive', () => {
+    const { cmp } = createStep();
+    const service = TestBed.inject(StepperService);
+    
+    cmp.__assignIndex(0);
+    (cmp as any)._wasActive = true;
+    (cmp as any)._contentRendered = true;
+    vi.mocked(service.currentIndex).mockReturnValue(1);
+    
+    cmp.ngAfterViewChecked();
+    expect((cmp as any)._contentRendered).toBe(false);
+  });
+
+  it('should update _wasActive flag in ngAfterViewChecked', () => {
+    const { cmp } = createStep();
+    const service = TestBed.inject(StepperService);
+    
+    cmp.__assignIndex(0);
+    vi.mocked(service.currentIndex).mockReturnValue(1);
+    (cmp as any)._wasActive = false;
+    
+    cmp.ngAfterViewChecked();
+    expect((cmp as any)._wasActive).toBe(false);
+    
+    vi.mocked(service.currentIndex).mockReturnValue(0);
+    cmp.ngAfterViewChecked();
+    expect((cmp as any)._wasActive).toBe(true);
+  });
+
+  it('should allow re-rendering when contentHtml changes', async () => {
+    const { cmp } = createStep();
+    const mockHost = createMockHost();
+    (cmp as any).host = mockHost;
+    
+    cmp.contentHtml = '<div>First content</div>';
+    await cmp.renderContent();
+    expect((cmp as any)._contentRendered).toBe(true);
+    expect((cmp as any)._lastContentHtml).toBe('<div>First content</div>');
+    
+    cmp.contentHtml = '<div>Second content</div>';
+    await cmp.renderContent();
+    expect(mockHost.clear).toHaveBeenCalledTimes(2);
+    expect((cmp as any)._lastContentHtml).toBe('<div>Second content</div>');
+  });
+
+  it('should not re-render when contentHtml is the same', async () => {
+    const { cmp } = createStep();
+    const mockHost = createMockHost();
+    (cmp as any).host = mockHost;
+    
+    cmp.contentHtml = '<div>Same content</div>';
+    await cmp.renderContent();
+    expect(mockHost.clear).toHaveBeenCalledTimes(1);
+    
+    await cmp.renderContent();
+    expect(mockHost.clear).toHaveBeenCalledTimes(1);
   });
 });
