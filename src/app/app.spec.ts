@@ -9,12 +9,15 @@ describe('App', () => {
     await TestBed.configureTestingModule({
       imports: [App, HttpClientTestingModule, RouterTestingModule],
       providers: [
-        {
-          provide: ENV_CONFIG,
-          useValue: { environment: 'test', version: 'test', logDisabled: true },
-        },
-      ],
-      teardown: { destroyAfterEach: true },
+        { 
+          provide: ENV_CONFIG, 
+          useValue: { 
+            environment: 'test',
+            version: '1.0.0',
+            logDisabled: true
+          } 
+        }
+      ]
     }).compileComponents();
   });
 
@@ -24,7 +27,7 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the form steps container', () => {
+  it('should render form steps container', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

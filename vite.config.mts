@@ -27,16 +27,16 @@ export default defineConfig((): UserConfig => {
       mockReset: true,
       watch: false,
       isolate: true,
-      silent: true,
+      silent: false,
       coverage: {
         all: false,
         reporter: ['text', 'text-summary', 'json', 'lcov'],
         thresholds: {
           perFile: true,
-          lines: 85,
-          functions: 85,
+          lines: 90,
+          functions: 100,
           branches: 85,
-          statements: 85,
+          statements: 90,
         },
       },
       poolOptions: {

@@ -6,8 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
-    "test:watch": "ng test --browsers=ChromeHeadless",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
     "lint": "node ./scripts/run-eslint.mjs"
   },
   "prettier": {
@@ -56,6 +56,8 @@
     "stylelint-config-recommended-scss": "15.0.1",
     "@types/jasmine": "~5.1.0",
     "typescript": "~5.8.3",    
+    "jsdom": "26.1.0",
+    "junit": "1.4.9",
     "vitest": "3.2.4"
   }
 }
