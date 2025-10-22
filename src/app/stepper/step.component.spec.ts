@@ -172,13 +172,19 @@ describe('StepComponent', () => {
   });
 
   it('should handle componentType rendering with inputs and outputs', async () => {
-    @Component({ selector: 'test-comp', standalone: true, template: '<div>{{value}}</div>' })
+    @Component({
+      selector: 'test-comp',
+      standalone: true,
+      template: '<div>{{value}}</div>',
+    })
     class TestComponent {
       @Input() value = '';
       @Output() changed = new EventEmitter<string>();
     }
 
-    await TestBed.configureTestingModule({ imports: [TestComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [TestComponent],
+    }).compileComponents();
 
     const { cmp } = createStep();
     const mockInstance = { value: '', changed: new EventEmitter() };
@@ -200,20 +206,28 @@ describe('StepComponent', () => {
 
     expect(mockHost.createComponent).toHaveBeenCalledWith(
       TestComponent,
-      expect.objectContaining({ environmentInjector: expect.any(EnvironmentInjector) }),
+      expect.objectContaining({
+        environmentInjector: expect.any(EnvironmentInjector),
+      }),
     );
     expect(mockInstance.value).toBe('test-value');
     expect(mockComponentRef.changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
 
   it('should handle lazyLoader rendering with inputs and outputs', async () => {
-    @Component({ selector: 'lazy-comp', standalone: true, template: '<div>{{data}}</div>' })
+    @Component({
+      selector: 'lazy-comp',
+      standalone: true,
+      template: '<div>{{data}}</div>',
+    })
     class LazyComponent {
       @Input() data = '';
       @Output() action = new EventEmitter<string>();
     }
 
-    await TestBed.configureTestingModule({ imports: [LazyComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [LazyComponent],
+    }).compileComponents();
 
     const { cmp } = createStep();
     const mockInstance = { data: '', action: new EventEmitter() };
@@ -235,19 +249,27 @@ describe('StepComponent', () => {
 
     expect(mockHost.createComponent).toHaveBeenCalledWith(
       LazyComponent,
-      expect.objectContaining({ environmentInjector: expect.any(EnvironmentInjector) }),
+      expect.objectContaining({
+        environmentInjector: expect.any(EnvironmentInjector),
+      }),
     );
     expect(mockInstance.data).toBe('lazy-data');
     expect(mockComponentRef.changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
 
   it('should handle invalid componentOutputs gracefully', async () => {
-    @Component({ selector: 'invalid-comp', standalone: true, template: '<div>Invalid</div>' })
+    @Component({
+      selector: 'invalid-comp',
+      standalone: true,
+      template: '<div>Invalid</div>',
+    })
     class InvalidComponent {
       @Output() changed = new EventEmitter<number>();
     }
 
-    await TestBed.configureTestingModule({ imports: [InvalidComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [InvalidComponent],
+    }).compileComponents();
 
     const { cmp } = createStep();
     const mockInstance = { changed: new EventEmitter() };
@@ -268,14 +290,20 @@ describe('StepComponent', () => {
   });
 
   it('should handle componentInputs errors gracefully', async () => {
-    @Component({ selector: 'error-comp', standalone: true, template: '<div>Error</div>' })
+    @Component({
+      selector: 'error-comp',
+      standalone: true,
+      template: '<div>Error</div>',
+    })
     class ErrorComponent {
       @Input() set errorProp(_value: any) {
         throw new Error('Input error');
       }
     }
 
-    await TestBed.configureTestingModule({ imports: [ErrorComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [ErrorComponent],
+    }).compileComponents();
 
     const { cmp } = createStep();
     const mockHost = createMockHost();
@@ -312,7 +340,9 @@ describe('StepComponent', () => {
     cmp.ngOnDestroy();
 
     expect(mockOnSave).toHaveBeenCalledWith(service);
-    expect(service.saveData).toHaveBeenCalledWith('test-alias', { custom: 'data' });
+    expect(service.saveData).toHaveBeenCalledWith('test-alias', {
+      custom: 'data',
+    });
     expect(service.unregisterStep).toHaveBeenCalledWith(2, 'test-alias');
   });
 
@@ -346,7 +376,10 @@ describe('StepComponent', () => {
         throw new Error('Removal error');
       }),
     };
-    Object.defineProperty(errorElement, 'parentNode', { value: errorParent, configurable: true });
+    Object.defineProperty(errorElement, 'parentNode', {
+      value: errorParent,
+      configurable: true,
+    });
     (cmp as any)._contentHtmlEl = errorElement;
 
     expect(() => cmp.ngOnDestroy()).not.toThrow();
@@ -384,16 +417,23 @@ describe('StepComponent', () => {
     const mockOldHost = { clear: clearSpy } as unknown as ViewContainerRef;
 
     makeActive(cmp, 0);
-    Object.defineProperty(cmp, 'host', { value: mockOldHost, writable: true, configurable: true });
+    Object.defineProperty(cmp, 'host', {
+      value: mockOldHost,
+      writable: true,
+      configurable: true,
+    });
 
     const mockNewHost = createMockHost();
-    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
+    const descriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(cmp),
+      'hostRef',
+    );
 
     if (descriptor?.set) {
       descriptor.set.call(cmp, mockNewHost);
     }
 
-    await new Promise(resolve => queueMicrotask(resolve as any));
+    await new Promise((resolve) => queueMicrotask(resolve as any));
     expect((cmp as any).host).toBe(mockNewHost);
   });
 
@@ -405,26 +445,32 @@ describe('StepComponent', () => {
     (cmp as any)._contentRendered = false;
     makeActive(cmp, 0);
 
-    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
+    const descriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(cmp),
+      'hostRef',
+    );
     if (descriptor?.set) {
       descriptor.set.call(cmp, mockHost);
     }
 
-    await new Promise(resolve => queueMicrotask(resolve as any));
+    await new Promise((resolve) => queueMicrotask(resolve as any));
     expect(renderSpy).toHaveBeenCalled();
   });
 
   it('should reset flags when host is removed', () => {
     const { cmp } = createStep();
-    
+
     (cmp as any)._contentRendered = true;
     (cmp as any)._wasActive = true;
-    
-    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
+
+    const descriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(cmp),
+      'hostRef',
+    );
     if (descriptor?.set) {
       descriptor.set.call(cmp, undefined);
     }
-    
+
     expect((cmp as any)._contentRendered).toBe(false);
     expect((cmp as any)._wasActive).toBe(false);
   });
@@ -432,12 +478,12 @@ describe('StepComponent', () => {
   it('should reset contentRendered flag in ngAfterViewChecked when step becomes inactive', () => {
     const { cmp } = createStep();
     const service = TestBed.inject(StepperService);
-    
+
     cmp.__assignIndex(0);
     (cmp as any)._wasActive = true;
     (cmp as any)._contentRendered = true;
     vi.mocked(service.currentIndex).mockReturnValue(1);
-    
+
     cmp.ngAfterViewChecked();
     expect((cmp as any)._contentRendered).toBe(false);
   });
@@ -445,14 +491,14 @@ describe('StepComponent', () => {
   it('should update _wasActive flag in ngAfterViewChecked', () => {
     const { cmp } = createStep();
     const service = TestBed.inject(StepperService);
-    
+
     cmp.__assignIndex(0);
     vi.mocked(service.currentIndex).mockReturnValue(1);
     (cmp as any)._wasActive = false;
-    
+
     cmp.ngAfterViewChecked();
     expect((cmp as any)._wasActive).toBe(false);
-    
+
     vi.mocked(service.currentIndex).mockReturnValue(0);
     cmp.ngAfterViewChecked();
     expect((cmp as any)._wasActive).toBe(true);
@@ -462,12 +508,12 @@ describe('StepComponent', () => {
     const { cmp } = createStep();
     const mockHost = createMockHost();
     (cmp as any).host = mockHost;
-    
+
     cmp.contentHtml = '<div>First content</div>';
     await cmp.renderContent();
     expect((cmp as any)._contentRendered).toBe(true);
     expect((cmp as any)._lastContentHtml).toBe('<div>First content</div>');
-    
+
     cmp.contentHtml = '<div>Second content</div>';
     await cmp.renderContent();
     expect(mockHost.clear).toHaveBeenCalledTimes(2);
@@ -478,11 +524,11 @@ describe('StepComponent', () => {
     const { cmp } = createStep();
     const mockHost = createMockHost();
     (cmp as any).host = mockHost;
-    
+
     cmp.contentHtml = '<div>Same content</div>';
     await cmp.renderContent();
     expect(mockHost.clear).toHaveBeenCalledTimes(1);
-    
+
     await cmp.renderContent();
     expect(mockHost.clear).toHaveBeenCalledTimes(1);
   });

@@ -4,19 +4,23 @@ import { FormStepsComponent, FormStep } from './form-steps.component';
 const signal = (initialValue: any) => {
   let value = initialValue;
   const signalFn = () => value;
-  signalFn.set = (newValue: any) => { value = newValue; };
-  signalFn.update = (updateFn: (current: any) => any) => { value = updateFn(value); };
+  signalFn.set = (newValue: any) => {
+    value = newValue;
+  };
+  signalFn.update = (updateFn: (current: any) => any) => {
+    value = updateFn(value);
+  };
   return signalFn;
 };
 
 // Mock EventEmitter
 class MockEventEmitter {
   private listeners: ((value?: any) => void)[] = [];
-  
+
   emit(value?: any) {
-    this.listeners.forEach(listener => listener(value));
+    this.listeners.forEach((listener) => listener(value));
   }
-  
+
   subscribe(listener: (value?: any) => void) {
     this.listeners.push(listener);
     return { unsubscribe: () => {} };
@@ -52,7 +56,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     component.cancelAction = new MockEventEmitter() as any;
     component.back = new MockEventEmitter() as any;
     component.next = new MockEventEmitter() as any;
-    
+
     // Mock do signal activeKey
     (component as any).activeKey = signal('basic');
   });
@@ -113,9 +117,9 @@ describe('FormStepsComponent (Truly Isolated)', () => {
   describe('Output Events', () => {
     it('should emit stepChange when onSelect is called', () => {
       let emittedValue: string | undefined;
-      component.stepChange.subscribe(value => emittedValue = value);
+      component.stepChange.subscribe((value) => (emittedValue = value));
       component.steps = mockSteps;
-      
+
       component.onSelect('step2');
 
       expect(emittedValue).toBe('step2');
@@ -123,10 +127,10 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should emit back event when onBack is called', () => {
       let emittedValue: string | undefined;
-      component.back.subscribe(value => emittedValue = value);
+      component.back.subscribe((value) => (emittedValue = value));
       component.steps = mockSteps;
       component['activeKey'].set('step2');
-      
+
       component.onBack();
 
       expect(emittedValue).toBe('step1');
@@ -134,10 +138,10 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should emit next event when onNext is called', () => {
       let emittedValue: string | undefined;
-      component.next.subscribe(value => emittedValue = value);
+      component.next.subscribe((value) => (emittedValue = value));
       component.steps = mockSteps;
       component['activeKey'].set('step1');
-      
+
       component.onNext();
 
       expect(emittedValue).toBe('step2');
@@ -204,7 +208,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not emit stepChange when selecting disabled step', () => {
       let emittedValue: string | undefined;
-      component.stepChange.subscribe(value => emittedValue = value);
+      component.stepChange.subscribe((value) => (emittedValue = value));
       component.onSelect('step3');
 
       expect(emittedValue).toBeUndefined();
@@ -212,7 +216,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not emit stepChange when selecting nonexistent step', () => {
       let emittedValue: string | undefined;
-      component.stepChange.subscribe(value => emittedValue = value);
+      component.stepChange.subscribe((value) => (emittedValue = value));
       component.onSelect('nonexistent');
 
       expect(emittedValue).toBeUndefined();
@@ -241,7 +245,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should emit stepChange for valid enabled step', () => {
       let emittedValue: string | undefined;
-      component.stepChange.subscribe(value => emittedValue = value);
+      component.stepChange.subscribe((value) => (emittedValue = value));
       component.onSelect('step1');
 
       expect(emittedValue).toBe('step1');
@@ -255,7 +259,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should navigate to previous step', () => {
       component['activeKey'].set('step2');
-      
+
       component.onBack();
 
       expect(component['activeKey']()).toBe('step1');
@@ -264,12 +268,17 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should skip disabled steps when going back', () => {
       const stepsWithDisabled: FormStep[] = [
         { key: 'step1', title: 'Step 1', description: 'First step' },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: true },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: true,
+        },
         { key: 'step3', title: 'Step 3', description: 'Third step' },
       ];
       component.steps = stepsWithDisabled;
       component['activeKey'].set('step3');
-      
+
       component.onBack();
 
       expect(component['activeKey']()).toBe('step1');
@@ -277,7 +286,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not change activeKey when already at first step', () => {
       component['activeKey'].set('step1');
-      
+
       component.onBack();
 
       expect(component['activeKey']()).toBe('step1');
@@ -285,9 +294,9 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not emit back event when no previous step available', () => {
       let emittedValue: string | undefined;
-      component.back.subscribe(value => emittedValue = value);
+      component.back.subscribe((value) => (emittedValue = value));
       component['activeKey'].set('step1');
-      
+
       component.onBack();
 
       expect(emittedValue).toBeUndefined();
@@ -296,7 +305,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should handle empty steps array', () => {
       component.steps = [];
       component['activeKey'].set('any');
-      
+
       component.onBack();
 
       expect(component['activeKey']()).toBe('any');
@@ -304,13 +313,23 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should handle all previous steps disabled', () => {
       const allPreviousDisabled: FormStep[] = [
-        { key: 'step1', title: 'Step 1', description: 'First step', disabled: true },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: true },
+        {
+          key: 'step1',
+          title: 'Step 1',
+          description: 'First step',
+          disabled: true,
+        },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: true,
+        },
         { key: 'step3', title: 'Step 3', description: 'Third step' },
       ];
       component.steps = allPreviousDisabled;
       component['activeKey'].set('step3');
-      
+
       component.onBack();
 
       expect(component['activeKey']()).toBe('step3');
@@ -324,7 +343,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should navigate to next step', () => {
       component['activeKey'].set('step1');
-      
+
       component.onNext();
 
       expect(component['activeKey']()).toBe('step2');
@@ -333,12 +352,17 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should skip disabled steps when going forward', () => {
       const stepsWithDisabled: FormStep[] = [
         { key: 'step1', title: 'Step 1', description: 'First step' },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: true },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: true,
+        },
         { key: 'step3', title: 'Step 3', description: 'Third step' },
       ];
       component.steps = stepsWithDisabled;
       component['activeKey'].set('step1');
-      
+
       component.onNext();
 
       expect(component['activeKey']()).toBe('step3');
@@ -346,7 +370,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not change activeKey when already at last step', () => {
       component['activeKey'].set('step2');
-      
+
       component.onNext();
 
       expect(component['activeKey']()).toBe('step2');
@@ -354,9 +378,9 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should not emit next event when no next step available', () => {
       let emittedValue: string | undefined;
-      component.next.subscribe(value => emittedValue = value);
+      component.next.subscribe((value) => (emittedValue = value));
       component['activeKey'].set('step2');
-      
+
       component.onNext();
 
       expect(emittedValue).toBeUndefined();
@@ -365,7 +389,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should handle empty steps array', () => {
       component.steps = [];
       component['activeKey'].set('any');
-      
+
       component.onNext();
 
       expect(component['activeKey']()).toBe('any');
@@ -374,12 +398,22 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should handle all next steps disabled', () => {
       const allNextDisabled: FormStep[] = [
         { key: 'step1', title: 'Step 1', description: 'First step' },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: true },
-        { key: 'step3', title: 'Step 3', description: 'Third step', disabled: true },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: true,
+        },
+        {
+          key: 'step3',
+          title: 'Step 3',
+          description: 'Third step',
+          disabled: true,
+        },
       ];
       component.steps = allNextDisabled;
       component['activeKey'].set('step1');
-      
+
       component.onNext();
 
       expect(component['activeKey']()).toBe('step1');
@@ -395,15 +429,25 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should handle all steps disabled', () => {
       const allDisabledSteps: FormStep[] = [
-        { key: 'step1', title: 'Step 1', description: 'First step', disabled: true },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: true },
+        {
+          key: 'step1',
+          title: 'Step 1',
+          description: 'First step',
+          disabled: true,
+        },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: true,
+        },
       ];
       component.steps = allDisabledSteps;
       component['activeKey'].set('step1');
-      
+
       component.onNext();
       expect(component['activeKey']()).toBe('step1');
-      
+
       component.onBack();
       expect(component['activeKey']()).toBe('step1');
     });
@@ -414,10 +458,10 @@ describe('FormStepsComponent (Truly Isolated)', () => {
       ];
       component.steps = singleStep;
       component['activeKey'].set('only');
-      
+
       component.onNext();
       expect(component['activeKey']()).toBe('only');
-      
+
       component.onBack();
       expect(component['activeKey']()).toBe('only');
     });
@@ -429,7 +473,7 @@ describe('FormStepsComponent (Truly Isolated)', () => {
       ];
       component.steps = duplicateKeySteps;
       component['activeKey'].set('same');
-      
+
       const activeStep = component['activeStep']();
       expect(activeStep).toEqual(duplicateKeySteps[0]);
     });
@@ -437,10 +481,15 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     it('should handle steps with undefined properties', () => {
       const stepsWithUndefined: FormStep[] = [
         { key: 'step1', title: 'Step 1', description: 'First step' },
-        { key: 'step2', title: 'Step 2', description: 'Second step', disabled: undefined },
+        {
+          key: 'step2',
+          title: 'Step 2',
+          description: 'Second step',
+          disabled: undefined,
+        },
       ];
       component.steps = stepsWithUndefined;
-      
+
       component.onSelect('step2');
       expect(component['activeKey']()).toBe('step2');
     });
@@ -449,28 +498,28 @@ describe('FormStepsComponent (Truly Isolated)', () => {
   describe('Signal Behavior', () => {
     it('should update activeKey signal correctly', () => {
       const initialValue = component['activeKey']();
-      
+
       component['activeKey'].set('newValue');
-      
+
       expect(component['activeKey']()).toBe('newValue');
       expect(component['activeKey']()).not.toBe(initialValue);
     });
 
     it('should maintain signal reactivity', () => {
       const subscription = component['activeKey'];
-      
+
       component['activeKey'].set('changed');
-      
+
       expect(subscription()).toBe('changed');
     });
 
     it('should handle multiple signal updates', () => {
       component['activeKey'].set('first');
       expect(component['activeKey']()).toBe('first');
-      
+
       component['activeKey'].set('second');
       expect(component['activeKey']()).toBe('second');
-      
+
       component['activeKey'].set('third');
       expect(component['activeKey']()).toBe('third');
     });
@@ -478,20 +527,26 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
   describe('Default Steps Configuration', () => {
     it('should have correct default step keys', () => {
-      const expectedKeys = ['basic', 'collateral', 'credits', 'documents', 'review'];
-      const actualKeys = component.steps.map(step => step.key);
-      
+      const expectedKeys = [
+        'basic',
+        'collateral',
+        'credits',
+        'documents',
+        'review',
+      ];
+      const actualKeys = component.steps.map((step) => step.key);
+
       expect(actualKeys).toEqual(expectedKeys);
     });
 
     it('should have all default steps enabled', () => {
-      const disabledSteps = component.steps.filter(step => step.disabled);
-      
+      const disabledSteps = component.steps.filter((step) => step.disabled);
+
       expect(disabledSteps.length).toBe(0);
     });
 
     it('should have titles and descriptions for all default steps', () => {
-      component.steps.forEach(step => {
+      component.steps.forEach((step) => {
         expect(step.title).toBeTruthy();
         expect(step.description).toBeTruthy();
         expect(typeof step.title).toBe('string');
@@ -500,9 +555,9 @@ describe('FormStepsComponent (Truly Isolated)', () => {
     });
 
     it('should have unique keys for default steps', () => {
-      const keys = component.steps.map(step => step.key);
+      const keys = component.steps.map((step) => step.key);
       const uniqueKeys = [...new Set(keys)];
-      
+
       expect(keys.length).toBe(uniqueKeys.length);
     });
   });
@@ -513,11 +568,11 @@ describe('FormStepsComponent (Truly Isolated)', () => {
       component.steps = mockSteps;
       component['activeKey'].set('step1');
       expect(component['activeStep']()).toBeDefined();
-      
+
       // Test with invalid key
       component['activeKey'].set('invalid');
       expect(component['activeStep']()).toBeUndefined();
-      
+
       // Test with empty steps
       component.steps = [];
       expect(component['activeStep']()).toBeUndefined();
@@ -525,16 +580,16 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should cover all branches in onSelect', () => {
       component.steps = mockSteps;
-      
+
       // Valid step
       component.onSelect('step1');
       expect(component['activeKey']()).toBe('step1');
-      
+
       // Disabled step
       const initialKey = component['activeKey']();
       component.onSelect('step3');
       expect(component['activeKey']()).toBe(initialKey);
-      
+
       // Nonexistent step
       component.onSelect('nonexistent');
       expect(component['activeKey']()).toBe(initialKey);
@@ -542,12 +597,12 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should cover all branches in onBack', () => {
       component.steps = mockSteps;
-      
+
       // Has previous step
       component['activeKey'].set('step2');
       component.onBack();
       expect(component['activeKey']()).toBe('step1');
-      
+
       // No previous step
       component['activeKey'].set('step1');
       component.onBack();
@@ -556,12 +611,12 @@ describe('FormStepsComponent (Truly Isolated)', () => {
 
     it('should cover all branches in onNext', () => {
       component.steps = mockSteps;
-      
+
       // Has next step
       component['activeKey'].set('step1');
       component.onNext();
       expect(component['activeKey']()).toBe('step2');
-      
+
       // No next step
       component['activeKey'].set('step2');
       component.onNext();

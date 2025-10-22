@@ -11,9 +11,17 @@ Object.defineProperty(window, 'IntersectionObserver', {
   writable: true,
   configurable: true,
   value: class IntersectionObserver {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
+    observe(): void {
+      // Mock implementation
+    }
+
+    unobserve(): void {
+      // Mock implementation
+    }
+
+    disconnect(): void {
+      // Mock implementation
+    }
   },
 });
 

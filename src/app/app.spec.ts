@@ -9,15 +9,15 @@ describe('App', () => {
     await TestBed.configureTestingModule({
       imports: [App, HttpClientTestingModule, RouterTestingModule],
       providers: [
-        { 
-          provide: ENV_CONFIG, 
-          useValue: { 
+        {
+          provide: ENV_CONFIG,
+          useValue: {
             environment: 'test',
             version: '1.0.0',
-            logDisabled: true
-          } 
-        }
-      ]
+            logDisabled: true,
+          },
+        },
+      ],
     }).compileComponents();
   });
 

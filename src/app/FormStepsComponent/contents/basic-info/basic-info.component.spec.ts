@@ -66,7 +66,13 @@ describe('BasicInfoComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, CommonModule, RouterTestingModule, HttpClientTestingModule, BasicInfoComponent],
+      imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        BasicInfoComponent,
+      ],
       providers: [
         FormBuilder,
         { provide: BasicInfoService, useValue: mockBasicInfoService },
@@ -85,7 +91,7 @@ describe('BasicInfoComponent', () => {
     fixture = TestBed.createComponent(BasicInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    
+
     // Reset mocks
     vi.clearAllMocks();
     mockBasicInfoService.contratos$.next([]);
@@ -111,7 +117,7 @@ describe('BasicInfoComponent', () => {
 
   it('should have form controls', () => {
     const controls = ['dataContrato', 'dataInicioVigencia', 'tipoBaixa'];
-    controls.forEach(controlName => {
+    controls.forEach((controlName) => {
       const ctrl = (component as any).form.get(controlName);
       expect(ctrl).toBeDefined();
     });
@@ -146,13 +152,17 @@ describe('BasicInfoComponent', () => {
 
   it('formatIsoToInput should return empty for invalid and sentinel date', () => {
     const inputs = [null, undefined, '0001-01-01T00:00:00Z', 'not-a-date'];
-    const results = inputs.map((i) => (component as any).formatIsoToInput(i as any));
+    const results = inputs.map((i) =>
+      (component as any).formatIsoToInput(i as any),
+    );
     expect(results).toEqual(['', '', '', '']);
   });
 
   it('formatIsoToInput should catch exception and return empty', () => {
     const originalDate = Date;
-    const throwingCtor: any = function () { throw new Error('boom'); };
+    const throwingCtor: any = function () {
+      throw new Error('boom');
+    };
     (globalThis as any).Date = throwingCtor;
 
     const output = (component as any).formatIsoToInput('2024-05-10T00:00:00Z');
@@ -196,9 +206,7 @@ describe('BasicInfoComponent', () => {
       NewContract: 'NC001',
       ProductCanonical: 'ProdutoX',
     };
-    mockGetDealRasService.getDealRas.mockReturnValue(
-      of(res)
-    );
+    mockGetDealRasService.getDealRas.mockReturnValue(of(res));
 
     (component as any).performApplyRAS('ABC123');
 
@@ -220,7 +228,6 @@ describe('BasicInfoComponent', () => {
     expect((component as any).dealRASStatus).toBe('-');
     expect((component as any).rasContratos).toEqual([]);
   });
-
 });
 
 describe('BasicInfoComponent (coverage extras)', () => {
@@ -241,12 +248,25 @@ describe('BasicInfoComponent (coverage extras)', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, CommonModule, RouterTestingModule, HttpClientTestingModule, BasicInfoComponent],
+      imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        BasicInfoComponent,
+      ],
       providers: [
         FormBuilder,
         { provide: BasicInfoService, useValue: mockBasicInfoService },
         { provide: GetDealRasService, useValue: mockGetDealRasService },
-        { provide: ENV_CONFIG, useValue: { environment: 'test', version: '0.0.0', logDisabled: true } },
+        {
+          provide: ENV_CONFIG,
+          useValue: {
+            environment: 'test',
+            version: '0.0.0',
+            logDisabled: true,
+          },
+        },
       ],
     }).compileComponents();
 
@@ -271,7 +291,10 @@ describe('BasicInfoComponent (coverage extras)', () => {
       scrollHeight: { value: 200, writable: true },
       clientHeight: { value: 100, writable: true },
     });
-    Object.defineProperty(component as any, 'tableContainer', { value: { nativeElement: container }, configurable: true });
+    Object.defineProperty(component as any, 'tableContainer', {
+      value: { nativeElement: container },
+      configurable: true,
+    });
 
     svc.contratos$.next([{}, {}]);
     svc.total$.next(10);
@@ -300,10 +323,16 @@ describe('BasicInfoComponent (coverage extras)', () => {
       scrollHeight: { value: 1000, writable: true },
       clientHeight: { value: 500, writable: true },
     });
-    Object.defineProperty(component as any, 'tableContainer', { value: { nativeElement: container }, configurable: true });
+    Object.defineProperty(component as any, 'tableContainer', {
+      value: { nativeElement: container },
+      configurable: true,
+    });
 
     const sentinel = document.createElement('div');
-    Object.defineProperty(component as any, 'infiniteSentinel', { value: { nativeElement: sentinel }, configurable: true });
+    Object.defineProperty(component as any, 'infiniteSentinel', {
+      value: { nativeElement: sentinel },
+      configurable: true,
+    });
 
     svc.contratos$.next([{}, {}, {}]);
     svc.total$.next(10);
@@ -327,7 +356,10 @@ describe('BasicInfoComponent (coverage extras)', () => {
       scrollHeight: { value: 1000, writable: true },
       clientHeight: { value: 400, writable: true },
     });
-    Object.defineProperty(component as any, 'tableContainer', { value: { nativeElement: container }, configurable: true });
+    Object.defineProperty(component as any, 'tableContainer', {
+      value: { nativeElement: container },
+      configurable: true,
+    });
 
     (component as any).hasUserScrolled = true;
 
@@ -347,7 +379,10 @@ describe('BasicInfoComponent (coverage extras)', () => {
       scrollHeight: { value: 1000, writable: true },
       clientHeight: { value: 400, writable: true },
     });
-    Object.defineProperty(component as any, 'tableContainer', { value: { nativeElement: container }, configurable: true });
+    Object.defineProperty(component as any, 'tableContainer', {
+      value: { nativeElement: container },
+      configurable: true,
+    });
 
     (component as any).hasUserScrolled = true;
 
@@ -365,11 +400,11 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('applyRAS: bloqueio manual abre confirmação', () => {
-  (component as any).dealRAS = '123';
-  (component as any).manualLocked = true;
-  (component as any).applyRAS();
-  expect((component as any).showConfirmRas).toBe(true);
-});
+    (component as any).dealRAS = '123';
+    (component as any).manualLocked = true;
+    (component as any).applyRAS();
+    expect((component as any).showConfirmRas).toBe(true);
+  });
 
   it('confirmApplyRAS: id vazio cancela e informa', () => {
     (component as any).inputDealRAS = '';
@@ -386,41 +421,43 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('performApplyRAS: lida com erro e não aplica', () => {
-  const applySpy = vi.spyOn(component as any, 'applyRasToForm');
-  const getSvc = (component as any).dealRasSvc;
-  getSvc.getDealRas.mockReturnValue(throwError(() => new Error('boom')));
+    const applySpy = vi.spyOn(component as any, 'applyRasToForm');
+    const getSvc = (component as any).dealRasSvc;
+    getSvc.getDealRas.mockReturnValue(throwError(() => new Error('boom')));
 
-  (component as any).performApplyRAS('ABC');
+    (component as any).performApplyRAS('ABC');
 
-  expect(applySpy).not.toHaveBeenCalled();
-  expect((component as any).dealRASStatus).toBe('Erro ao buscar');
-  const rasLoading = ((component as any).rasLoading$ as BehaviorSubject<boolean>).value;
-  expect(rasLoading).toBe(false);
-});
+    expect(applySpy).not.toHaveBeenCalled();
+    expect((component as any).dealRASStatus).toBe('Erro ao buscar');
+    const rasLoading = (
+      (component as any).rasLoading$ as BehaviorSubject<boolean>
+    ).value;
+    expect(rasLoading).toBe(false);
+  });
 
   it('onChangePage: deduplica e navega', () => {
-  const svc = (component as any).svc;
-  svc.page$.next(1);
-  (component as any).lastProcessedPage = 1;
-  (component as any).onChangePage(1);
-  expect(svc.changePage).not.toHaveBeenCalled();
+    const svc = (component as any).svc;
+    svc.page$.next(1);
+    (component as any).lastProcessedPage = 1;
+    (component as any).onChangePage(1);
+    expect(svc.changePage).not.toHaveBeenCalled();
 
-  vi.clearAllMocks();
-  svc.page$.next(1);
-  (component as any).onChangePage(2);
-  expect(svc.changePage).toHaveBeenCalledWith(2);
+    vi.clearAllMocks();
+    svc.page$.next(1);
+    (component as any).onChangePage(2);
+    expect(svc.changePage).toHaveBeenCalledWith(2);
 
-  vi.clearAllMocks();
-  svc.page$.next(3);
-  (component as any).lastProcessedPage = 0; // evita deduplicação
-  (component as any).onChangePage(2);
-  expect(svc.changePage).toHaveBeenCalledWith(2);
+    vi.clearAllMocks();
+    svc.page$.next(3);
+    (component as any).lastProcessedPage = 0; // evita deduplicação
+    (component as any).onChangePage(2);
+    expect(svc.changePage).toHaveBeenCalledWith(2);
 
-  vi.clearAllMocks();
-  svc.page$.next(2);
-  (component as any).onChangePage(2);
-  expect(svc.changePage).not.toHaveBeenCalled();
-});
+    vi.clearAllMocks();
+    svc.page$.next(2);
+    (component as any).onChangePage(2);
+    expect(svc.changePage).not.toHaveBeenCalled();
+  });
 
   it('onChangePageSize: respeita bloqueio e altera tamanho', () => {
     const svc = (component as any).svc;
@@ -447,14 +484,14 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('onSelect: bloqueio manual e contrato selecionado', () => {
-  const svc = (component as any).svc;
-  (component as any).rasLocked = false;
-  const row = { id: 1 } as any;
-  (component as any).onSelect(row);
-  expect((component as any).manualLocked).toBe(true);
-  expect((component as any).manualContratos.length).toBe(1);
-  expect(svc.selectContrato).toHaveBeenCalledWith(row);
-});
+    const svc = (component as any).svc;
+    (component as any).rasLocked = false;
+    const row = { id: 1 } as any;
+    (component as any).onSelect(row);
+    expect((component as any).manualLocked).toBe(true);
+    expect((component as any).manualContratos.length).toBe(1);
+    expect(svc.selectContrato).toHaveBeenCalledWith(row);
+  });
 
   it('onPrevPage: respeita bloqueio e navega quando possível', () => {
     const svc = (component as any).svc;
@@ -476,47 +513,47 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('onNextPage: respeita bloqueio e limita ao total', () => {
-  const svc = (component as any).svc;
+    const svc = (component as any).svc;
 
-  // bloqueado: não navega
-  (component as any).rasLocked = true;
-  svc.page$.next(1);
-  svc.total$.next(24);
-  (component as any).onNextPage();
-  expect(svc.changePage).not.toHaveBeenCalled();
+    // bloqueado: não navega
+    (component as any).rasLocked = true;
+    svc.page$.next(1);
+    svc.total$.next(24);
+    (component as any).onNextPage();
+    expect(svc.changePage).not.toHaveBeenCalled();
 
-  // desbloqueado: navega se houver próxima página considerando pageSize=12
-  vi.clearAllMocks();
-  (component as any).rasLocked = false;
-  svc.page$.next(1);
-  svc.total$.next(24); // maxPages = 2
-  (component as any).onNextPage();
-  expect(svc.changePage).toHaveBeenCalledWith(2);
+    // desbloqueado: navega se houver próxima página considerando pageSize=12
+    vi.clearAllMocks();
+    (component as any).rasLocked = false;
+    svc.page$.next(1);
+    svc.total$.next(24); // maxPages = 2
+    (component as any).onNextPage();
+    expect(svc.changePage).toHaveBeenCalledWith(2);
 
-  // na última página não chama changePage
-  vi.clearAllMocks();
-  svc.page$.next(2);
-  svc.total$.next(24); // nextPage = 3 > 2
-  (component as any).onNextPage();
-  expect(svc.changePage).not.toHaveBeenCalled();
-});
+    // na última página não chama changePage
+    vi.clearAllMocks();
+    svc.page$.next(2);
+    svc.total$.next(24); // nextPage = 3 > 2
+    (component as any).onNextPage();
+    expect(svc.changePage).not.toHaveBeenCalled();
+  });
 
   it('onExcluirRAS: reseta estado de RAS mantendo seleção manual', () => {
-  (component as any).dealRASStatus = 'algo';
-  (component as any).rasLocked = true;
-  (component as any).rasContratos = [{}, {}];
-  (component as any).manualLocked = true;
-  (component as any).manualContratos = [{}, {}];
+    (component as any).dealRASStatus = 'algo';
+    (component as any).rasLocked = true;
+    (component as any).rasContratos = [{}, {}];
+    (component as any).manualLocked = true;
+    (component as any).manualContratos = [{}, {}];
 
-  (component as any).onExcluirRAS();
+    (component as any).onExcluirRAS();
 
-  expect((component as any).dealRASStatus).toBe('-');
-  expect((component as any).rasLocked).toBe(false);
-  expect(((component as any).rasContratos || []).length).toBe(0);
-  // seleção manual não é alterada por onExcluirRAS
-  expect((component as any).manualLocked).toBe(true);
-  expect((component as any).manualContratos.length).toBe(2);
-});
+    expect((component as any).dealRASStatus).toBe('-');
+    expect((component as any).rasLocked).toBe(false);
+    expect(((component as any).rasContratos || []).length).toBe(0);
+    // seleção manual não é alterada por onExcluirRAS
+    expect((component as any).manualLocked).toBe(true);
+    expect((component as any).manualContratos.length).toBe(2);
+  });
 
   it('onExcluirSelecionado: limpa seleção e bloqueio manual', () => {
     const svc = (component as any).svc;
@@ -576,7 +613,14 @@ describe('BasicInfoComponent (coverage extras)', () => {
 
   it('mapDealRasToContrato: usa BaseContract e UseOfProceeds', () => {
     (component as any).dealRAS = 'ID123';
-    const res: any = { NewContract: undefined, BaseContract: 'BC01', Account: 'ACC99', ProductCanonical: undefined, UseOfProceedsCanonical: 'Uso', Book: undefined };
+    const res: any = {
+      NewContract: undefined,
+      BaseContract: 'BC01',
+      Account: 'ACC99',
+      ProductCanonical: undefined,
+      UseOfProceedsCanonical: 'Uso',
+      Book: undefined,
+    };
     const c = (component as any).mapDealRasToContrato(res);
     expect(c.chave).toBe('BC01');
     expect(c.operacao).toBe('Uso');
@@ -584,7 +628,14 @@ describe('BasicInfoComponent (coverage extras)', () => {
 
   it('mapDealRasToContrato: fallback para Account e "-" quando operação ausente', () => {
     (component as any).dealRAS = 'IDZZ';
-    const res: any = { NewContract: undefined, BaseContract: undefined, Account: 'ACC01', ProductCanonical: undefined, UseOfProceedsCanonical: undefined, Book: undefined };
+    const res: any = {
+      NewContract: undefined,
+      BaseContract: undefined,
+      Account: 'ACC01',
+      ProductCanonical: undefined,
+      UseOfProceedsCanonical: undefined,
+      Book: undefined,
+    };
     const c = (component as any).mapDealRasToContrato(res);
     expect(c.chave).toBe('ACC01');
     expect(c.operacao).toBe('-');
@@ -592,21 +643,31 @@ describe('BasicInfoComponent (coverage extras)', () => {
 
   it('mapDealRasToContrato: sem chave usa "-" quando dealRAS vazio', () => {
     (component as any).dealRAS = '';
-    const res: any = { NewContract: undefined, BaseContract: undefined, Account: undefined, ProductCanonical: undefined, UseOfProceedsCanonical: undefined, Book: undefined };
+    const res: any = {
+      NewContract: undefined,
+      BaseContract: undefined,
+      Account: undefined,
+      ProductCanonical: undefined,
+      UseOfProceedsCanonical: undefined,
+      Book: undefined,
+    };
     const c = (component as any).mapDealRasToContrato(res);
     expect(c.chave).toBe('-');
     expect(c.operacao).toBe('-');
   });
 
   it('toggleShowRAS: desliga e força rasLoading false', () => {
-    const rasLoading$ = (component as any).rasLoading$ as BehaviorSubject<boolean>;
+    const rasLoading$ = (component as any)
+      .rasLoading$ as BehaviorSubject<boolean>;
     rasLoading$.next(true);
     (component as any).toggleShowRAS({ target: { checked: false } } as any);
     expect(rasLoading$.value).toBe(false);
   });
 
   it('applyRAS: com id e sem bloqueio chama performApplyRAS', () => {
-    const spy = vi.spyOn(component as any, 'performApplyRAS').mockImplementation(() => {});
+    const spy = vi
+      .spyOn(component as any, 'performApplyRAS')
+      .mockImplementation(() => {});
     (component as any).manualLocked = false;
     (component as any).dealRAS = 'XYZ123';
     (component as any).applyRAS();
@@ -614,7 +675,9 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('confirmApplyRAS: com id válido exclui seleção, oculta e chama perform', () => {
-    const perfSpy = vi.spyOn(component as any, 'performApplyRAS').mockImplementation(() => {});
+    const perfSpy = vi
+      .spyOn(component as any, 'performApplyRAS')
+      .mockImplementation(() => {});
     const svc = (component as any).svc;
     (component as any).dealRAS = 'CONF01';
     (component as any).manualLocked = true;
@@ -641,7 +704,14 @@ describe('BasicInfoComponent (coverage extras)', () => {
 
   it('mapDealRasToContrato: usa dealRAS como chave quando campos vazios', () => {
     (component as any).dealRAS = 'DR-42';
-    const res: any = { NewContract: '   ', BaseContract: '   ', Account: '   ', ProductCanonical: undefined, UseOfProceedsCanonical: undefined, Book: undefined };
+    const res: any = {
+      NewContract: '   ',
+      BaseContract: '   ',
+      Account: '   ',
+      ProductCanonical: undefined,
+      UseOfProceedsCanonical: undefined,
+      Book: undefined,
+    };
     const c = (component as any).mapDealRasToContrato(res);
     expect(c.chave).toBe('DR-42');
     expect(c.operacao).toBe('-');
@@ -649,13 +719,22 @@ describe('BasicInfoComponent (coverage extras)', () => {
 
   it('mapDealRasToContrato: usa Book quando Product e UseOfProceeds vazios', () => {
     (component as any).dealRAS = 'IDBOOK';
-    const res: any = { NewContract: undefined, BaseContract: undefined, Account: undefined, ProductCanonical: '   ', UseOfProceedsCanonical: '   ', Book: 'LivroY' };
+    const res: any = {
+      NewContract: undefined,
+      BaseContract: undefined,
+      Account: undefined,
+      ProductCanonical: '   ',
+      UseOfProceedsCanonical: '   ',
+      Book: 'LivroY',
+    };
     const c = (component as any).mapDealRasToContrato(res);
     expect(c.operacao).toBe('LivroY');
   });
 
   it('applyRAS: sem id define status e não chama performApplyRAS', () => {
-    const spy = vi.spyOn(component as any, 'performApplyRAS').mockImplementation(() => {});
+    const spy = vi
+      .spyOn(component as any, 'performApplyRAS')
+      .mockImplementation(() => {});
     (component as any).manualLocked = false;
     (component as any).dealRAS = '   ';
     (component as any).applyRAS();
@@ -664,7 +743,9 @@ describe('BasicInfoComponent (coverage extras)', () => {
   });
 
   it('confirmApplyRAS: sem id define status, oculta modal e não executa', () => {
-    const perfSpy = vi.spyOn(component as any, 'performApplyRAS').mockImplementation(() => {});
+    const perfSpy = vi
+      .spyOn(component as any, 'performApplyRAS')
+      .mockImplementation(() => {});
     const exclSpy = vi.spyOn(component as any, 'onExcluirSelecionado');
     (component as any).dealRAS = '   ';
     (component as any).showConfirmRas = true;

@@ -210,10 +210,10 @@ describe('StepperService', () => {
     service.registerStep(1, 'b');
     service.saveData('a', { ok: 1 });
     service.saveData('b', { ok: 2 });
-    
+
     service.reset({ keepData: true, index: 0 });
     expect(service.getData('a')).toEqual({ ok: 1 });
-    
+
     service.reset({ keepData: false, index: 1 });
     expect(service.getData('a')).toBeUndefined();
     expect(service.getData('b')).toBeUndefined();
@@ -266,13 +266,13 @@ describe('StepperService', () => {
     service.saveData('a', { x: 1 });
     service.saveData('test', { value: 'test data' });
     service.saveData(0, { index: 'data' });
-    
+
     service.logData('a');
     service.logData('test');
     service.logData('test', '[CUSTOM]');
     service.logData(0);
     service.logData('inexistente');
-    
+
     expect(service.getData('a')).toEqual({ x: 1 });
     expect(service.getData('test')).toEqual({ value: 'test data' });
     expect(service.getData(0)).toEqual({ index: 'data' });
@@ -333,12 +333,12 @@ describe('StepperService', () => {
       const idx = service.currentIndex();
       const count = service.stepCount();
 
-      service.visitedSteps.update(prev => {
+      service.visitedSteps.update((prev) => {
         const updated = { ...prev, [idx]: true };
         return updated;
       });
 
-      service.stepStatuses.update(prev => {
+      service.stepStatuses.update((prev) => {
         const statuses = { ...prev };
         for (let i = 0; i < count; i++) {
           if (i === idx) {
@@ -390,7 +390,7 @@ describe('StepperService', () => {
     expect(service.visitedSteps()[1]).toBe(true);
 
     service.registerStep(3, 'step3', { title: 'Step 3' });
-    service.stepStatuses.update(prev => {
+    service.stepStatuses.update((prev) => {
       const statuses = { ...prev };
       delete statuses[3];
       return statuses;
@@ -404,9 +404,9 @@ describe('StepperService', () => {
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
     service.registerStep(2, 'step2');
-    
+
     service.reset({ index: 0 });
-    
+
     const statuses = service.stepStatuses();
     expect(statuses[0]).toBe('active');
     expect(statuses[1]).toBe('pending');
@@ -417,30 +417,30 @@ describe('StepperService', () => {
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
     service.registerStep(2, 'step2');
-    
+
     service.currentIndex.set(2);
     expect(service.currentIndex()).toBe(2);
     expect(service.stepCount()).toBe(3);
-    
+
     service.unregisterStep(2);
-    
+
     expect(service.stepCount()).toBe(2);
     expect(service.currentIndex()).toBe(1);
   });
 
   it('covers effect logic when steps have existing statuses', () => {
     const freshService = TestBed.inject(StepperService);
-    
+
     freshService.registerStep(0, 'step0');
     freshService.registerStep(1, 'step1');
     freshService.registerStep(2, 'step2');
-    
+
     freshService.stepStatuses.set({ 0: 'finished', 1: 'error' });
     freshService.stepStatuses.set({});
     freshService.currentIndex.set(0);
-    
+
     TestBed.flushEffects();
-    
+
     const statuses = freshService.stepStatuses();
     expect(statuses[0]).toBe('active');
     expect(statuses[1]).toBe('pending');
@@ -450,13 +450,13 @@ describe('StepperService', () => {
   it('covers currentIndex adjustment edge cases', () => {
     service.registerStep(0, 'step0');
     service.registerStep(1, 'step1');
-    
+
     service.reset({ index: 1 });
     expect(service.currentIndex()).toBe(1);
-    
+
     service.unregisterStep(1);
     service.unregisterStep(0);
-    
+
     expect(service.currentIndex()).toBe(0);
     expect(service.stepCount()).toBe(0);
   });
@@ -465,9 +465,9 @@ describe('StepperService', () => {
     service.currentIndex.set(10);
     expect(service.currentIndex()).toBe(10);
     expect(service.stepCount()).toBe(0);
-    
+
     service.registerStep(0, 'step0');
-    
+
     expect(service.stepCount()).toBe(1);
     expect(service.currentIndex()).toBe(0);
   });

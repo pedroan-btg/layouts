@@ -75,7 +75,7 @@ describe('CollateralAddModalComponent', () => {
       guarantor: 'Test Guarantor',
       account: 'Test Account',
       linked: true,
-      unitPrice: 100.50,
+      unitPrice: 100.5,
       allocatedQuantity: 1000,
       value: 100500,
       lendingValue: 50000,
@@ -92,7 +92,7 @@ describe('CollateralAddModalComponent', () => {
       guarantor: 'Test Guarantor',
       account: 'Test Account',
       linked: true,
-      unitPrice: 100.50,
+      unitPrice: 100.5,
       allocatedQuantity: 1000,
       value: 100500,
       lendingValue: 50000,
@@ -158,7 +158,7 @@ describe('CollateralAddModalComponent', () => {
       type: 'CDB',
       tickerOrName: 'Test',
       value: 1500.75,
-      unitPrice: 25.50,
+      unitPrice: 25.5,
       allocatedQuantity: 100,
       lendingValue: 750.25,
     });
@@ -171,7 +171,7 @@ describe('CollateralAddModalComponent', () => {
       guarantor: '',
       account: '',
       linked: false,
-      unitPrice: 25.50,
+      unitPrice: 25.5,
       allocatedQuantity: 100,
       value: 1500.75,
       lendingValue: 750.25,
@@ -197,7 +197,7 @@ describe('CollateralAddModalComponent', () => {
     expect(saveSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         linked: true,
-      })
+      }),
     );
 
     // Limpar spy para próximo teste
@@ -216,7 +216,7 @@ describe('CollateralAddModalComponent', () => {
     expect(saveSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         linked: false,
-      })
+      }),
     );
   });
 
@@ -237,7 +237,7 @@ describe('CollateralAddModalComponent', () => {
     expect(saveSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         type: '',
-      })
+      }),
     );
 
     saveSpy.mockClear();
@@ -256,7 +256,7 @@ describe('CollateralAddModalComponent', () => {
     expect(saveSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         type: '',
-      })
+      }),
     );
   });
 
@@ -272,7 +272,7 @@ describe('CollateralAddModalComponent', () => {
 
     // Depois alterar para null/undefined mas manter formulário válido
     const formValue = component.form.getRawValue();
-    Object.keys(formValue).forEach(key => {
+    Object.keys(formValue).forEach((key) => {
       component.form.get(key)?.setValue(null);
       component.form.get(key)?.setErrors(null);
     });

@@ -22,7 +22,9 @@ import { StepperService } from './stepper.service';
   imports: [CommonModule],
   templateUrl: './step.component.html',
 })
-export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked {
+export class StepComponent
+  implements OnDestroy, AfterViewInit, AfterViewChecked
+{
   @Input() alias?: string;
   @Input({ required: true }) title!: string;
   @Input() iconTooltip?: string;
@@ -100,8 +102,12 @@ export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked
       lazyLoader: this.lazyLoader ?? null,
       contentTemplate: this.contentTemplate ?? null,
       contentHtml: this.contentHtml ?? null,
-      canEnter: this.canEnter as unknown as (ctx: unknown) => boolean | Promise<boolean>,
-      canExit: this.canExit as unknown as (ctx: unknown) => boolean | Promise<boolean>,
+      canEnter: this.canEnter as unknown as (
+        ctx: unknown,
+      ) => boolean | Promise<boolean>,
+      canExit: this.canExit as unknown as (
+        ctx: unknown,
+      ) => boolean | Promise<boolean>,
       // REMOVIDO: hasCustomValidation propagação
       // Overrides
       successIcon: this.successIcon,
@@ -169,7 +175,9 @@ export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked
 
     // Para contentHtml, permitir re-renderização se o conteúdo mudou
     const isContentHtmlReRender =
-      this.contentHtml && this._contentRendered && this._lastContentHtml !== this.contentHtml;
+      this.contentHtml &&
+      this._contentRendered &&
+      this._lastContentHtml !== this.contentHtml;
 
     if (this._contentRendered && !isContentHtmlReRender) {
       return;
@@ -206,7 +214,9 @@ export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked
 
     if (this.lazyLoader) {
       const t = await this.lazyLoader();
-      const ref = host.createComponent(t, { environmentInjector: this.envInjector });
+      const ref = host.createComponent(t, {
+        environmentInjector: this.envInjector,
+      });
 
       if (this.componentInputs && ref?.instance) {
         Object.entries(this.componentInputs).forEach(([key, value]) => {
@@ -237,7 +247,9 @@ export class StepComponent implements OnDestroy, AfterViewInit, AfterViewChecked
 
     if (this.contentHtml) {
       this._lastContentHtml = this.contentHtml; // Guardar o último conteúdo
-      const safe: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.contentHtml);
+      const safe: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(
+        this.contentHtml,
+      );
       const el = document.createElement('div');
       el.innerHTML = String(safe);
       const anchor = host.element.nativeElement;

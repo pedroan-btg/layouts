@@ -1,4 +1,12 @@
-import { describe, it, expect, vi, beforeEach, afterEach, vitest } from 'vitest';
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  beforeEach,
+  afterEach,
+  vitest,
+} from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -87,7 +95,11 @@ describe('CollateralComponent', () => {
         },
         {
           provide: ENV_CONFIG,
-          useValue: { environment: 'test', version: '0.0.0', logDisabled: true },
+          useValue: {
+            environment: 'test',
+            version: '0.0.0',
+            logDisabled: true,
+          },
         },
       ],
     }).compileComponents();
@@ -145,7 +157,9 @@ describe('CollateralComponent', () => {
   it('should trigger fileInput click on onImport', () => {
     const { cmp } = createCmp();
     const clickMock = vi.fn();
-    (cmp as any).fileInput = { nativeElement: { click: clickMock } } as unknown as ElementRef<HTMLInputElement>;
+    (cmp as any).fileInput = {
+      nativeElement: { click: clickMock },
+    } as unknown as ElementRef<HTMLInputElement>;
     cmp.onImport();
     expect(clickMock).toHaveBeenCalled();
   });
@@ -179,7 +193,9 @@ describe('CollateralComponent', () => {
   it('should not close menu on onDocClick when clicking inside', () => {
     const { cmp } = createCmp();
     cmp.openedMenuId = '1';
-    const targetInside: any = { closest: (sel: string) => (sel === '.fts-row-menu' ? {} : null) };
+    const targetInside: any = {
+      closest: (sel: string) => (sel === '.fts-row-menu' ? {} : null),
+    };
     cmp.onDocClick({ target: targetInside } as any);
     expect(cmp.openedMenuId).toBe('1');
   });

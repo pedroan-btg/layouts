@@ -10,9 +10,13 @@ export class StepperGoToDirective {
   private readonly serviceOpt = inject(StepperService, { optional: true });
 
   private resolveService(): StepperService | null {
-    if (this.stepperGoToRef instanceof StepperComponent) return this.stepperGoToRef.service;
+    if (this.stepperGoToRef instanceof StepperComponent)
+      return this.stepperGoToRef.service;
 
-    if (this.stepperGoToRef && typeof (this.stepperGoToRef as StepperService).goTo === 'function') {
+    if (
+      this.stepperGoToRef &&
+      typeof (this.stepperGoToRef as StepperService).goTo === 'function'
+    ) {
       return this.stepperGoToRef as StepperService;
     }
 

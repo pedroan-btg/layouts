@@ -136,9 +136,21 @@ describe('StepperComponent (isolated)', () => {
     const fixture = TestBed.createComponent(StepperComponent);
     const cmp = fixture.componentInstance;
     const mockSteps = [
-      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
-      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
-      { __assignIndex: vi.fn(), __registerWithService: vi.fn(), renderContent: vi.fn() },
+      {
+        __assignIndex: vi.fn(),
+        __registerWithService: vi.fn(),
+        renderContent: vi.fn(),
+      },
+      {
+        __assignIndex: vi.fn(),
+        __registerWithService: vi.fn(),
+        renderContent: vi.fn(),
+      },
+      {
+        __assignIndex: vi.fn(),
+        __registerWithService: vi.fn(),
+        renderContent: vi.fn(),
+      },
     ];
     Object.defineProperty(cmp, 'projectedSteps', {
       value: createMockQueryList(mockSteps),
@@ -146,7 +158,9 @@ describe('StepperComponent (isolated)', () => {
       configurable: true,
     });
     Object.defineProperty(cmp, 'progressWrapper', {
-      value: { nativeElement: { getBoundingClientRect: () => ({ width: 300 }) } },
+      value: {
+        nativeElement: { getBoundingClientRect: () => ({ width: 300 }) },
+      },
       writable: true,
     });
     Object.defineProperty(cmp, 'iconsRef', {
@@ -216,7 +230,11 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     (cmp as any).renderer = mockRenderer2;
     cmp.ngAfterViewInit();
-    expect(mockRenderer2.listen).toHaveBeenCalledWith('window', 'resize', expect.any(Function));
+    expect(mockRenderer2.listen).toHaveBeenCalledWith(
+      'window',
+      'resize',
+      expect.any(Function),
+    );
     expect(mockRenderer2.setStyle).toHaveBeenCalled();
   });
 
@@ -299,10 +317,19 @@ describe('StepperComponent (isolated)', () => {
     mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
     (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
     cmp.stepTitleClass = 'base-title';
-    const finishedStep = { index: 0, successTitleClass: 'success-title' } as any;
+    const finishedStep = {
+      index: 0,
+      successTitleClass: 'success-title',
+    } as any;
     const errorStep = { index: 1, errorTitleClass: 'error-title' } as any;
-    expect(cmp.getTitleClasses(finishedStep)).toEqual(['base-title', 'success-title']);
-    expect(cmp.getTitleClasses(errorStep)).toEqual(['base-title', 'error-title']);
+    expect(cmp.getTitleClasses(finishedStep)).toEqual([
+      'base-title',
+      'success-title',
+    ]);
+    expect(cmp.getTitleClasses(errorStep)).toEqual([
+      'base-title',
+      'error-title',
+    ]);
   });
 
   it('should get title colors by status', () => {
@@ -321,8 +348,16 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
     (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
-    const finishedStep = { index: 0, successIcon: 'bi bi-star', successIconClass: 'big' } as any;
-    const errorStep = { index: 1, errorIcon: 'bi bi-bug', errorIconClass: 'small' } as any;
+    const finishedStep = {
+      index: 0,
+      successIcon: 'bi bi-star',
+      successIconClass: 'big',
+    } as any;
+    const errorStep = {
+      index: 1,
+      errorIcon: 'bi bi-bug',
+      errorIconClass: 'small',
+    } as any;
     const pendingStep = { index: 2 } as any;
     expect(cmp.getIconClass(finishedStep)).toBe('bi bi-star big');
     expect(cmp.getIconClass(errorStep)).toBe('bi bi-bug small');
@@ -371,8 +406,16 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     mockService.__setStepStatuses({ 0: 'finished', 1: 'error' });
     (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error' };
-    const finishedStep = { index: 0, successTooltip: 'Success!', tooltip: 'Base' } as any;
-    const errorStep = { index: 1, errorTooltip: 'Error!', tooltip: 'Base' } as any;
+    const finishedStep = {
+      index: 0,
+      successTooltip: 'Success!',
+      tooltip: 'Base',
+    } as any;
+    const errorStep = {
+      index: 1,
+      errorTooltip: 'Error!',
+      tooltip: 'Base',
+    } as any;
     const pendingStep = { index: 2, tooltip: 'Pending' } as any;
     const defaultStep = { index: 3 } as any;
     expect(cmp.getTooltip(finishedStep)).toBe('Success!');
@@ -402,11 +445,17 @@ describe('StepperComponent (isolated)', () => {
   it('should handle fallback for getTitleColor, getIconClass, getIconColor, getTooltip', () => {
     const { cmp } = createStepper();
     mockService.__setStepStatuses({ 0: 'finished', 1: 'error', 2: 'pending' });
-    (cmp.service as any)._stepStatuses = { 0: 'finished', 1: 'error', 2: 'pending' };
+    (cmp.service as any)._stepStatuses = {
+      0: 'finished',
+      1: 'error',
+      2: 'pending',
+    };
     expect(cmp.getTitleColor({ index: 0 })).toBeNull();
     expect(cmp.getTitleColor({ index: 1 })).toBeNull();
     expect(cmp.getIconClass({ index: 0 })).toBe('bi bi-check-circle-fill');
-    expect(cmp.getIconClass({ index: 1 })).toBe('bi bi-exclamation-circle-fill');
+    expect(cmp.getIconClass({ index: 1 })).toBe(
+      'bi bi-exclamation-circle-fill',
+    );
     expect(cmp.getIconClass({ index: 2 })).toBeNull();
     expect(cmp.getIconColor({ index: 0 })).toBeNull();
     expect(cmp.getIconColor({ index: 1 })).toBeNull();
@@ -429,7 +478,9 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     mockService.__setStepStatuses({ 2: 'pending' });
     (cmp.service as any)._stepStatuses = { 2: 'pending' };
-    expect(cmp.getTooltip({ index: 2, tooltip: 'BaseTooltip' })).toBe('BaseTooltip');
+    expect(cmp.getTooltip({ index: 2, tooltip: 'BaseTooltip' })).toBe(
+      'BaseTooltip',
+    );
   });
 
   it('should early return in updateGridColumns when width is 0', () => {
@@ -440,7 +491,9 @@ describe('StepperComponent (isolated)', () => {
     (cmp as any).progressWrapper = undefined;
     (cmp as any).segments = 3;
     mockService.__setStepCount(3);
-    (cmp as any).host.nativeElement.getBoundingClientRect = () => ({ width: 0 });
+    (cmp as any).host.nativeElement.getBoundingClientRect = () => ({
+      width: 0,
+    });
     (cmp as any).updateGridColumns();
     expect(mockRenderer2.setStyle).not.toHaveBeenCalled();
   });
