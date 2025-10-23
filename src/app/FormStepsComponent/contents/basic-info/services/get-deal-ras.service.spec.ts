@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { GetDealRasService } from './get-deal-ras.service';
 import { DealRas, DealRasResponse } from '../models';
 
 describe('GetDealRasService', () => {
   let service: GetDealRasService;
   let httpMock: HttpTestingController;
-  const baseUrl = 'http://webapp-ras-uat/API/CreditRisk/RAS/RAS-API/External/core/workflow/deals/';
+  const baseUrl =
+    'http://webapp-ras-uat/API/CreditRisk/RAS/RAS-API/External/core/workflow/deals/';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,10 +46,11 @@ describe('GetDealRasService', () => {
 
       service.getDealRas(dealRAS).subscribe();
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.method === 'GET' &&
-          request.url === `${baseUrl}/${encodeURIComponent(dealRAS)}?username=ras_system`
+          request.url ===
+            `${baseUrl}/${encodeURIComponent(dealRAS)}?username=ras_system`
         );
       });
 
@@ -62,10 +67,11 @@ describe('GetDealRasService', () => {
 
       service.getDealRas(dealRAS).subscribe();
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.method === 'GET' &&
-          request.url === `${baseUrl}/${encodeURIComponent(String(dealRAS))}?username=ras_system`
+          request.url ===
+            `${baseUrl}/${encodeURIComponent(String(dealRAS))}?username=ras_system`
         );
       });
 
@@ -81,8 +87,11 @@ describe('GetDealRasService', () => {
 
       service.getDealRas(dealRAS).subscribe();
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       expect(req.request.method).toBe('GET');
@@ -108,13 +117,16 @@ describe('GetDealRasService', () => {
         status: 'Active Deal',
       };
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response).toEqual(expectedResponse);
         expect(response.status).toBe('Active Deal');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -127,12 +139,15 @@ describe('GetDealRasService', () => {
         NewContract: 'NC001',
       } as DealRas;
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response.status).toBe('OK');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -145,12 +160,15 @@ describe('GetDealRasService', () => {
         NewContract: 'NC001',
       } as DealRas;
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response.status).toBe('OK');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -163,12 +181,15 @@ describe('GetDealRasService', () => {
         NewContract: 'NC001',
       } as DealRas;
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response.status).toBe('OK');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -181,12 +202,15 @@ describe('GetDealRasService', () => {
         NewContract: 'NC001',
       } as DealRas;
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response.status).toBe('OK');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -200,10 +224,11 @@ describe('GetDealRasService', () => {
 
       service.getDealRas(dealRAS).subscribe();
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.method === 'GET' &&
-          request.url === `${baseUrl}/${encodeURIComponent(dealRAS)}?username=ras_system`
+          request.url ===
+            `${baseUrl}/${encodeURIComponent(dealRAS)}?username=ras_system`
         );
       });
 
@@ -227,7 +252,7 @@ describe('GetDealRasService', () => {
         PaymentDay: 15,
       } as DealRas;
 
-      service.getDealRas(dealRAS).subscribe(response => {
+      service.getDealRas(dealRAS).subscribe((response) => {
         expect(response.NewContract).toBe('NC001');
         expect(response.BaseContract).toBe('BC001');
         expect(response.Account).toBe('ACC001');
@@ -241,8 +266,11 @@ describe('GetDealRasService', () => {
         expect(response.status).toBe('Active');
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(mockResponse);
@@ -254,14 +282,17 @@ describe('GetDealRasService', () => {
 
       service.getDealRas(dealRAS).subscribe({
         next: () => fail('Expected an error, not a successful response'),
-        error: error => {
+        error: (error) => {
           expect(error.status).toBe(404);
           expect(error.statusText).toBe('Not Found');
         },
       });
 
-      const req = httpMock.expectOne(request => {
-        return request.method === 'GET' && request.url === `${baseUrl}/48230?username=ras_system`;
+      const req = httpMock.expectOne((request) => {
+        return (
+          request.method === 'GET' &&
+          request.url === `${baseUrl}/48230?username=ras_system`
+        );
       });
 
       req.flush(errorMessage, { status: 404, statusText: 'Not Found' });
