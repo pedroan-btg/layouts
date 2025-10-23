@@ -1,6 +1,9 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { BasicInfoService } from './basic-info.service';
 import type { Contrato, ContratosApiResponse, TipoBaixa } from './models';
 
@@ -84,7 +87,7 @@ describe('BasicInfoService', () => {
 
       service.searchContratos(filtro, apenasNaoVinculados, page, pageSize);
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === filtro &&
@@ -105,11 +108,11 @@ describe('BasicInfoService', () => {
       let currentPageSize = 0;
       let loading = true;
 
-      service.contratos$.subscribe(c => (contratos = c));
-      service.total$.subscribe(t => (total = t));
-      service.page$.subscribe(p => (currentPage = p));
-      service.pageSize$.subscribe(ps => (currentPageSize = ps));
-      service.loading$.subscribe(l => (loading = l));
+      service.contratos$.subscribe((c) => (contratos = c));
+      service.total$.subscribe((t) => (total = t));
+      service.page$.subscribe((p) => (currentPage = p));
+      service.pageSize$.subscribe((ps) => (currentPageSize = ps));
+      service.loading$.subscribe((l) => (loading = l));
 
       expect(contratos).toEqual(mockContratosApiResponse.data);
       expect(total).toBe(2);
@@ -123,7 +126,7 @@ describe('BasicInfoService', () => {
     it('should handle loading more data (page > 1) with same filters', () => {
       // First search
       service.searchContratos('test', false, 1, 12);
-      const req1 = httpMock.expectOne(request => {
+      const req1 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -136,7 +139,7 @@ describe('BasicInfoService', () => {
 
       // Second search (page 2)
       service.searchContratos('test', false, 2, 12);
-      const req2 = httpMock.expectOne(request => {
+      const req2 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -161,7 +164,7 @@ describe('BasicInfoService', () => {
       });
 
       let contratos: Contrato[] = [];
-      service.contratos$.subscribe(c => (contratos = c));
+      service.contratos$.subscribe((c) => (contratos = c));
 
       expect(contratos.length).toBe(3);
       expect(contratos[2].id).toBe('3');
@@ -170,7 +173,7 @@ describe('BasicInfoService', () => {
     it('should reset data when filters change', () => {
       // First search
       service.searchContratos('filter1', false, 1, 12);
-      const req1 = httpMock.expectOne(request => {
+      const req1 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'filter1' &&
@@ -183,7 +186,7 @@ describe('BasicInfoService', () => {
 
       // Second search with different filter (should reset data)
       service.searchContratos('filter2', false, 1, 12);
-      const req2 = httpMock.expectOne(request => {
+      const req2 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'filter2' &&
@@ -208,7 +211,7 @@ describe('BasicInfoService', () => {
       });
 
       let contratos: Contrato[] = [];
-      service.contratos$.subscribe(c => (contratos = c));
+      service.contratos$.subscribe((c) => (contratos = c));
 
       expect(contratos.length).toBe(1);
       expect(contratos[0].id).toBe('3');
@@ -217,7 +220,7 @@ describe('BasicInfoService', () => {
     it('should handle HTTP error and reset data', () => {
       service.searchContratos('test', false, 1, 12);
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -233,9 +236,9 @@ describe('BasicInfoService', () => {
       let total = 0;
       let loading = true;
 
-      service.contratos$.subscribe(c => (contratos = c));
-      service.total$.subscribe(t => (total = t));
-      service.loading$.subscribe(l => (loading = l));
+      service.contratos$.subscribe((c) => (contratos = c));
+      service.total$.subscribe((t) => (total = t));
+      service.loading$.subscribe((l) => (loading = l));
 
       expect(contratos).toEqual([]);
       expect(total).toBe(0);
@@ -244,13 +247,13 @@ describe('BasicInfoService', () => {
 
     it('should set loading to true during request', () => {
       const loadingStates: boolean[] = [];
-      service.loading$.subscribe(loading => loadingStates.push(loading));
+      service.loading$.subscribe((loading) => loadingStates.push(loading));
 
       service.searchContratos('test', false, 1, 12);
 
       expect(loadingStates).toContain(true);
 
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -268,7 +271,7 @@ describe('BasicInfoService', () => {
     it('should call searchContratos with current filters and new page', () => {
       // First search to set initial state
       service.searchContratos('test', true, 1, 12);
-      const req1 = httpMock.expectOne(request => {
+      const req1 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -281,7 +284,7 @@ describe('BasicInfoService', () => {
 
       // Change page
       service.changePage(2);
-      const req2 = httpMock.expectOne(request => {
+      const req2 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -293,7 +296,7 @@ describe('BasicInfoService', () => {
       req2.flush(mockContratosApiResponse);
 
       let currentPage = 0;
-      service.page$.subscribe(p => (currentPage = p));
+      service.page$.subscribe((p) => (currentPage = p));
 
       expect(currentPage).toBe(2);
     });
@@ -301,7 +304,7 @@ describe('BasicInfoService', () => {
     it('should call searchContratos with current filters, page 1, and new pageSize', () => {
       // First search to set initial state
       service.searchContratos('test', true, 2, 12);
-      const req1 = httpMock.expectOne(request => {
+      const req1 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -314,7 +317,7 @@ describe('BasicInfoService', () => {
 
       // Change page size
       service.changePageSize(20);
-      const req2 = httpMock.expectOne(request => {
+      const req2 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -327,8 +330,8 @@ describe('BasicInfoService', () => {
 
       let currentPage = 0;
       let currentPageSize = 0;
-      service.page$.subscribe(p => (currentPage = p));
-      service.pageSize$.subscribe(ps => (currentPageSize = ps));
+      service.page$.subscribe((p) => (currentPage = p));
+      service.pageSize$.subscribe((ps) => (currentPageSize = ps));
 
       expect(currentPage).toBe(1);
       expect(currentPageSize).toBe(20);
@@ -337,7 +340,7 @@ describe('BasicInfoService', () => {
     it('should increment current page and call changePage', () => {
       // First search to set initial state
       service.searchContratos('test', true, 1, 12);
-      const req1 = httpMock.expectOne(request => {
+      const req1 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -350,7 +353,7 @@ describe('BasicInfoService', () => {
 
       // Load next page
       service.loadNextPage();
-      const req2 = httpMock.expectOne(request => {
+      const req2 = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -362,7 +365,7 @@ describe('BasicInfoService', () => {
       req2.flush(mockContratosApiResponse);
 
       let currentPage = 0;
-      service.page$.subscribe(p => (currentPage = p));
+      service.page$.subscribe((p) => (currentPage = p));
 
       expect(currentPage).toBe(2);
     });
@@ -370,7 +373,7 @@ describe('BasicInfoService', () => {
     it('should return current page value', () => {
       // First search to set page
       service.searchContratos('test', false, 3, 12);
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -392,7 +395,7 @@ describe('BasicInfoService', () => {
 
     it('should update filtro signal', () => {
       service.searchContratos('test-filter', false, 1, 12);
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test-filter' &&
@@ -409,7 +412,7 @@ describe('BasicInfoService', () => {
 
     it('should update apenasNaoVinculados signal', () => {
       service.searchContratos('test', true, 1, 12);
-      const req = httpMock.expectOne(request => {
+      const req = httpMock.expectOne((request) => {
         return (
           request.url === '/api/contratos' &&
           request.params.get('filtro') === 'test' &&
@@ -430,7 +433,7 @@ describe('BasicInfoService', () => {
       service.selectContrato(mockContrato);
 
       let selected: Contrato | null = null;
-      service.selectedContrato$.subscribe(s => (selected = s));
+      service.selectedContrato$.subscribe((s) => (selected = s));
 
       expect(selected).toEqual(mockContrato);
     });
@@ -445,7 +448,7 @@ describe('BasicInfoService', () => {
       service.clearSelection();
 
       let selected: Contrato | null = mockContrato;
-      service.selectedContrato$.subscribe(s => (selected = s));
+      service.selectedContrato$.subscribe((s) => (selected = s));
 
       expect(selected).toBeNull();
     });

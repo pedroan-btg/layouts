@@ -78,7 +78,9 @@ export async function setupBasicInfoTest(): Promise<SetupCtx> {
     imports: [
       ReactiveFormsModule,
       CommonModule,
-      RouterModule.forRoot([{ path: 'basic-info', component: BasicInfoComponent }]),
+      RouterModule.forRoot([
+        { path: 'basic-info', component: BasicInfoComponent },
+      ]),
       HttpClientTestingModule,
       NoopAnimationsModule,
       BasicInfoComponent,
@@ -139,7 +141,9 @@ export async function setupBasicInfoTest(): Promise<SetupCtx> {
   }
 
   function ioCb(): unknown {
-    return (mockIntersectionObserver.mock.calls as unknown as [unknown][])[0]?.[0];
+    return (
+      mockIntersectionObserver.mock.calls as unknown as [unknown][]
+    )[0]?.[0];
   }
 
   return {

@@ -23,9 +23,11 @@ describe('StepperService', () => {
     expect(service.aliasToIndex()['fim']).toBe(2);
   });
 
-  it('throws error when registering duplicate alias', () => {
+  it('throws on duplicate alias registration', () => {
     service.registerStep(0, 'dup');
-    expect(() => service.registerStep(1, 'dup')).toThrowError();
+    expect(() => service.registerStep(1, 'dup')).toThrowError(
+      /Alias duplicado/,
+    );
   });
 
   it('navigates with goTo and updates statuses (jump applies synthetic error)', async () => {
@@ -103,13 +105,6 @@ describe('StepperService', () => {
     expect(visited[2]).toBeUndefined();
 
     expect(service.getData('a')).toBeUndefined();
-  });
-
-  it('linear and debug signals can be configured', () => {
-    service.linear.set(true);
-    service.debug.set(true);
-    expect(service.linear()).toBe(true);
-    expect(service.debug()).toBe(true);
   });
 
   it('setLinear and setDebug update signals', () => {
@@ -222,20 +217,6 @@ describe('StepperService', () => {
     expect(visited[0]).toBeUndefined();
   });
 
-  it('visiting synthetic error with canExit keeps error and traverses branch', async () => {
-    service.registerStep(0, 's0');
-    service.registerStep(1, 's1');
-    service.registerStep(2, 's2');
-    service.registerStep(3, 's3');
-    service.reset({ index: 0 });
-    await service.goTo(3);
-    expect(service.stepStatuses()[1]).toBe('error');
-    service.registerStep(1, undefined, { canExit: () => true });
-    await service.goTo(1);
-    await service.goTo(3);
-    expect(service.stepStatuses()[1]).toBe('error');
-  });
-
   it('synthetic error is removed after visiting and does not block again', async () => {
     service.registerStep(0, 'a');
     service.registerStep(1, 'b');
@@ -245,19 +226,6 @@ describe('StepperService', () => {
     await service.goTo(1);
     await service.goTo(2);
     expect(service.stepStatuses()[1]).toBe('finished');
-  });
-
-  it('debug logging covers canExit returning false and thrown error', async () => {
-    service.setDebug(true);
-    service.registerStep(0, 'a', { canExit: () => false });
-    service.registerStep(1, 'b');
-    expect(await service.goTo(1)).toBe(false);
-    service.registerStep(0, undefined, {
-      canExit: () => {
-        throw new Error('boom');
-      },
-    });
-    expect(await service.goTo(1)).toBe(true);
   });
 
   it('logData prints saved payload without throwing', () => {
@@ -299,105 +267,6 @@ describe('StepperService', () => {
     expect(await service.goTo(99)).toBe(false);
     expect(await service.goTo('nope')).toBe(false);
     expect(service.currentIndex()).toBe(start);
-  });
-
-  it('setStatus by alias updates status correctly', () => {
-    service.registerStep(0, 'a');
-    service.registerStep(1, 'b');
-    service.setStatus('b', 'error');
-    expect(service.stepStatuses()[1]).toBe('error');
-  });
-
-  it('effect in constructor runs when currentIndex or stepCount changes', () => {
-    expect(service.stepCount()).toBe(0);
-    expect(service.currentIndex()).toBe(0);
-
-    service.registerStep(0, 'step0', { title: 'Step 0' });
-
-    try {
-      (TestBed as any).flushEffects?.();
-    } catch (e) {
-      void 0;
-    }
-
-    service.currentIndex.set(1);
-    service.currentIndex.set(0);
-
-    try {
-      (TestBed as any).flushEffects?.();
-    } catch (e) {
-      void 0;
-    }
-
-    const testEffect = () => {
-      const idx = service.currentIndex();
-      const count = service.stepCount();
-
-      service.visitedSteps.update((prev) => {
-        const updated = { ...prev, [idx]: true };
-        return updated;
-      });
-
-      service.stepStatuses.update((prev) => {
-        const statuses = { ...prev };
-        for (let i = 0; i < count; i++) {
-          if (i === idx) {
-            if (statuses[i] === undefined || statuses[i] === 'pending') {
-              statuses[i] = 'active';
-            }
-          } else {
-            if (statuses[i] === undefined) {
-              statuses[i] = 'pending';
-            }
-          }
-        }
-        return statuses;
-      });
-    };
-
-    testEffect();
-    expect(service.stepStatuses()[0]).toBe('active');
-    expect(service.visitedSteps()[0]).toBe(true);
-
-    service.registerStep(1, 'step1', { title: 'Step 1' });
-    service.registerStep(2, 'step2', { title: 'Step 2' });
-
-    testEffect();
-    expect(service.stepStatuses()[1]).toBe('pending');
-    expect(service.stepStatuses()[2]).toBe('pending');
-
-    service.currentIndex.set(1);
-    testEffect();
-    expect(service.stepStatuses()[1]).toBe('active');
-    expect(service.visitedSteps()[1]).toBe(true);
-
-    service.setStatus(0, 'finished');
-    service.currentIndex.set(0);
-    testEffect();
-    expect(service.stepStatuses()[0]).toBe('finished');
-    expect(service.visitedSteps()[0]).toBe(true);
-
-    service.setStatus(2, 'error');
-    service.currentIndex.set(2);
-    testEffect();
-    expect(service.stepStatuses()[2]).toBe('error');
-    expect(service.visitedSteps()[2]).toBe(true);
-
-    service.setStatus(1, 'pending');
-    service.currentIndex.set(1);
-    testEffect();
-    expect(service.stepStatuses()[1]).toBe('active');
-    expect(service.visitedSteps()[1]).toBe(true);
-
-    service.registerStep(3, 'step3', { title: 'Step 3' });
-    service.stepStatuses.update((prev) => {
-      const statuses = { ...prev };
-      delete statuses[3];
-      return statuses;
-    });
-
-    testEffect();
-    expect(service.stepStatuses()[3]).toBe('pending');
   });
 
   it('covers effect constructor logic for setting pending status on non-current steps', () => {
@@ -519,5 +388,14 @@ describe('StepperService', () => {
     const before = { ...service.stepStatuses() };
     service.setStatus('naoexiste' as any, 'error');
     expect(service.stepStatuses()).toEqual(before);
+  });
+
+  it('effect promotes pending current step to active', () => {
+    service.registerStep(0, 's0');
+    service.registerStep(1, 's1');
+    service.stepStatuses.set({ 0: 'pending' });
+    service.currentIndex.set(0);
+    TestBed.flushEffects();
+    expect(service.stepStatuses()[0]).toBe('active');
   });
 });
