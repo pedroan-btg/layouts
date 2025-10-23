@@ -1,8 +1,7 @@
-/* Container com scroll vertical e cabeçalho fixo */
-
 .table-container {
   max-height: 250px;
   overflow-y: auto;
+  min-height: 140px;
 }
 
 .table-container thead th {
@@ -11,8 +10,6 @@
   z-index: 1;
   background: #fff;
 }
-
-/* Scrollbar do container */
 
 .table-container::-webkit-scrollbar {
   width: 8px;
@@ -32,20 +29,15 @@
   background: #a8a8a8;
 }
 
-/* Sentinel para IntersectionObserver */
-
 .infinite-sentinel {
   height: 1px;
 }
 
-/* Container de RAS para overlay centralizado e sem shift de layout */
-/* Container para overlay e evitar layout shift */
 .ras-container {
   position: relative;
   min-height: 64px;
 }
 
-/* Layout simples para seção de integrações e contrato */
 .content {
   display: flex;
   flex-direction: column;
@@ -88,14 +80,17 @@
   background-color: #0d6efd;
   color: #fff;
 }
+
 .btn-outline {
   border: 1px solid #d1d5db;
   background: transparent;
 }
+
 .btn-danger {
   background-color: #dc3545;
   color: #fff;
 }
+
 .btn-sm {
   padding: 4px 8px;
   font-size: 12px;
@@ -112,10 +107,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.table-container {
-  min-height: 140px;
 }
 
 .form-row {
