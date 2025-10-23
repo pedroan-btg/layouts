@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { BehaviorSubject, of, throwError } from 'rxjs';
 import { setupBasicInfoTest } from './basic-info.spec.helpers';
 
-describe.skip('BasicInfoComponent (compact spec)', () => {
+describe('BasicInfoComponent (compact spec)', () => {
   let mockBasicInfoService: any;
   let mockGetDealRasService: any;
   let createCmp: () => { fixture: any; cmp: any };
@@ -32,7 +32,7 @@ describe.skip('BasicInfoComponent (compact spec)', () => {
     const el: any = cmp.tableContainer.nativeElement;
     cmp.currentCount = 10;
     cmp.totalCount = 20;
-    cmp.isLoading = false;
+    cmp.isLoading.set(false);
     setScroll(el, 900, 1000, 100);
     el.dispatchEvent(new Event('scroll'));
     await new Promise(r => setTimeout(r, 100));
@@ -40,7 +40,7 @@ describe.skip('BasicInfoComponent (compact spec)', () => {
 
     cmp.currentCount = 0;
     cmp.totalCount = 1;
-    cmp.isLoading = false;
+    cmp.isLoading.set(false);
     const cb = ioCb();
     cb?.([{ isIntersecting: true }]);
     expect(mockBasicInfoService.loadNextPage).toHaveBeenCalled();
@@ -299,7 +299,7 @@ describe.skip('BasicInfoComponent (compact spec)', () => {
     const el: any = cmp2.tableContainer.nativeElement;
     cmp2.currentCount = 10;
     cmp2.totalCount = 20;
-    cmp2.isLoading = false;
+    cmp2.isLoading.set(false);
     setScroll(el, 100, 1000, 100);
     el.dispatchEvent(new Event('scroll'));
     await new Promise(r => setTimeout(r, 100));
@@ -318,7 +318,7 @@ describe.skip('BasicInfoComponent (compact spec)', () => {
     const { cmp: cmp3 } = createCmp();
     cmp3.currentCount = 0;
     cmp3.totalCount = 5;
-    cmp3.isLoading = false;
+    cmp3.isLoading.set(false);
     cb?.([{ isIntersecting: false }]);
     expect(mockBasicInfoService.loadNextPage).not.toHaveBeenCalled();
   });

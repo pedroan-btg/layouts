@@ -173,6 +173,15 @@ describe('CollateralComponent', () => {
     expect(inputEl.value).toBe('');
   });
 
+  it('should not import file on onFileSelected when no file', () => {
+    const { cmp } = createCmp();
+    const inputEl: any = { files: [], value: 'x' };
+    const evt = { target: inputEl } as unknown as Event;
+    cmp.onFileSelected(evt);
+    expect(mockSvc.importFile).not.toHaveBeenCalled();
+    expect(inputEl.value).toBe('x');
+  });
+
   it('should toggle menu with toggleMenu', () => {
     const { cmp } = createCmp();
     const row: any = { id: '1' };

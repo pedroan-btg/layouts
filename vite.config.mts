@@ -38,6 +38,9 @@ export default defineConfig((): UserConfig => {
           branches: 85,
           statements: 90,
         },
+        exclude: [
+          'src/app/core/mocks/**',
+        ],
       },
       poolOptions: {
         threads: { minThreads: 1, maxThreads: maxWorkerCount },

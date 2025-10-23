@@ -471,4 +471,53 @@ describe('StepperService', () => {
     expect(service.stepCount()).toBe(1);
     expect(service.currentIndex()).toBe(0);
   });
+
+  it('goTo retorna false quando não há passos', async () => {
+    expect(service.stepCount()).toBe(0);
+    expect(await service.goTo(0)).toBe(false);
+  });
+
+  it('erro não-sintético permanece ao pular novamente (cobre ternário st===error)', async () => {
+    service.registerStep(0, 's0');
+    service.registerStep(1, 's1');
+    service.registerStep(2, 's2');
+    service.registerStep(3, 's3');
+    service.reset({ index: 0 });
+
+    // Primeiro salto aplica erro sintético em 1
+    await service.goTo(3);
+    expect(service.stepStatuses()[1]).toBe('error');
+
+    // Visita o passo 1 e configura validação customizada (canExit)
+    service.registerStep(1, undefined, { canExit: () => true });
+    await service.goTo(1);
+
+    // Novo salto para 3 converte o erro sintético em não-sintético
+    await service.goTo(3);
+    expect(service.stepStatuses()[1]).toBe('error');
+
+    // Volta e pula novamente para executar o ramo st==='error' com synthetic=false
+    await service.goTo(1);
+    await service.goTo(3);
+    expect(service.stepStatuses()[1]).toBe('error');
+  });
+
+  it('reset sem options usa index padrão 0', () => {
+    service.registerStep(0, 'a');
+    service.registerStep(1, 'b');
+    service.reset();
+    expect(service.currentIndex()).toBe(0);
+    const statuses = service.stepStatuses();
+    expect(statuses[0]).toBe('active');
+    expect(statuses[1]).toBe('pending');
+  });
+
+  it('setStatus ignora alias inexistente sem alterar nada', () => {
+    service.registerStep(0, 'a');
+    service.registerStep(1, 'b');
+    service.setStatus('b', 'finished');
+    const before = { ...service.stepStatuses() };
+    service.setStatus('naoexiste' as any, 'error');
+    expect(service.stepStatuses()).toEqual(before);
+  });
 });
