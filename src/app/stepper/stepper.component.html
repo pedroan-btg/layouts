@@ -1,59 +1,40 @@
 <div
   class="fts-stepper"
   [class]="stepperClass"
-  [style.--stepper-segments]="segments ?? steps.length"
->
+  [style.--stepper-segments]="segments ?? steps.length">
   <div class="stepper-header mt-6 mb-6" [class]="stepListClass">
     <div class="stepper-icons" #iconsRef>
       @for (s of steps; track s.index) {
         <button
           type="button"
           class="stepper-item stepper-item-icon"
-          [class.disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-          "
-          [disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-          "
+          [class.disabled]="!navigable || (linear && s.index > service.currentIndex())"
+          [disabled]="!navigable || (linear && s.index > service.currentIndex())"
           [attr.aria-disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-              ? 'true'
-              : null
+            !navigable || (linear && s.index > service.currentIndex()) ? 'true' : null
           "
-          [attr.tabindex]="
-            !navigable ? -1 : service.currentIndex() === s.index ? 0 : -1
-          "
-          [attr.aria-current]="
-            service.currentIndex() === s.index ? 'step' : null
-          "
+          [attr.tabindex]="!navigable ? -1 : service.currentIndex() === s.index ? 0 : -1"
+          [attr.aria-current]="service.currentIndex() === s.index ? 'step' : null"
           [ngClass]="getStepClasses(s)"
           (click)="onStepClick(s.index)"
-          (keydown)="onStepKeydown($event, s.index)"
-        >
+          (keydown)="onStepKeydown($event, s.index)">
           <span class="step-icon" [class]="stepIconClass">
-            @if (
-              service.stepStatuses()[s.index] === "finished" &&
-              shouldShowIcon(s)
-            ) {
+            @if (service.stepStatuses()[s.index] === 'finished' && shouldShowIcon(s)) {
               <i
                 [ngClass]="getIconClass(s)"
                 [style.--stepper-icon-color]="getIconColor(s)"
                 [ngbTooltip]="getTooltip(s) || null"
                 container="body"
                 placement="top"
-                triggers="hover focus"
-              ></i>
-            } @else if (
-              service.stepStatuses()[s.index] === "error" && shouldShowIcon(s)
-            ) {
+                triggers="hover focus"></i>
+            } @else if (service.stepStatuses()[s.index] === 'error' && shouldShowIcon(s)) {
               <i
                 [ngClass]="getIconClass(s)"
                 [style.--stepper-icon-color]="getIconColor(s)"
                 [ngbTooltip]="getTooltip(s) || null"
                 container="body"
                 placement="top"
-                triggers="hover focus"
-              ></i>
+                triggers="hover focus"></i>
             } @else {
               <!-- Sem ícone para 'active' e 'pending' -->
             }
@@ -70,12 +51,10 @@
       [attr.aria-valuemax]="segments ?? steps.length"
       [attr.aria-valuenow]="service.currentIndex() + 1"
       aria-live="polite"
-      [attr.aria-label]="getProgressAriaLabel()"
-    >
+      [attr.aria-label]="getProgressAriaLabel()">
       <div
         class="progress-fill"
-        [style.transform]="'scaleX(' + progressPercent() / 100 + ')'"
-      ></div>
+        [style.transform]="'scaleX(' + progressPercent() / 100 + ')'"></div>
       <div class="progress-separators" #separatorsRef></div>
     </div>
 
@@ -84,27 +63,16 @@
         <button
           type="button"
           class="stepper-item stepper-item-title"
-          [class.disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-          "
-          [disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-          "
+          [class.disabled]="!navigable || (linear && s.index > service.currentIndex())"
+          [disabled]="!navigable || (linear && s.index > service.currentIndex())"
           [attr.aria-disabled]="
-            !navigable || (linear && s.index > service.currentIndex())
-              ? 'true'
-              : null
+            !navigable || (linear && s.index > service.currentIndex()) ? 'true' : null
           "
-          [attr.tabindex]="
-            !navigable ? -1 : service.currentIndex() === s.index ? 0 : -1
-          "
-          [attr.aria-current]="
-            service.currentIndex() === s.index ? 'step' : null
-          "
+          [attr.tabindex]="!navigable ? -1 : service.currentIndex() === s.index ? 0 : -1"
+          [attr.aria-current]="service.currentIndex() === s.index ? 'step' : null"
           [ngClass]="getStepClasses(s)"
           (click)="onStepClick(s.index)"
-          (keydown)="onStepKeydown($event, s.index)"
-        >
+          (keydown)="onStepKeydown($event, s.index)">
           <span
             class="step-title"
             [ngClass]="getTitleClasses(s)"

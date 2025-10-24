@@ -11,13 +11,8 @@ describe('BasicInfoComponent (compact spec)', () => {
   let ioCb: () => any;
 
   beforeEach(async () => {
-    ({
-      mockBasicInfoService,
-      mockGetDealRasService,
-      createCmp,
-      setScroll,
-      ioCb,
-    } = await setupBasicInfoTest());
+    ({ mockBasicInfoService, mockGetDealRasService, createCmp, setScroll, ioCb } =
+      await setupBasicInfoTest());
   });
 
   afterEach(() => {
@@ -40,7 +35,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp.isLoading.set(false);
     setScroll(el, 900, 1000, 100);
     el.dispatchEvent(new Event('scroll'));
-    await new Promise((r) => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 100));
     expect(mockBasicInfoService.loadNextPage).toHaveBeenCalledTimes(1);
 
     cmp.currentCount = 0;
@@ -53,13 +48,13 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp.hasUserScrolled = true;
     mockBasicInfoService.loading$.next(true);
     mockBasicInfoService.loading$.next(false);
-    await new Promise((r) => setTimeout(r, 0));
+    await new Promise(r => setTimeout(r, 0));
     expect(el0.scrollTop).toBe(900);
 
     cmp.hasUserScrolled = false;
     mockBasicInfoService.loading$.next(true);
     mockBasicInfoService.loading$.next(false);
-    await new Promise((r) => setTimeout(r, 0));
+    await new Promise(r => setTimeout(r, 0));
     expect(el0.scrollTop).toBe(900);
 
     Object.defineProperty(cmp, 'tableContainer', {
@@ -68,7 +63,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     });
     mockBasicInfoService.loading$.next(true);
     mockBasicInfoService.loading$.next(false);
-    await new Promise((r) => setTimeout(r, 0));
+    await new Promise(r => setTimeout(r, 0));
 
     const disconnect = vi.fn();
     cmp.io = { disconnect };
@@ -83,7 +78,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp.hasUserScrolled = true;
     mockBasicInfoService.loading$.next(true);
     mockBasicInfoService.loading$.next(false);
-    await new Promise((res) => setTimeout(res, 0));
+    await new Promise(res => setTimeout(res, 0));
     expect(el.scrollTop).toBe(100);
   });
 
@@ -247,11 +242,9 @@ describe('BasicInfoComponent (compact spec)', () => {
     expect(cmp.dealRASStatus).toBe('OK');
     expect(mockBasicInfoService.clearSelection).toHaveBeenCalled();
 
-    mockGetDealRasService.getDealRas.mockReturnValue(
-      throwError(() => new Error('x')),
-    );
+    mockGetDealRasService.getDealRas.mockReturnValue(throwError(() => new Error('x')));
     cmp.performApplyRAS('ABC123');
-    await new Promise((r) => setTimeout(r, 0));
+    await new Promise(r => setTimeout(r, 0));
     expect(cmp.dealRASStatus).toBe('Erro ao buscar');
   });
 
@@ -276,12 +269,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp.searchText = 'termo';
     cmp.onlyNotLinked = true;
     cmp.onBuscar();
-    expect(mockBasicInfoService.searchContratos).toHaveBeenCalledWith(
-      'termo',
-      true,
-      1,
-      12,
-    );
+    expect(mockBasicInfoService.searchContratos).toHaveBeenCalledWith('termo', true, 1, 12);
 
     cmp.rasLocked = true;
     cmp.searchText = 'x';
@@ -292,12 +280,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp.clearSearch();
     expect(cmp.searchText).toBe('');
     expect(cmp.onlyNotLinked).toBe(false);
-    expect(mockBasicInfoService.searchContratos).toHaveBeenCalledWith(
-      '',
-      false,
-      1,
-      12,
-    );
+    expect(mockBasicInfoService.searchContratos).toHaveBeenCalledWith('', false, 1, 12);
   });
 
   it('ngAfterViewInit container/sentinel nulos e scroll fora do fim', async () => {
@@ -319,7 +302,7 @@ describe('BasicInfoComponent (compact spec)', () => {
     cmp2.isLoading.set(false);
     setScroll(el, 100, 1000, 100);
     el.dispatchEvent(new Event('scroll'));
-    await new Promise((r) => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 100));
     expect(mockBasicInfoService.loadNextPage).not.toHaveBeenCalled();
 
     vi.clearAllMocks();
@@ -341,22 +324,13 @@ describe('BasicInfoComponent (compact spec)', () => {
   });
 
   it.each([
-    [
-      { NewContract: '   ', BaseContract: 'BCX' },
-      (c: any) => c.chave === 'BCX',
-    ],
-    [
-      { NewContract: '', BaseContract: '', Account: 'ACCX' },
-      (c: any) => c.chave === 'ACCX',
-    ],
-  ])(
-    'mapDealRasToContrato chave por prioridade',
-    (res: any, check: (c: any) => boolean) => {
-      const { cmp } = createCmp();
-      const c = (cmp as any).mapDealRasToContrato(res);
-      expect(check(c)).toBe(true);
-    },
-  );
+    [{ NewContract: '   ', BaseContract: 'BCX' }, (c: any) => c.chave === 'BCX'],
+    [{ NewContract: '', BaseContract: '', Account: 'ACCX' }, (c: any) => c.chave === 'ACCX'],
+  ])('mapDealRasToContrato chave por prioridade', (res: any, check: (c: any) => boolean) => {
+    const { cmp } = createCmp();
+    const c = (cmp as any).mapDealRasToContrato(res);
+    expect(check(c)).toBe(true);
+  });
 
   it('mapDealRasToContrato chave usa dealRAS quando anteriores nulos', () => {
     const { cmp } = createCmp();
@@ -377,14 +351,11 @@ describe('BasicInfoComponent (compact spec)', () => {
       (c: any) => c.operacao === 'BKX',
     ],
     [{ ProductCanonical: '', Book: 'BKX' }, (c: any) => c.operacao === 'BKX'],
-  ])(
-    'mapDealRasToContrato operacao por prioridade',
-    (res: any, check: (c: any) => boolean) => {
-      const { cmp } = createCmp();
-      const c = (cmp as any).mapDealRasToContrato(res);
-      expect(check(c)).toBe(true);
-    },
-  );
+  ])('mapDealRasToContrato operacao por prioridade', (res: any, check: (c: any) => boolean) => {
+    const { cmp } = createCmp();
+    const c = (cmp as any).mapDealRasToContrato(res);
+    expect(check(c)).toBe(true);
+  });
 
   it('mapDealRasToContrato id usa ras-DRS-ID quando dealRAS preenchido', () => {
     const { cmp } = createCmp();
@@ -464,16 +435,13 @@ describe('BasicInfoComponent (compact spec)', () => {
   it.each([
     [true, false],
     [false, true],
-  ])(
-    'onPrevPage respeita locks',
-    (rasLocked: boolean, manualLocked: boolean) => {
-      const { cmp } = createCmp();
-      cmp.page$ = new BehaviorSubject(3);
-      cmp.rasLocked = rasLocked;
-      cmp.manualLocked = manualLocked;
-      mockBasicInfoService.changePage.mockClear();
-      cmp.onPrevPage();
-      expect(mockBasicInfoService.changePage).not.toHaveBeenCalled();
-    },
-  );
+  ])('onPrevPage respeita locks', (rasLocked: boolean, manualLocked: boolean) => {
+    const { cmp } = createCmp();
+    cmp.page$ = new BehaviorSubject(3);
+    cmp.rasLocked = rasLocked;
+    cmp.manualLocked = manualLocked;
+    mockBasicInfoService.changePage.mockClear();
+    cmp.onPrevPage();
+    expect(mockBasicInfoService.changePage).not.toHaveBeenCalled();
+  });
 });

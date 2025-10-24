@@ -272,7 +272,7 @@ describe('CollateralAddModalComponent', () => {
 
     // Depois alterar para null/undefined mas manter formulário válido
     const formValue = component.form.getRawValue();
-    Object.keys(formValue).forEach((key) => {
+    Object.keys(formValue).forEach(key => {
       component.form.get(key)?.setValue(null);
       component.form.get(key)?.setErrors(null);
     });

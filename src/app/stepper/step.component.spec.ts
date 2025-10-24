@@ -424,16 +424,13 @@ describe('StepComponent', () => {
     });
 
     const mockNewHost = createMockHost();
-    const descriptor = Object.getOwnPropertyDescriptor(
-      Object.getPrototypeOf(cmp),
-      'hostRef',
-    );
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
 
     if (descriptor?.set) {
       descriptor.set.call(cmp, mockNewHost);
     }
 
-    await new Promise((resolve) => queueMicrotask(resolve as any));
+    await new Promise(resolve => queueMicrotask(resolve as any));
     expect((cmp as any).host).toBe(mockNewHost);
   });
 
@@ -445,15 +442,12 @@ describe('StepComponent', () => {
     (cmp as any)._contentRendered = false;
     makeActive(cmp, 0);
 
-    const descriptor = Object.getOwnPropertyDescriptor(
-      Object.getPrototypeOf(cmp),
-      'hostRef',
-    );
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
     if (descriptor?.set) {
       descriptor.set.call(cmp, mockHost);
     }
 
-    await new Promise((resolve) => queueMicrotask(resolve as any));
+    await new Promise(resolve => queueMicrotask(resolve as any));
     expect(renderSpy).toHaveBeenCalled();
   });
 
@@ -463,10 +457,7 @@ describe('StepComponent', () => {
     (cmp as any)._contentRendered = true;
     (cmp as any)._wasActive = true;
 
-    const descriptor = Object.getOwnPropertyDescriptor(
-      Object.getPrototypeOf(cmp),
-      'hostRef',
-    );
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(cmp), 'hostRef');
     if (descriptor?.set) {
       descriptor.set.call(cmp, undefined);
     }

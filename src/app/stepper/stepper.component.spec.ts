@@ -230,11 +230,7 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     (cmp as any).renderer = mockRenderer2;
     cmp.ngAfterViewInit();
-    expect(mockRenderer2.listen).toHaveBeenCalledWith(
-      'window',
-      'resize',
-      expect.any(Function),
-    );
+    expect(mockRenderer2.listen).toHaveBeenCalledWith('window', 'resize', expect.any(Function));
     expect(mockRenderer2.setStyle).toHaveBeenCalled();
   });
 
@@ -322,14 +318,8 @@ describe('StepperComponent (isolated)', () => {
       successTitleClass: 'success-title',
     } as any;
     const errorStep = { index: 1, errorTitleClass: 'error-title' } as any;
-    expect(cmp.getTitleClasses(finishedStep)).toEqual([
-      'base-title',
-      'success-title',
-    ]);
-    expect(cmp.getTitleClasses(errorStep)).toEqual([
-      'base-title',
-      'error-title',
-    ]);
+    expect(cmp.getTitleClasses(finishedStep)).toEqual(['base-title', 'success-title']);
+    expect(cmp.getTitleClasses(errorStep)).toEqual(['base-title', 'error-title']);
   });
 
   it('should get title colors by status', () => {
@@ -453,9 +443,7 @@ describe('StepperComponent (isolated)', () => {
     expect(cmp.getTitleColor({ index: 0 })).toBeNull();
     expect(cmp.getTitleColor({ index: 1 })).toBeNull();
     expect(cmp.getIconClass({ index: 0 })).toBe('bi bi-check-circle-fill');
-    expect(cmp.getIconClass({ index: 1 })).toBe(
-      'bi bi-exclamation-circle-fill',
-    );
+    expect(cmp.getIconClass({ index: 1 })).toBe('bi bi-exclamation-circle-fill');
     expect(cmp.getIconClass({ index: 2 })).toBeNull();
     expect(cmp.getIconColor({ index: 0 })).toBeNull();
     expect(cmp.getIconColor({ index: 1 })).toBeNull();
@@ -478,9 +466,7 @@ describe('StepperComponent (isolated)', () => {
     const { cmp } = createStepper();
     mockService.__setStepStatuses({ 2: 'pending' });
     (cmp.service as any)._stepStatuses = { 2: 'pending' };
-    expect(cmp.getTooltip({ index: 2, tooltip: 'BaseTooltip' })).toBe(
-      'BaseTooltip',
-    );
+    expect(cmp.getTooltip({ index: 2, tooltip: 'BaseTooltip' })).toBe('BaseTooltip');
   });
 
   it('should early return in updateGridColumns when width is 0', () => {

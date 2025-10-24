@@ -5,18 +5,12 @@
   [class.show]="open"
   [style.display]="open ? 'block' : 'none'"
   aria-modal="true"
-  role="dialog"
->
+  role="dialog">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Adicionar garantia</h5>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="onClose()"
-        ></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="form" class="row g-3">
@@ -35,24 +29,15 @@
               id="tickerOrName"
               class="form-control"
               formControlName="tickerOrName"
-              placeholder="Ex.: CVCB3"
-            />
+              placeholder="Ex.: CVCB3" />
           </div>
           <div class="col-md-6">
             <label class="form-label" for="guarantor">Garantidor</label>
-            <input
-              id="guarantor"
-              class="form-control"
-              formControlName="guarantor"
-            />
+            <input id="guarantor" class="form-control" formControlName="guarantor" />
           </div>
           <div class="col-md-6">
             <label class="form-label" for="account">Conta</label>
-            <input
-              id="account"
-              class="form-control"
-              formControlName="account"
-            />
+            <input id="account" class="form-control" formControlName="account" />
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
@@ -61,39 +46,25 @@
                 type="checkbox"
                 role="switch"
                 id="swLinked"
-                formControlName="linked"
-              />
+                formControlName="linked" />
               <label class="form-check-label" for="swLinked">Vinculado</label>
             </div>
           </div>
           <div class="col-md-4">
             <label class="form-label" for="unitPrice">PU</label>
-            <input
-              id="unitPrice"
-              class="form-control"
-              formControlName="unitPrice"
-              type="number"
-            />
+            <input id="unitPrice" class="form-control" formControlName="unitPrice" type="number" />
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="allocatedQuantity"
-              >Qtd alocada</label
-            >
+            <label class="form-label" for="allocatedQuantity">Qtd alocada</label>
             <input
               id="allocatedQuantity"
               class="form-control"
               formControlName="allocatedQuantity"
-              type="number"
-            />
+              type="number" />
           </div>
           <div class="col-md-4">
             <label class="form-label" for="value">Valor</label>
-            <input
-              id="value"
-              class="form-control"
-              formControlName="value"
-              type="number"
-            />
+            <input id="value" class="form-control" formControlName="value" type="number" />
           </div>
           <div class="col-md-4">
             <label class="form-label" for="lendingValue">Lending Value</label>
@@ -101,8 +72,7 @@
               id="lendingValue"
               class="form-control"
               formControlName="lendingValue"
-              type="number"
-            />
+              type="number" />
           </div>
           <div class="col-md-4">
             <label class="form-label" for="issuer">Emissor</label>
@@ -110,36 +80,19 @@
           </div>
           <div class="col-md-4">
             <label class="form-label" for="isinCode">Cod ISIN</label>
-            <input
-              id="isinCode"
-              class="form-control"
-              formControlName="isinCode"
-            />
+            <input id="isinCode" class="form-control" formControlName="isinCode" />
           </div>
           <div class="col-md-4">
             <label class="form-label" for="assetCode">Cod ativo</label>
-            <input
-              id="assetCode"
-              class="form-control"
-              formControlName="assetCode"
-            />
+            <input id="assetCode" class="form-control" formControlName="assetCode" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-secondary"
-          (click)="onClose()"
-        >
+        <button type="button" class="btn btn-outline-secondary" (click)="onClose()">
           Cancelar
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="form.invalid"
-          (click)="onSave()"
-        >
+        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSave()">
           Adicionar
         </button>
       </div>

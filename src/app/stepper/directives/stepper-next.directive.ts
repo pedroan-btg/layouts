@@ -11,13 +11,9 @@ export class StepperNextDirective {
   private readonly serviceOpt = inject(StepperService, { optional: true });
 
   private resolveService(): StepperService | null {
-    if (this.stepperNext instanceof StepperComponent)
-      return this.stepperNext.service;
+    if (this.stepperNext instanceof StepperComponent) return this.stepperNext.service;
 
-    if (
-      this.stepperNext &&
-      typeof (this.stepperNext as StepperService).next === 'function'
-    )
+    if (this.stepperNext && typeof (this.stepperNext as StepperService).next === 'function')
       return this.stepperNext as StepperService;
 
     return this.serviceOpt ?? null;

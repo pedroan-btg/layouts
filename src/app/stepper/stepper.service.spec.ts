@@ -25,9 +25,7 @@ describe('StepperService', () => {
 
   it('throws on duplicate alias registration', () => {
     service.registerStep(0, 'dup');
-    expect(() => service.registerStep(1, 'dup')).toThrowError(
-      /Alias duplicado/,
-    );
+    expect(() => service.registerStep(1, 'dup')).toThrowError(/Alias duplicado/);
   });
 
   it('navigates with goTo and updates statuses (jump applies synthetic error)', async () => {

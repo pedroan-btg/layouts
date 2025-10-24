@@ -55,13 +55,13 @@ export class StepperService {
       const count = this.stepCount();
 
       // Mark current step as visited
-      this.visitedSteps.update((prev) => {
+      this.visitedSteps.update(prev => {
         const updated = { ...prev, [idx]: true };
 
         return updated;
       });
 
-      this.stepStatuses.update((prev) => {
+      this.stepStatuses.update(prev => {
         const statuses = { ...prev };
 
         for (let i = 0; i < count; i++) {
@@ -92,9 +92,7 @@ export class StepperService {
       const existing = this.aliasToIndex()[alias];
 
       if (existing !== undefined) {
-        throw new Error(
-          `Alias duplicado: '${alias}'. Cada step deve ter um alias único.`,
-        );
+        throw new Error(`Alias duplicado: '${alias}'. Cada step deve ter um alias único.`);
       }
     }
 
@@ -102,7 +100,7 @@ export class StepperService {
     const statuses = { ...this.stepStatuses() };
 
     // Add or update
-    if (list.some((s) => s.index === index)) {
+    if (list.some(s => s.index === index)) {
       // Update existing registration
       for (const s of list) {
         if (s.index === index) {
@@ -130,8 +128,7 @@ export class StepperService {
           s.successTooltip = meta?.successTooltip ?? s.successTooltip;
           s.errorTooltip = meta?.errorTooltip ?? s.errorTooltip;
           // Flags de exibição de ícones
-          s.showIconOnFinished =
-            meta?.showIconOnFinished ?? s.showIconOnFinished;
+          s.showIconOnFinished = meta?.showIconOnFinished ?? s.showIconOnFinished;
           s.showIconOnError = meta?.showIconOnError ?? s.showIconOnError;
         }
       }
@@ -185,7 +182,7 @@ export class StepperService {
   unregisterStep(index: number, _alias?: string): void {
     // marcar parâmetro como intencionalmente não utilizado
     void _alias;
-    const list = this.steps().filter((s) => s.index !== index);
+    const list = this.steps().filter(s => s.index !== index);
     this.steps.set(list);
 
     const statuses = { ...this.stepStatuses() };
@@ -212,8 +209,7 @@ export class StepperService {
 
     if (count <= 0) return false;
 
-    const idx =
-      typeof target === 'number' ? target : this.aliasToIndex()[target];
+    const idx = typeof target === 'number' ? target : this.aliasToIndex()[target];
 
     if (idx === undefined || idx < 0 || idx >= count) return false;
 
@@ -221,7 +217,7 @@ export class StepperService {
 
     // Resolve registros e alias para logs
     const list = this.steps();
-    const currentStep = list.find((s) => s.index === currentIdx);
+    const currentStep = list.find(s => s.index === currentIdx);
 
     // debug logs removed to comply with linting rules
 
@@ -264,7 +260,7 @@ export class StepperService {
         } else {
           // Se erro era sintético e o step possui validação customizada (canExit),
           // não limpar automaticamente: deixar o erro e marcar como não-sintético.
-          const stepReg = list.find((s) => s.index === i);
+          const stepReg = list.find(s => s.index === i);
 
           if (st === 'error' && synthetic[i]) {
             if (stepReg?.canExit) {
@@ -287,11 +283,7 @@ export class StepperService {
     }
 
     // Ativar o destino sem alterar ícones anteriores se já houver finished/error
-    if (
-      statuses[idx] === undefined ||
-      statuses[idx] === 'pending' ||
-      statuses[idx] === 'active'
-    ) {
+    if (statuses[idx] === undefined || statuses[idx] === 'pending' || statuses[idx] === 'active') {
       statuses[idx] = 'active';
     }
 
@@ -318,9 +310,7 @@ export class StepperService {
     }
 
     this.stepStatuses.set(statuses);
-    this.currentIndex.set(
-      Math.min(Math.max(idx, 0), Math.max(this.stepCount() - 1, 0)),
-    );
+    this.currentIndex.set(Math.min(Math.max(idx, 0), Math.max(this.stepCount() - 1, 0)));
 
     if (!options?.keepData) this.stepData.set({});
 

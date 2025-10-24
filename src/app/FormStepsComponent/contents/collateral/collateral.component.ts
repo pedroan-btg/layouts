@@ -1,10 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  HostListener,
-  inject,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Table, TableColumn } from 'fts-frontui/table';
@@ -32,6 +26,8 @@ import type { Collateral, CollateralPayload } from './models';
 export class CollateralComponent {
   private readonly svc = inject(CollateralService);
 
+  isLoading = signal(false);
+
   protected readonly collaterals$ = this.svc.pagedCollaterals$;
   protected readonly total$ = this.svc.total$;
   protected readonly page$ = this.svc.page$;
@@ -49,6 +45,12 @@ export class CollateralComponent {
     { label: 'CDB', value: 'CDB' },
     { label: 'Debênture', value: 'DEBENTURE' },
   ];
+
+  constructor() {
+    this.loading$.subscribe(isLoading => {
+      this.isLoading.set(!!isLoading);
+    });
+  }
 
   openAddModal(): void {
     this.showAddModal = true;
@@ -87,7 +89,6 @@ export class CollateralComponent {
     if (!file) return;
 
     this.svc.importFile(file);
-    // opcionalmente poderíamos fazer um parse simples aqui
     input.value = '';
   }
 

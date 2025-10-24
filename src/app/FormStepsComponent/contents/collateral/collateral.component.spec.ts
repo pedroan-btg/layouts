@@ -1,12 +1,4 @@
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeEach,
-  afterEach,
-  vitest,
-} from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, vitest } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
@@ -38,13 +30,9 @@ vitest.mock('./collateral.service', () => {
     const _loading$ = new BehaviorSubject<boolean>(false);
 
     const _total$ = _collaterals$.pipe(
-      map((arr) => arr.reduce((sum, c: any) => sum + (c?.value ?? 0), 0)),
+      map(arr => arr.reduce((sum, c: any) => sum + (c?.value ?? 0), 0)),
     );
-    const _pagedCollaterals$ = combineLatest([
-      _collaterals$,
-      _page$,
-      _pageSize$,
-    ]).pipe(
+    const _pagedCollaterals$ = combineLatest([_collaterals$, _page$, _pageSize$]).pipe(
       map(([arr, page, size]) => {
         const start = (page - 1) * size;
         return arr.slice(start, start + size);

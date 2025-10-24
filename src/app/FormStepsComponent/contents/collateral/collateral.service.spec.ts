@@ -31,28 +31,28 @@ describe('CollateralService', () => {
   });
 
   it('should have initial collaterals as empty array', () => {
-    service.collaterals$.subscribe((collaterals) => {
+    service.collaterals$.subscribe(collaterals => {
       expect(collaterals).toEqual([]);
     });
   });
 
   it('should have initial page as 1 and pageSize as 12', () => {
-    service.page$.subscribe((page) => {
+    service.page$.subscribe(page => {
       expect(page).toBe(1);
     });
-    service.pageSize$.subscribe((pageSize) => {
+    service.pageSize$.subscribe(pageSize => {
       expect(pageSize).toBe(12);
     });
   });
 
   it('should have initial loading as false', () => {
-    service.loading$.subscribe((loading) => {
+    service.loading$.subscribe(loading => {
       expect(loading).toBe(false);
     });
   });
 
   it('should have initial total as 0', () => {
-    service.total$.subscribe((total) => {
+    service.total$.subscribe(total => {
       expect(total).toBe(0);
     });
   });
@@ -182,10 +182,7 @@ describe('CollateralService', () => {
 
     it('should not affect other collaterals when removing specific id', async () => {
       // Mock different UUIDs for each call
-      const mockUUID = vi
-        .fn()
-        .mockReturnValueOnce('uuid-1')
-        .mockReturnValueOnce('uuid-2');
+      const mockUUID = vi.fn().mockReturnValueOnce('uuid-1').mockReturnValueOnce('uuid-2');
       global.crypto.randomUUID = mockUUID;
 
       const payload1: CollateralPayload = {
@@ -338,7 +335,7 @@ describe('CollateralService', () => {
       service.importFile(file);
 
       // Should start loading immediately
-      firstValueFrom(service.loading$).then((loading) => {
+      firstValueFrom(service.loading$).then(loading => {
         expect(loading).toBe(true);
       });
     });
@@ -349,7 +346,7 @@ describe('CollateralService', () => {
       service.importFile(file);
 
       // Check that loading stops after the timeout (600ms)
-      await new Promise<void>((resolve) => {
+      await new Promise<void>(resolve => {
         setTimeout(async () => {
           const loading = await firstValueFrom(service.loading$);
           expect(loading).toBe(false);

@@ -19,14 +19,10 @@ export class CollateralService {
 
   // totals and derived pagination
   readonly total$ = this.collaterals$.pipe(
-    map((arr) => arr.reduce((sum, c) => sum + (c.value || 0), 0)),
+    map(arr => arr.reduce((sum, c) => sum + (c.value || 0), 0)),
   );
 
-  readonly pagedCollaterals$ = combineLatest([
-    this.collaterals$,
-    this.page$,
-    this.pageSize$,
-  ]).pipe(
+  readonly pagedCollaterals$ = combineLatest([this.collaterals$, this.page$, this.pageSize$]).pipe(
     map(([arr, page, size]) => {
       const start = (page - 1) * size;
 
@@ -46,7 +42,7 @@ export class CollateralService {
   }
 
   removeCollateral(id: string): void {
-    const next = this.collateralsSubject.value.filter((x) => x.id !== id);
+    const next = this.collateralsSubject.value.filter(x => x.id !== id);
     this.collateralsSubject.next(next);
   }
 
