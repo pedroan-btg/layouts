@@ -1,0 +1,2195 @@
+{
+    "value": [{
+            "bundleId": 274756,
+            "creditId": "110069584",
+            "bundle": {
+                "id": 274756,
+                "creditId": "110069584",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069584",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "BKG-809890524",
+                    "productType": "CCB",
+                    "partyAccount": "005105824",
+                    "partyCge": "774936",
+                    "partyName": "FIDC NAO-PADRONIZADOS PRECATORIOS B",
+                    "counterpartyAccount": null,
+                    "counterpartyCge": "15227397",
+                    "counterpartyName": "JENIFFER GRAZIELE FERREIRA DO NASCIMENTO",
+                    "amount": 1518.11000000,
+                    "maturityDate": "2026-01-26T00:00:00",
+                    "startDate": "2025-10-31T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 30628,
+                    "pnlBookName": "B2C Banking",
+                    "pnlStrategy": 37037,
+                    "pnlStrategyName": "eConsignado_B2C"
+                }
+            },
+            "contractId": 64844,
+            "contract": {
+                "id": 64844,
+                "timelineId": "4081B6001349903",
+                "contractVersion": 1,
+                "contractKey": "teste-resgate-dl-2",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90962,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Pdex",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-31T18:06:44.0679718-03:00",
+                "tradeReason": null,
+                "createdBy": "LANESDI",
+                "createdAt": "2025-10-31T18:05:10.4197478-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "LANESDI",
+                "sentToApprovalAt": "2025-10-31T18:05:49.1541049-03:00",
+                "approvedBy": "LANESDI",
+                "approvedAt": "2025-10-31T18:06:44.0679468-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T18:07:34.1243466-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T18:07:40.721118-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T18:09:10.8714847-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15153
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274755,
+            "creditId": "900005657",
+            "bundle": {
+                "id": 274755,
+                "creditId": "900005657",
+                "creditSource": "FTSNewLoan",
+                "creditTrade": {
+                    "id": "900005657",
+                    "source": "FTSNewLoan",
+                    "status": "PendingGuaranteeBlock",
+                    "type": "ORIG",
+                    "contractNumber": "100128954",
+                    "productType": "0",
+                    "partyAccount": "000205524",
+                    "partyCge": "8841",
+                    "partyName": null,
+                    "counterpartyAccount": "44288004x",
+                    "counterpartyCge": "66630701",
+                    "counterpartyName": null,
+                    "amount": 18019.1400000000000000,
+                    "maturityDate": "2029-10-31T00:00:00",
+                    "startDate": "2025-10-31T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 6727,
+                    "pnlBookName": "Employee",
+                    "pnlStrategy": 10545,
+                    "pnlStrategyName": "EMPLOYEE PO"
+                }
+            },
+            "contractId": 64843,
+            "contract": {
+                "id": 64843,
+                "timelineId": "9b89A6ed34d9abA",
+                "contractVersion": 1,
+                "contractKey": "100128954",
+                "keygenId": null,
+                "externalId": "E6ea6026a124547",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Fail",
+                "contractDate": "2025-10-31T00:00:00-03:00",
+                "effectiveDate": "2025-10-31T16:28:29.4059856-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS.CREDIT-FLOW-MANAGER",
+                "createdAt": "2025-10-31T16:28:19.1669686-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS.CREDIT-FLOW-MANAGER",
+                "approvedAt": "2025-10-31T16:28:29.4059375-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts.credit-flow-manager",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T16:29:20.3492926-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:29:34.8047507-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:29:51.9877026-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:30:38.0730962-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:30:45.1659752-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:31:22.552064-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:31:33.2867127-03:00",
+                            "status": "1",
+                            "statusDescription": "Trava Parcial",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15160
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274754,
+            "creditId": "900005656",
+            "bundle": {
+                "id": 274754,
+                "creditId": "900005656",
+                "creditSource": "FTSNewLoan",
+                "creditTrade": {
+                    "id": "900005656",
+                    "source": "FTSNewLoan",
+                    "status": "PendingGuaranteeBlock",
+                    "type": "ORIG",
+                    "contractNumber": "100128958",
+                    "productType": "0",
+                    "partyAccount": "000205524",
+                    "partyCge": "8841",
+                    "partyName": null,
+                    "counterpartyAccount": "012331757",
+                    "counterpartyCge": "66630670",
+                    "counterpartyName": null,
+                    "amount": 54030.6400000000000000,
+                    "maturityDate": "2028-11-13T00:00:00",
+                    "startDate": "2025-10-31T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 6727,
+                    "pnlBookName": "Employee",
+                    "pnlStrategy": 10545,
+                    "pnlStrategyName": "EMPLOYEE PO"
+                }
+            },
+            "contractId": 64842,
+            "contract": {
+                "id": 64842,
+                "timelineId": "72743209F772148",
+                "contractVersion": 1,
+                "contractKey": "100128958",
+                "keygenId": null,
+                "externalId": "3De35E34412da65",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Fail",
+                "contractDate": "2025-10-31T00:00:00-03:00",
+                "effectiveDate": "2025-10-31T16:19:25.0606072-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS.CREDIT-FLOW-MANAGER",
+                "createdAt": "2025-10-31T16:18:57.1116749-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS.CREDIT-FLOW-MANAGER",
+                "approvedAt": "2025-10-31T16:19:25.0606048-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts.credit-flow-manager",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T16:20:24.5856084-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:20:45.7471957-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:20:56.4013634-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:20:59.6457838-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:21:42.4268852-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:21:52.1692287-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T16:22:35.2956237-03:00",
+                            "status": "1",
+                            "statusDescription": "Trava Parcial",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15159
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274753,
+            "creditId": "110069606",
+            "bundle": {
+                "id": 274753,
+                "creditId": "110069606",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069606",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "FINIMP-CCB-20251031-1366-5",
+                    "productType": "Finimp",
+                    "partyAccount": "000022315",
+                    "partyCge": "46154",
+                    "partyName": "BANCO BTG PACTUAL SA - CAYMAN BRANC",
+                    "counterpartyAccount": "003097393",
+                    "counterpartyCge": "3795848",
+                    "counterpartyName": "R G RAMOS CONTABILIDADE - EIRELI",
+                    "amount": 20000.00000000,
+                    "maturityDate": "2026-10-14T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "USD",
+                    "pnlBook": 37051,
+                    "pnlBookName": "FINIMP PME",
+                    "pnlStrategy": 37053,
+                    "pnlStrategyName": "FINIMP PME"
+                }
+            },
+            "contractId": 64841,
+            "contract": {
+                "id": 64841,
+                "timelineId": "E3432780b00A46e",
+                "contractVersion": 1,
+                "contractKey": "FINIMP-FI-20251031-1366-5",
+                "keygenId": null,
+                "externalId": "228fd95b-6327-44ae-8f0b-293076b37d9f",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-31T15:58:24.148486-03:00",
+                "effectiveDate": "2025-10-31T19:12:15.2959113-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-31T16:08:30.7741299-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-31T19:12:15.295866-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-31T19:13:19.733732-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T19:13:19.4863198-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15158
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274752,
+            "creditId": "110069605",
+            "bundle": {
+                "id": 274752,
+                "creditId": "110069605",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069605",
+                    "source": "FTSCredit",
+                    "status": "12",
+                    "type": "Orig",
+                    "contractNumber": "FINIMP-CCB-20251031-1366-3",
+                    "productType": "Finimp",
+                    "partyAccount": "000022315",
+                    "partyCge": "46154",
+                    "partyName": "BANCO BTG PACTUAL SA - CAYMAN BRANC",
+                    "counterpartyAccount": "003097393",
+                    "counterpartyCge": "3795848",
+                    "counterpartyName": "R G RAMOS CONTABILIDADE - EIRELI",
+                    "amount": 20000.00000000,
+                    "maturityDate": "2026-10-14T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "USD",
+                    "pnlBook": 37051,
+                    "pnlBookName": "FINIMP PME",
+                    "pnlStrategy": 37053,
+                    "pnlStrategyName": "FINIMP PME"
+                }
+            },
+            "contractId": 64840,
+            "contract": {
+                "id": 64840,
+                "timelineId": "CC845434b58e661",
+                "contractVersion": 1,
+                "contractKey": "FINIMP-FI-20251031-1366-3",
+                "keygenId": null,
+                "externalId": "619d52ed-ad32-461d-8d46-dac5fe00bf49",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Pdct",
+                "contractDate": "2025-10-31T15:58:24.148486-03:00",
+                "effectiveDate": null,
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-31T16:07:11.0293062-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": null,
+                "approvedAt": null,
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": []
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15157
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274751,
+            "creditId": "86481337",
+            "bundle": {
+                "id": 274751,
+                "creditId": "86481337",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "86481337",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "10387-DIG-CCB00156/24",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "004852364",
+                    "counterpartyCge": "1146987",
+                    "counterpartyName": "ALAN SANTOS RODRIGUES",
+                    "amount": 259320.93000000,
+                    "maturityDate": "2027-03-30T00:00:00",
+                    "startDate": "2024-03-08T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 15398,
+                    "pnlBookName": "Online Investments",
+                    "pnlStrategy": 25916,
+                    "pnlStrategyName": "DIGITAL B2C INVESTCRED"
+                }
+            },
+            "contractId": 64839,
+            "contract": {
+                "id": 64839,
+                "timelineId": "41B3A9990E68116",
+                "contractVersion": 1,
+                "contractKey": "teste_coe_31_10_1",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90958,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Pdex",
+                "contractDate": "2025-10-31T03:00:00+00:00",
+                "effectiveDate": "2025-10-31T13:46:39.1431111-03:00",
+                "tradeReason": null,
+                "createdBy": "SOTOAN",
+                "createdAt": "2025-10-31T12:12:08.303477-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "SOTOAN",
+                "sentToApprovalAt": "2025-10-31T13:45:06.1714765-03:00",
+                "approvedBy": "SOTOAN",
+                "approvedAt": "2025-10-31T13:46:39.1430868-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T15:18:49.928683-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:19:33.3511337-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:20:05.3161185-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:21:03.4648589-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:22:22.3716826-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:22:34.5731517-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:22:44.0921217-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T15:23:05.3476165-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15154
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274750,
+            "creditId": "110068960",
+            "bundle": {
+                "id": 274750,
+                "creditId": "110068960",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110068960",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "35016-DIG-CCB00558/25",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "002495090",
+                    "counterpartyCge": "3139407",
+                    "counterpartyName": "SUPERMERCADOS BH COMERCIO DE ALIMEN",
+                    "amount": 273871.64000000,
+                    "maturityDate": "2026-04-06T00:00:00",
+                    "startDate": "2025-10-22T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 36992,
+                    "pnlBookName": "B2B INVEST BANKING",
+                    "pnlStrategy": 36994,
+                    "pnlStrategyName": "B2B INVEST BANKING CREDIT INVESTCRED"
+                }
+            },
+            "contractId": 64838,
+            "contract": {
+                "id": 64838,
+                "timelineId": "E8D1915B2f9791B",
+                "contractVersion": 1,
+                "contractKey": "teste-resgate-dl-1",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90957,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Pdex",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-31T11:59:54.4460843-03:00",
+                "tradeReason": null,
+                "createdBy": "LANESDI",
+                "createdAt": "2025-10-31T11:57:28.1800149-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "LANESDI",
+                "sentToApprovalAt": "2025-10-31T11:58:00.3759411-03:00",
+                "approvedBy": "LANESDI",
+                "approvedAt": "2025-10-31T11:59:54.4460575-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-31T12:00:57.3893059-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T12:01:15.5773014-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T12:01:27.8140067-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T12:01:28.684901-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15153
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274749,
+            "creditId": "86481337",
+            "bundle": {
+                "id": 274749,
+                "creditId": "86481337",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "86481337",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "10387-DIG-CCB00156/24",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "004852364",
+                    "counterpartyCge": "1146987",
+                    "counterpartyName": "ALAN SANTOS RODRIGUES",
+                    "amount": 259320.93000000,
+                    "maturityDate": "2027-03-30T00:00:00",
+                    "startDate": "2024-03-08T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 15398,
+                    "pnlBookName": "Online Investments",
+                    "pnlStrategy": 25916,
+                    "pnlStrategyName": "DIGITAL B2C INVESTCRED"
+                }
+            },
+            "contractId": 64837,
+            "contract": {
+                "id": 64837,
+                "timelineId": "B68Bc4Fb13922F0",
+                "contractVersion": 2,
+                "contractKey": "teste_coe_30_10_1",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90956,
+                "parentId": 64833,
+                "parentKey": "teste_coe_30_10_1",
+                "type": "Dsch",
+                "status": "Pdex",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-31T11:47:05.8332219-03:00",
+                "tradeReason": null,
+                "createdBy": "SOTOAN",
+                "createdAt": "2025-10-31T11:45:33.5781424-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "sotoan",
+                "sentToApprovalAt": "2025-10-31T11:45:51.9972721-03:00",
+                "approvedBy": "LOPESLC",
+                "approvedAt": "2025-10-31T11:47:05.833217-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": {
+                    "systemName": "cros",
+                    "isAutomatic": false
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:50:00.2236634-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:47:55.8860574-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:48:43.4209887-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:48:44.9277623-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:49:06.9159289-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:50:26.135896-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:50:34.4367058-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:50:41.9093774-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-31T11:51:05.1864183-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15147
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274748,
+            "creditId": "110069576",
+            "bundle": {
+                "id": 274748,
+                "creditId": "110069576",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069576",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "FINIMP-CCB-20251030-1260-3",
+                    "productType": "Finimp",
+                    "partyAccount": "000022315",
+                    "partyCge": "46154",
+                    "partyName": "BANCO BTG PACTUAL SA - CAYMAN BRANC",
+                    "counterpartyAccount": "003097393",
+                    "counterpartyCge": "3795848",
+                    "counterpartyName": "R G RAMOS CONTABILIDADE - EIRELI",
+                    "amount": 500000.00000000,
+                    "maturityDate": "2026-10-16T00:00:00",
+                    "startDate": "2025-10-22T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "USD",
+                    "pnlBook": 37051,
+                    "pnlBookName": "FINIMP PME",
+                    "pnlStrategy": 37053,
+                    "pnlStrategyName": "FINIMP PME"
+                }
+            },
+            "contractId": 64836,
+            "contract": {
+                "id": 64836,
+                "timelineId": "84Dc2a0A4d0C501",
+                "contractVersion": 1,
+                "contractKey": "FINIMP-FI-20251030-1260-3",
+                "keygenId": null,
+                "externalId": "47a9f134-6e7c-41df-a0d8-623eb1c89763",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T17:55:42.844066-03:00",
+                "effectiveDate": "2025-10-30T17:59:21.563781-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T17:59:13.415576-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-30T17:59:21.5637783-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-30T18:00:10.0402334-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T18:00:09.8040595-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15152
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274746,
+            "creditId": "110004681",
+            "bundle": {
+                "id": 274746,
+                "creditId": "110004681",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110004681",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "23107-DIG-CCB00017/25",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "000406350",
+                    "counterpartyCge": "431428",
+                    "counterpartyName": "FERNANDA GARAY RODRIGUES",
+                    "amount": 260892.22000000,
+                    "maturityDate": "2026-01-02T00:00:00",
+                    "startDate": "2025-01-09T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 36992,
+                    "pnlBookName": "B2B INVEST BANKING",
+                    "pnlStrategy": 36994,
+                    "pnlStrategyName": "B2B INVEST BANKING CREDIT INVESTCRED"
+                }
+            },
+            "contractId": 64835,
+            "contract": {
+                "id": 64835,
+                "timelineId": "AF19901713FB818",
+                "contractVersion": 1,
+                "contractKey": "Teste_Eventos_RV-30 10-4",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90951,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-30T17:47:36.714346-03:00",
+                "tradeReason": null,
+                "createdBy": "TYSZLEIA",
+                "createdAt": "2025-10-30T17:46:32.3264633-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "TYSZLEIA",
+                "sentToApprovalAt": "2025-10-30T17:47:06.7324227-03:00",
+                "approvedBy": "TYSZLEIA",
+                "approvedAt": "2025-10-30T17:47:36.7143435-03:00",
+                "releasedBy": "TYSZLEIA",
+                "releasedAt": "2025-10-30T17:51:56.2537621-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:48:00.2549803-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:48:28.9962252-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:49:59.1242861-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:51:10.0352271-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:51:29.4718638-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:51:55.8981041-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15149
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274745,
+            "creditId": "110069575",
+            "bundle": {
+                "id": 274745,
+                "creditId": "110069575",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069575",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "FINIMP-CCB-20251030-1260",
+                    "productType": "Finimp",
+                    "partyAccount": "000022315",
+                    "partyCge": "46154",
+                    "partyName": "BANCO BTG PACTUAL SA - CAYMAN BRANC",
+                    "counterpartyAccount": "003097393",
+                    "counterpartyCge": "3795848",
+                    "counterpartyName": "R G RAMOS CONTABILIDADE - EIRELI",
+                    "amount": 500000.00000000,
+                    "maturityDate": "2026-10-16T00:00:00",
+                    "startDate": "2025-10-22T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "USD",
+                    "pnlBook": 37051,
+                    "pnlBookName": "FINIMP PME",
+                    "pnlStrategy": 37053,
+                    "pnlStrategyName": "FINIMP PME"
+                }
+            },
+            "contractId": 64834,
+            "contract": {
+                "id": 64834,
+                "timelineId": "1c7e95C4c43D9BF",
+                "contractVersion": 1,
+                "contractKey": "FINIMP-FI-20251030-1260",
+                "keygenId": null,
+                "externalId": "161dfcc8-ff2f-42f0-ae77-8910c922d22a",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T17:44:59.996206-03:00",
+                "effectiveDate": "2025-10-30T17:46:09.6219567-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T17:46:00.5138137-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-30T17:46:09.6219063-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-30T17:47:02.2089948-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:47:01.9638807-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15148
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274747,
+            "creditId": "86481337",
+            "bundle": {
+                "id": 274747,
+                "creditId": "86481337",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "86481337",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "10387-DIG-CCB00156/24",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "004852364",
+                    "counterpartyCge": "1146987",
+                    "counterpartyName": "ALAN SANTOS RODRIGUES",
+                    "amount": 259320.93000000,
+                    "maturityDate": "2027-03-30T00:00:00",
+                    "startDate": "2024-03-08T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 15398,
+                    "pnlBookName": "Online Investments",
+                    "pnlStrategy": 25916,
+                    "pnlStrategyName": "DIGITAL B2C INVESTCRED"
+                }
+            },
+            "contractId": 64833,
+            "contract": {
+                "id": 64833,
+                "timelineId": "B68Bc4Fb13922F0",
+                "contractVersion": 1,
+                "contractKey": "teste_coe_30_10_1",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90952,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-30T17:49:47.6672182-03:00",
+                "tradeReason": null,
+                "createdBy": "SOTOAN",
+                "createdAt": "2025-10-30T17:32:32.7290614-03:00",
+                "updatedBy": "NAKAHAAL",
+                "updatedAt": "2025-10-30T17:47:54.8829141-03:00",
+                "sentToApprovalBy": "SOTOAN",
+                "sentToApprovalAt": "2025-10-30T17:49:31.6897576-03:00",
+                "approvedBy": "SOTOAN",
+                "approvedAt": "2025-10-30T17:49:47.6672155-03:00",
+                "releasedBy": "SOTOAN",
+                "releasedAt": "2025-10-30T17:50:00.4616237-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:50:00.2236634-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": true,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15147
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274741,
+            "creditId": "900005640",
+            "bundle": {
+                "id": 274741,
+                "creditId": "900005640",
+                "creditSource": "FTSNewLoan",
+                "creditTrade": {
+                    "id": "900005640",
+                    "source": "FTSNewLoan",
+                    "status": "PendingGuaranteeBlock",
+                    "type": "ORIG",
+                    "contractNumber": "100128882",
+                    "productType": "0",
+                    "partyAccount": "000205524",
+                    "partyCge": "8841",
+                    "partyName": null,
+                    "counterpartyAccount": "0102186857",
+                    "counterpartyCge": "66630426",
+                    "counterpartyName": null,
+                    "amount": 11591.3800000000000000,
+                    "maturityDate": "2030-11-12T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 6727,
+                    "pnlBookName": "Employee",
+                    "pnlStrategy": 10545,
+                    "pnlStrategyName": "EMPLOYEE PO"
+                }
+            },
+            "contractId": 64832,
+            "contract": {
+                "id": 64832,
+                "timelineId": "fb98996329C0402",
+                "contractVersion": 1,
+                "contractKey": "100128882",
+                "keygenId": null,
+                "externalId": "BC1fee861516Ba9",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Fail",
+                "contractDate": "2025-10-30T00:00:00-03:00",
+                "effectiveDate": "2025-10-30T17:08:54.5001783-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS.CREDIT-FLOW-MANAGER",
+                "createdAt": "2025-10-30T17:08:37.0465908-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS.CREDIT-FLOW-MANAGER",
+                "approvedAt": "2025-10-30T17:08:54.5001756-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts.credit-flow-manager",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:09:44.4657926-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:10:02.4663364-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:10:15.8966092-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:10:59.151682-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:11:10.1605967-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T17:11:55.8978436-03:00",
+                            "status": "1",
+                            "statusDescription": "Trava Parcial",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15146
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274740,
+            "creditId": "110069573",
+            "bundle": {
+                "id": 274740,
+                "creditId": "110069573",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110069573",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "FINIMP-CCB-20251030-1366",
+                    "productType": "Finimp",
+                    "partyAccount": "000022315",
+                    "partyCge": "46154",
+                    "partyName": "BANCO BTG PACTUAL SA - CAYMAN BRANC",
+                    "counterpartyAccount": "003097393",
+                    "counterpartyCge": "3795848",
+                    "counterpartyName": "R G RAMOS CONTABILIDADE - EIRELI",
+                    "amount": 20000.00000000,
+                    "maturityDate": "2026-10-14T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "USD",
+                    "pnlBook": 37051,
+                    "pnlBookName": "FINIMP PME",
+                    "pnlStrategy": 37053,
+                    "pnlStrategyName": "FINIMP PME"
+                }
+            },
+            "contractId": 64831,
+            "contract": {
+                "id": 64831,
+                "timelineId": "61db88aB884a9E9",
+                "contractVersion": 1,
+                "contractKey": "FINIMP-FI-20251030-1366",
+                "keygenId": null,
+                "externalId": "07f90e68-d2fb-4603-a799-bd0b6e1c1e74",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T17:02:29.796806-03:00",
+                "effectiveDate": "2025-10-30T17:08:22.7263077-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T17:08:14.2114761-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-30T17:08:22.7262585-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-30T17:09:11.390826-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T17:09:11.1495443-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15145
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274739,
+            "creditId": "110004681",
+            "bundle": {
+                "id": 274739,
+                "creditId": "110004681",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110004681",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "23107-DIG-CCB00017/25",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "000406350",
+                    "counterpartyCge": "431428",
+                    "counterpartyName": "FERNANDA GARAY RODRIGUES",
+                    "amount": 260892.22000000,
+                    "maturityDate": "2026-01-02T00:00:00",
+                    "startDate": "2025-01-09T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 36992,
+                    "pnlBookName": "B2B INVEST BANKING",
+                    "pnlStrategy": 36994,
+                    "pnlStrategyName": "B2B INVEST BANKING CREDIT INVESTCRED"
+                }
+            },
+            "contractId": 64830,
+            "contract": {
+                "id": 64830,
+                "timelineId": "aeE1690640b9810",
+                "contractVersion": 1,
+                "contractKey": "Teste_Eventos_RV-30 10-3",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90945,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-30T16:45:34.1997001-03:00",
+                "tradeReason": null,
+                "createdBy": "TYSZLEIA",
+                "createdAt": "2025-10-30T16:44:18.4879966-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "TYSZLEIA",
+                "sentToApprovalAt": "2025-10-30T16:44:59.4182858-03:00",
+                "approvedBy": "TYSZLEIA",
+                "approvedAt": "2025-10-30T16:45:34.1996643-03:00",
+                "releasedBy": "TYSZLEIA",
+                "releasedAt": "2025-10-30T16:56:54.9797667-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T16:46:22.8757741-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:46:48.4468886-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:46:50.8592396-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:48:18.2387274-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:49:47.7589-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:51:16.2038375-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:51:18.7404913-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:56:10.2670176-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:56:13.3850901-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:56:54.6205866-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15144
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274738,
+            "creditId": "900005639",
+            "bundle": {
+                "id": 274738,
+                "creditId": "900005639",
+                "creditSource": "FTSNewLoan",
+                "creditTrade": {
+                    "id": "900005639",
+                    "source": "FTSNewLoan",
+                    "status": "PendingGuaranteeBlock",
+                    "type": "ORIG",
+                    "contractNumber": "100128853",
+                    "productType": "0",
+                    "partyAccount": "000205524",
+                    "partyCge": "8841",
+                    "partyName": null,
+                    "counterpartyAccount": "44288004x",
+                    "counterpartyCge": "66630430",
+                    "counterpartyName": null,
+                    "amount": 11824.3500000000000000,
+                    "maturityDate": "2029-11-12T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 6727,
+                    "pnlBookName": "Employee",
+                    "pnlStrategy": 10545,
+                    "pnlStrategyName": "EMPLOYEE PO"
+                }
+            },
+            "contractId": 64829,
+            "contract": {
+                "id": 64829,
+                "timelineId": "68c7Db9d5465f82",
+                "contractVersion": 1,
+                "contractKey": "100128853",
+                "keygenId": null,
+                "externalId": "6101de814219997",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Fail",
+                "contractDate": "2025-10-30T00:00:00-03:00",
+                "effectiveDate": "2025-10-30T16:21:47.69006-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS.CREDIT-FLOW-MANAGER",
+                "createdAt": "2025-10-30T16:21:18.2526428-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS.CREDIT-FLOW-MANAGER",
+                "approvedAt": "2025-10-30T16:21:47.6900303-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts.credit-flow-manager",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T16:22:39.983179-03:00",
+                            "status": "12",
+                            "statusDescription": "Aguardando Crédito",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:22:59.6036297-03:00",
+                            "status": "7",
+                            "statusDescription": "Rejeitado",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15143
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274737,
+            "creditId": "110004681",
+            "bundle": {
+                "id": 274737,
+                "creditId": "110004681",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110004681",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "23107-DIG-CCB00017/25",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "000406350",
+                    "counterpartyCge": "431428",
+                    "counterpartyName": "FERNANDA GARAY RODRIGUES",
+                    "amount": 260892.22000000,
+                    "maturityDate": "2026-01-02T00:00:00",
+                    "startDate": "2025-01-09T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 36992,
+                    "pnlBookName": "B2B INVEST BANKING",
+                    "pnlStrategy": 36994,
+                    "pnlStrategyName": "B2B INVEST BANKING CREDIT INVESTCRED"
+                }
+            },
+            "contractId": 64828,
+            "contract": {
+                "id": 64828,
+                "timelineId": "1149aEe54a0da4a",
+                "contractVersion": 1,
+                "contractKey": "Teste_Eventos_RV-30 10-2",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90942,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Fail",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-30T15:30:47.3681215-03:00",
+                "tradeReason": null,
+                "createdBy": "TYSZLEIA",
+                "createdAt": "2025-10-30T15:29:19.5609463-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "TYSZLEIA",
+                "sentToApprovalAt": "2025-10-30T15:30:14.4605314-03:00",
+                "approvedBy": "TYSZLEIA",
+                "approvedAt": "2025-10-30T15:30:47.368095-03:00",
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T15:32:51.9866631-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T15:45:16.5617366-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T15:45:20.3246905-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:26:06.8016525-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:26:08.0845921-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:26:10.7794908-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:27:37.0785089-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:31:09.2527276-03:00",
+                            "status": "0",
+                            "statusDescription": "Erro",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T16:31:53.7405319-03:00",
+                            "status": "1",
+                            "statusDescription": "Trava Parcial",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15142
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274736,
+            "creditId": "110069540",
+            "bundle": {
+                "id": 274736,
+                "creditId": "110069540",
+                "creditSource": "FTSOnlending",
+                "creditTrade": {
+                    "id": "110069540",
+                    "source": "FTSOnlending",
+                    "status": "9",
+                    "type": "Orig",
+                    "contractNumber": "MOCK-HOMOLOG-320d3002-110f-4919-82ec-08f9718a9056",
+                    "productType": "BNDES Credito Digital",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "009218436",
+                    "counterpartyCge": "8747833",
+                    "counterpartyName": "DILLY NORDESTE INDUSTRIA DE CALCADO",
+                    "amount": 1000.00000000,
+                    "maturityDate": "2027-11-16T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 26499,
+                    "pnlBookName": "Capital de Giro - Aval",
+                    "pnlStrategy": 29379,
+                    "pnlStrategyName": "AVAL - ADVISOR"
+                }
+            },
+            "contractId": 64827,
+            "contract": {
+                "id": 64827,
+                "timelineId": "46e5ba467402eb4",
+                "contractVersion": 1,
+                "contractKey": "ICF-20251030-17618321190",
+                "keygenId": null,
+                "externalId": "5a4e8686-423a-4615-bc43-6a1897d2ddd2",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Pdct",
+                "contractDate": "2025-10-30T13:49:06.157401-03:00",
+                "effectiveDate": null,
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T11:59:29.2880203-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": null,
+                "approvedAt": null,
+                "releasedBy": null,
+                "releasedAt": null,
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": []
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274735,
+            "creditId": "110042841",
+            "bundle": {
+                "id": 274735,
+                "creditId": "110042841",
+                "creditSource": "FTSCredit",
+                "creditTrade": {
+                    "id": "110042841",
+                    "source": "FTSCredit",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "Teste_2025_08_06_Agora_Vai_CCB",
+                    "productType": "CCB",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S.A",
+                    "counterpartyAccount": "011343456",
+                    "counterpartyCge": "3844620",
+                    "counterpartyName": "ARTHUR DE ALMEIDA BEZERRA FLORIOLI",
+                    "amount": 1000000000.00000000,
+                    "maturityDate": "2029-12-31T00:00:00",
+                    "startDate": "2025-08-06T00:00:00",
+                    "createLogin": "ALMEIDAC1",
+                    "currency": "BRL",
+                    "pnlBook": 633,
+                    "pnlBookName": "Private",
+                    "pnlStrategy": 635,
+                    "pnlStrategyName": "PRIVATE BRAZIL"
+                }
+            },
+            "contractId": 64825,
+            "contract": {
+                "id": 64825,
+                "timelineId": "fB943b97Ab74454",
+                "contractVersion": 1,
+                "contractKey": "Cenario_20_Fundos",
+                "keygenId": null,
+                "externalId": null,
+                "approvalId": 90940,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-30T03:00:00+00:00",
+                "effectiveDate": "2025-10-30T10:46:28.5496687-03:00",
+                "tradeReason": null,
+                "createdBy": "PAIVAPE",
+                "createdAt": "2025-10-30T10:45:38.9023655-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": "PAIVAPE",
+                "sentToApprovalAt": "2025-10-30T10:46:05.9554208-03:00",
+                "approvedBy": "PAIVAPE",
+                "approvedAt": "2025-10-30T10:46:28.5496665-03:00",
+                "releasedBy": "PAIVAPE",
+                "releasedAt": "2025-10-30T10:47:58.3403461-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": false,
+                "automaticCreate": false,
+                "automaticDischarge": false,
+                "automaticApproval": false,
+                "sourceSystem": null,
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T10:46:46.7851018-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T10:46:58.3177623-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T10:47:14.0592739-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T10:47:14.6841244-03:00",
+                            "status": "4",
+                            "statusDescription": "Pendente Trava",
+                            "errors": null
+                        }, {
+                            "receivedAt": "2025-10-30T10:47:58.079187-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [
+                    15141
+                ],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274734,
+            "creditId": "110069536",
+            "bundle": {
+                "id": 274734,
+                "creditId": "110069536",
+                "creditSource": "FTSOnlending",
+                "creditTrade": {
+                    "id": "110069536",
+                    "source": "FTSOnlending",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "1234567",
+                    "productType": "BNDES Credito Digital",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "009218436",
+                    "counterpartyCge": "8747833",
+                    "counterpartyName": "DILLY NORDESTE INDUSTRIA DE CALCADO",
+                    "amount": 1000000.00000000,
+                    "maturityDate": "2027-11-16T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 26499,
+                    "pnlBookName": "Capital de Giro - Aval",
+                    "pnlStrategy": 29379,
+                    "pnlStrategyName": "AVAL - ADVISOR"
+                }
+            },
+            "contractId": 64824,
+            "contract": {
+                "id": 64824,
+                "timelineId": "75d217f14ab38Cc",
+                "contractVersion": 1,
+                "contractKey": "B1234567",
+                "keygenId": null,
+                "externalId": "7648087e-59a2-4c35-93c8-fc4fdd2134f8",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-29T19:34:53.826788-03:00",
+                "effectiveDate": "2025-10-30T10:41:33.50507-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T10:41:22.3515904-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-30T10:41:33.505035-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-30T10:42:35.5980768-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T10:42:35.3586537-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [],
+                "letterOfAttorneys": null
+            }
+        }, {
+            "bundleId": 274733,
+            "creditId": "110069536",
+            "bundle": {
+                "id": 274733,
+                "creditId": "110069536",
+                "creditSource": "FTSOnlending",
+                "creditTrade": {
+                    "id": "110069536",
+                    "source": "FTSOnlending",
+                    "status": "5",
+                    "type": "Orig",
+                    "contractNumber": "1234567",
+                    "productType": "BNDES Credito Digital",
+                    "partyAccount": "000009300",
+                    "partyCge": "1",
+                    "partyName": "BANCO BTG PACTUAL S/A",
+                    "counterpartyAccount": "009218436",
+                    "counterpartyCge": "8747833",
+                    "counterpartyName": "DILLY NORDESTE INDUSTRIA DE CALCADO",
+                    "amount": 1000000.00000000,
+                    "maturityDate": "2027-11-16T00:00:00",
+                    "startDate": "2025-10-30T00:00:00",
+                    "createLogin": "SYS",
+                    "currency": "BRL",
+                    "pnlBook": 26499,
+                    "pnlBookName": "Capital de Giro - Aval",
+                    "pnlStrategy": 29379,
+                    "pnlStrategyName": "AVAL - ADVISOR"
+                }
+            },
+            "contractId": 64823,
+            "contract": {
+                "id": 64823,
+                "timelineId": "b043B7a818a621D",
+                "contractVersion": 1,
+                "contractKey": "ICF-20251029-17617760183",
+                "keygenId": null,
+                "externalId": "01620704-6b99-404d-bbd5-c069a74ef658",
+                "approvalId": null,
+                "parentId": null,
+                "parentKey": null,
+                "type": "Orig",
+                "status": "Expt",
+                "contractDate": "2025-10-29T19:34:53.826788-03:00",
+                "effectiveDate": "2025-10-30T10:41:33.324387-03:00",
+                "tradeReason": null,
+                "createdBy": "FTS-CREDIT",
+                "createdAt": "2025-10-30T10:41:21.5704017-03:00",
+                "updatedBy": null,
+                "updatedAt": null,
+                "sentToApprovalBy": null,
+                "sentToApprovalAt": null,
+                "approvedBy": "FTS-CREDIT",
+                "approvedAt": "2025-10-30T10:41:33.3243561-03:00",
+                "releasedBy": "FTS-CREDIT",
+                "releasedAt": "2025-10-30T10:42:36.1092158-03:00",
+                "dischargedBy": null,
+                "dischargedAt": null,
+                "restoreVersion": 0,
+                "isMain": null,
+                "isLastActive": null,
+                "rasDealId": null,
+                "automatic": true,
+                "automaticCreate": true,
+                "automaticDischarge": true,
+                "automaticApproval": true,
+                "sourceSystem": {
+                    "systemName": "fts-credit",
+                    "isAutomatic": true
+                },
+                "contractCallbacks": {
+                    "cros": [{
+                            "receivedAt": "2025-10-30T10:42:35.6281981-03:00",
+                            "status": "3",
+                            "statusDescription": "Trava Total",
+                            "errors": null
+                        }
+                    ]
+                },
+                "isDummy": false,
+                "fromWorkflow": false,
+                "hasGuaranteeAccessories": false,
+                "hasLetterOfAttorney": false,
+                "assets": null,
+                "bundles": null,
+                "documents": [],
+                "letterOfAttorneys": null
+            }
+        }
+    ],
+    "@odata.nextLink": null,
+    "@odata.count": 9999
+}
